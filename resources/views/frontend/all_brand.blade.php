@@ -2,6 +2,8 @@
 
 @section('content')
 
+tedt1
+
 <section class="pt-8 mb-4 breadcrumb_area" style="background:url({{ static_asset('assets/img/breadcrumb_img.jpg') }})">
 
     <div class="container">
