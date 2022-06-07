@@ -109,6 +109,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(
         Route::post('/products/sku_combination_edit', 'sku_combination_edit')->name('products.sku_combination_edit');
         Route::post('/products/add-more-choice-option', 'add_more_choice_option')->name('products.add-more-choice-option');
         Route::post('/products/ajax-request', 'ajax_request')->name('products.ajax-request');
+        Route::post('/products/get-all-main-product', 'get_all_main_product')->name('products.get-all-main-product');
     });
 
     // Digital Product

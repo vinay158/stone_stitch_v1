@@ -27,7 +27,7 @@
                                 <input type="text" class="form-control" name="name" placeholder="{{ translate('Product Name') }}" onchange="update_sku()" required>
                             </div>
                         </div>
-						<div class="form-group row" id="category">
+						<!-- <div class="form-group row" id="category">
                             <label class="col-lg-3 col-from-label">{{translate('Product Group')}}</label>
                             <div class="col-lg-8">
                                 <select class="form-control aiz-selectpicker" name="product_group_id" id="product_group_id"  data-live-search="true">
@@ -38,17 +38,26 @@
                                     @endforeach
                                 </select>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="form-group row" id="category">
                             <label class="col-md-3 col-from-label">{{translate('Category')}} <span class="text-danger">*</span></label>
                             <div class="col-md-8">
                                 <select class="form-control aiz-selectpicker" name="category_id" id="category_id" data-live-search="true" required>
+                                    <option value="">{{ translate('Select Category') }}</option>
                                     @foreach ($categories as $category)
                                     <option value="{{ $category->id }}">{{ $category->getTranslation('name') }}</option>
                                     @foreach ($category->childrenCategories as $childCategory)
                                     @include('categories.child_category', ['child_category' => $childCategory])
                                     @endforeach
                                     @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-3 col-from-label">{{translate('Parent Product')}} </label>
+                            <div class="col-md-8">
+                                <select class="form-control aiz-selectpicker" name="parent_id" id="parent_id" data-live-search="true">
                                 </select>
                             </div>
                         </div>
@@ -718,6 +727,34 @@
 @section('script')
 
 <script type="text/javascript">
+
+    $(document).on('change', '[name=category_id]', function() {
+        var category_id = $(this).val();
+        get_all_main_product(category_id);
+    });
+    
+    function get_all_main_product(category_id) {
+        $('[name="parent_id"]').html("");
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: "{{route('products.get-all-main-product')}}",
+            type: 'POST',
+            data: {
+                category_id  : category_id
+            },
+            success: function (response) {
+                var obj = JSON.parse(response);
+                if(obj != '') {
+                    $('[name="parent_id"]').html(obj);
+                    AIZ.plugins.bootstrapSelect('refresh');
+                }
+            }
+        });
+    }
+
+  
     $('form').bind('submit', function (e) {
 		if ( $(".action-btn").attr('attempted') == 'true' ) {
 			//stop submitting the form because we have already clicked submit.

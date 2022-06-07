@@ -290,11 +290,15 @@ class ProductController extends Controller
             ->where('digital', 0)
             ->with('childrenCategories')
             ->get();
+
+        $allProduct = Product::select(['id','name'])->where('parent_id', 0)
+            ->where('category_id', $product->category_id)
+            ->get();
 			
 		$product_groups = ProductGroup::select(['id','name'])->orderBy('name','asc')->get();
 		$stone_types = array('gemstone'=>'Gemstone','birthstone'=>'Birthstone');
 		
-        return view('backend.product.products.edit', compact('product', 'categories', 'tags', 'lang','product_groups','stone_types'));
+        return view('backend.product.products.edit', compact('product', 'categories', 'tags', 'lang','product_groups','stone_types','allProduct'));
     }
 
     /**
@@ -601,5 +605,15 @@ class ProductController extends Controller
 		echo json_encode($result); exit();
 	}
 	
-	
+	public function get_all_main_product(Request $request)
+    {
+        $products = Product::where('category_id', $request->category_id)->where('parent_id',0)->get();
+        $html = '<option value="">'.translate("Select Product").'</option>';
+        //echo "<pre>";print_r($products);die;
+        foreach ($products as $product) {
+            $html .= '<option value="' . $product->id . '">' . $product->name . '</option>';
+        }
+        
+        echo json_encode($html);
+    }
 }

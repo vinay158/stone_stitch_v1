@@ -227,6 +227,7 @@ class HomeController extends Controller
     public function product(Request $request, $slug)
     {
         $detailedProduct  = Product::with('reviews', 'brand', 'stocks', 'user', 'user.shop')->where('auction_product', 0)->where('slug', $slug)->where('approved', 1)->first();
+        echo "<pre>";print_r($detailedProduct);die;
 
         if($detailedProduct != null && $detailedProduct->published){
             if($request->has('product_referral_code') && addon_is_activated('affiliate_system')) {
@@ -244,6 +245,11 @@ class HomeController extends Controller
                 $affiliateController = new AffiliateController;
                 $affiliateController->processAffiliateStats($referred_by_user->id, 1, 0, 0, 0);
             }
+
+            /*sub product data*/
+            $subProduct = $this->allSubProduct($detailedProduct->id);
+          
+
             if($detailedProduct->digital == 1){
                 return view('frontend.digital_product_details', compact('detailedProduct'));
             }
@@ -254,6 +260,13 @@ class HomeController extends Controller
         abort(404);
     }
 
+    public function allSubProduct($product_id)
+    {
+        $products = Product::where('id', $product_id)->where('parent_id', 0)->get();
+        if (!empty($products)) {
+            // code...
+        }
+    }
     public function shop($slug)
     {
         $shop  = Shop::where('slug', $slug)->first();

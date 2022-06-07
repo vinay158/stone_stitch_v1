@@ -30,7 +30,7 @@
                                 <input type="text" class="form-control" name="name" placeholder="{{translate('Product Name')}}" value="{{ $product->getTranslation('name', $lang) }}" required>
                             </div>
                         </div>
-						<div class="form-group row" id="category">
+						<!-- <div class="form-group row" id="category">
                             <label class="col-lg-3 col-from-label">{{translate('Product Group')}}</label>
                             <div class="col-lg-8">
                                 <select class="form-control aiz-selectpicker" name="product_group_id" id="product_group_id" data-selected="{{ $product->product_group_id }}" data-live-search="true">
@@ -42,7 +42,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                        </div>
+                        </div> -->
 						
                         <div class="form-group row" id="category">
                             <label class="col-lg-3 col-from-label">{{translate('Category')}}</label>
@@ -53,6 +53,18 @@
                                     @foreach ($category->childrenCategories as $childCategory)
                                     @include('categories.child_category', ['child_category' => $childCategory])
                                     @endforeach
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row" id="category">
+                            <label class="col-lg-3 col-from-label">{{translate('Parent Product')}}</label>
+                            <div class="col-lg-8">
+                                <select class="form-control aiz-selectpicker" name="parent_id" id="parent_id" data-selected="{{ $product->parent_id }}" data-live-search="true">
+                                    <option value="">{{ translate('Select Product') }}</option>
+                                    @foreach ($allProduct as $allprodu)
+                                    <option value="{{ $allprodu->id }}">{{ $allprodu->name  }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -815,6 +827,32 @@
 @section('script')
 
 <script type="text/javascript">
+    $(document).on('change', '[name=category_id]', function() {
+        var category_id = $(this).val();
+        get_all_main_product(category_id);
+    });
+    
+    function get_all_main_product(category_id) {
+        $('[name="parent_id"]').html("");
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: "{{route('products.get-all-main-product')}}",
+            type: 'POST',
+            data: {
+                category_id  : category_id
+            },
+            success: function (response) {
+                var obj = JSON.parse(response);
+                if(obj != '') {
+                    $('[name="parent_id"]').html(obj);
+                    AIZ.plugins.bootstrapSelect('refresh');
+                }
+            }
+        });
+    }
+    
     $(document).ready(function (){
         show_hide_shipping_div();
     });
