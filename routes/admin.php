@@ -105,11 +105,14 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(
         Route::get('/products/destroy/{id}', 'destroy')->name('products.destroy');
         Route::post('/bulk-product-delete', 'bulk_product_delete')->name('bulk-product-delete');
     
+        Route::post('/products/img_combination', 'img_combination')->name('products.img_combination');
+        Route::post('/products/img_combination_edit', 'img_combination_edit')->name('products.img_combination_edit');
         Route::post('/products/sku_combination', 'sku_combination')->name('products.sku_combination');
         Route::post('/products/sku_combination_edit', 'sku_combination_edit')->name('products.sku_combination_edit');
         Route::post('/products/add-more-choice-option', 'add_more_choice_option')->name('products.add-more-choice-option');
         Route::post('/products/ajax-request', 'ajax_request')->name('products.ajax-request');
         Route::post('/products/get-all-main-product', 'get_all_main_product')->name('products.get-all-main-product');
+        Route::get('/products/product-child/{id}', 'product_child')->name('products.product-child');
     });
 
     // Digital Product

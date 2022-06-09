@@ -6,7 +6,11 @@
     CoreComponentRepository::instantiateShopRepository();
     CoreComponentRepository::initializeCache();
 @endphp
-
+<style type="text/css">
+    div#img_combination table {
+    opacity: inherit !important;
+}
+</style>
 <div class="aiz-titlebar text-left mt-2 mb-3">
     <h5 class="mb-0 h6">{{translate('Add New Product')}}</h5>
 </div>
@@ -57,7 +61,7 @@
                         <div class="form-group row">
                             <label class="col-md-3 col-from-label">{{translate('Parent Product')}} </label>
                             <div class="col-md-8">
-                                <select class="form-control aiz-selectpicker" name="parent_id" id="parent_id" data-live-search="true">
+                                <select class="form-control aiz-selectpicker" name="parent_id[]" id="parent_id" data-live-search="true">
                                 </select>
                             </div>
                         </div>
@@ -270,7 +274,9 @@
                     <div class="card-header">
                         <h5 class="mb-0 h6">{{translate('Product price + stock')}}</h5>
                     </div>
+                   
                     <div class="card-body">
+                        <div class="img_combination" id="img_combination"></div>
                         <div class="form-group row">
                             <label class="col-md-3 col-from-label">{{translate('Unit price')}} <span class="text-danger">*</span></label>
                             <div class="col-md-6">
@@ -734,7 +740,7 @@
     });
     
     function get_all_main_product(category_id) {
-        $('[name="parent_id"]').html("");
+        $('#parent_id').html("");
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -747,7 +753,7 @@
             success: function (response) {
                 var obj = JSON.parse(response);
                 if(obj != '') {
-                    $('[name="parent_id"]').html(obj);
+                    $('#parent_id').html(obj);
                     AIZ.plugins.bootstrapSelect('refresh');
                 }
             }
@@ -829,7 +835,14 @@
     });
 
     $(document).on("change", ".attribute_choice",function() {
+
         update_sku();
+
+        var selectedval = $('input[name="choice[]"]').val();
+        if (selectedval == 'Materials') {
+            update_sku_img();
+        }
+
     });
 
     $('#colors').on('change', function() {
@@ -859,6 +872,7 @@
            url:'{{ route('products.sku_combination') }}',
            data:$('#choice_form').serialize(),
            success: function(data) {
+           // alert('pass2');
                 $('#sku_combination').html(data);
                 AIZ.uploader.previewGenerate();
                 AIZ.plugins.fooTable();
@@ -868,6 +882,21 @@
                 else {
                     $('#show-hide-div').show();
                 }
+           }
+       });
+    }
+
+    function update_sku_img(){
+        $.ajax({
+           type:"POST",
+           url:'{{ route('products.img_combination') }}',
+           data:$('#choice_form').serialize(),
+           success: function(data) {
+            //alert(data);
+                $('#img_combination').html(data);
+                AIZ.uploader.previewGenerate();
+                //AIZ.plugins.fooTable();
+                
            }
        });
     }

@@ -17,6 +17,7 @@ use App\Models\Shop;
 use App\Models\Order;
 use App\Models\BusinessSetting;
 use App\Models\Coupon;
+use App\Models\RelatedProduct;
 use Cookie;
 use Illuminate\Support\Str;
 use App\Mail\SecondEmailVerifyMailManager;
@@ -227,7 +228,7 @@ class HomeController extends Controller
     public function product(Request $request, $slug)
     {
         $detailedProduct  = Product::with('reviews', 'brand', 'stocks', 'user', 'user.shop')->where('auction_product', 0)->where('slug', $slug)->where('approved', 1)->first();
-        echo "<pre>";print_r($detailedProduct);die;
+        
 
         if($detailedProduct != null && $detailedProduct->published){
             if($request->has('product_referral_code') && addon_is_activated('affiliate_system')) {
@@ -247,25 +248,55 @@ class HomeController extends Controller
             }
 
             /*sub product data*/
-            $subProduct = $this->allSubProduct($detailedProduct->id);
+            $subProduct = $this->allSubProduct($detailedProduct->id,$detailedProduct->related_products);
           
 
             if($detailedProduct->digital == 1){
-                return view('frontend.digital_product_details', compact('detailedProduct'));
+                return view('frontend.digital_product_details', compact('detailedProduct','subProduct'));
             }
             else {
-                return view('frontend.product_details', compact('detailedProduct'));
+                return view('frontend.product_details', compact('detailedProduct','subProduct'));
             }
         }
         abort(404);
     }
 
-    public function allSubProduct($product_id)
+    public function allSubProduct($product_id,$dataArr = array())
     {
-        $products = Product::where('id', $product_id)->where('parent_id', 0)->get();
-        if (!empty($products)) {
-            // code...
+        $sub_products = array();
+        $mainProducts = array();
+        $all_product = array();
+        $getallproduct = array();
+        $counter = 0;
+        foreach ($dataArr as $key => $value) {
+            if ($value->parent_id == 0) {
+                $sub_products = RelatedProduct::select('product_id')->where('parent_id', $value->product_id)->get();
+                $mainProducts = RelatedProduct::select('product_id')->where('product_id', $value->product_id)->first();
+
+            }else{
+                $sub_products = RelatedProduct::select('product_id')->where('parent_id', $value->parent_id)->get();
+                $mainProducts = RelatedProduct::select('product_id')->where('product_id', $value->parent_id)->first();
+            }
+
+            if (!empty($mainProducts)) {
+                $all_product[$counter] = $mainProducts->product_id;
+            }
+            foreach ($sub_products as $key => $valuenew) {
+                $counter++;
+                $all_product[$counter] = $valuenew->product_id;
+            }   
+                    
         }
+
+        if (!empty($all_product)) {
+           $getallproduct = Product::with('brand')->whereIn('id', $all_product)->where('published',1)->get();
+        }else{
+            $getallproduct = Product::with('brand')->where('id', $product_id)->where('published',1)->get();
+        }
+        
+        
+            
+        return $getallproduct; 
     }
     public function shop($slug)
     {

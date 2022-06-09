@@ -11,6 +11,8 @@ use App\Models\ProductTax;
 use App\Models\AttributeValue;
 use App\Models\Cart;
 use App\Models\ProductGroup;
+use App\Models\ProductVariantImage;
+use App\Models\RelatedProduct;
 use Carbon\Carbon;
 use Combinations;
 use CoreComponentRepository;
@@ -21,6 +23,8 @@ use App\Services\ProductService;
 use App\Services\ProductTaxService;
 use App\Services\ProductFlashDealService;
 use App\Services\ProductStockService;
+use App\Services\ProductRelatedService;
+use App\Services\ProductVariantImageService;
 
 class ProductController extends Controller
 {
@@ -28,17 +32,23 @@ class ProductController extends Controller
     protected $productTaxService;
     protected $productFlashDealService;
     protected $productStockService;
+    protected $productRelatedService;
+    protected $productVariantImageService;
 
     public function __construct(
         ProductService $productService,
         ProductTaxService $productTaxService,
         ProductFlashDealService $productFlashDealService,
-        ProductStockService $productStockService
+        ProductStockService $productStockService,
+        ProductRelatedService $productRelatedService,
+        ProductVariantImageService $productVariantImageService,
     ) {
         $this->productService = $productService;
         $this->productTaxService = $productTaxService;
         $this->productFlashDealService = $productFlashDealService;
         $this->productStockService = $productStockService;
+        $this->productRelatedService = $productRelatedService;
+        $this->productVariantImageService = $productVariantImageService;
     }
     /**
      * Display a listing of the resource.
@@ -115,10 +125,13 @@ class ProductController extends Controller
 
     public function all_products(Request $request)
     {
+
+        //echo "<pre>";print_r($_REQUEST);die;
         $col_name = null;
         $query = null;
         $seller_id = null;
         $sort_search = null;
+        $is_parent = 3;
         $products = Product::orderBy('created_at', 'desc')->where('auction_product', 0)->where('wholesale_product', 0);
         if ($request->has('user_id') && $request->user_id != null) {
             $products = $products->where('user_id', $request->user_id);
@@ -140,10 +153,20 @@ class ProductController extends Controller
             $sort_type = $request->type;
         }
 
+        if ($request->is_parent != null) {
+            $is_parent = $request->is_parent;
+            if ($request->is_parent == 1) {
+                $products = $products->where('is_parent', 0);
+            }elseif ($request->is_parent == 2) {
+                $products = $products->where('is_parent', 1);
+            }
+            
+        }
+
         $products = $products->paginate(15);
         $type = 'All';
 
-        return view('backend.product.products.index', compact('products', 'type', 'col_name', 'query', 'seller_id', 'sort_search'));
+        return view('backend.product.products.index', compact('products', 'type', 'col_name', 'query', 'seller_id', 'sort_search','is_parent'));
     }
 
 
@@ -188,6 +211,8 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
+  
+         
         $product = $this->productService->store($request->except([
             '_token', 'sku', 'choice', 'tax_id', 'tax', 'tax_type', 'flash_deal_id', 'flash_discount', 'flash_discount_type'
         ]));
@@ -243,6 +268,16 @@ class ProductController extends Controller
             'colors_active', 'colors', 'choice_no', 'unit_price', 'sku', 'current_stock', 'product_id'
         ]), $product);
 
+        //Product Related
+        $this->productRelatedService->store($request->only([
+            'parent_id','product_id'
+        ]), $product);
+
+        //Product Related
+        $this->productVariantImageService->store($request->only([
+            'variant_images','product_id'
+        ]), $product);
+
         // Product Translations
         $request->merge(['lang' => env('DEFAULT_LANGUAGE')]);
         ProductTranslation::create($request->only([
@@ -278,12 +313,17 @@ class ProductController extends Controller
     {
 		
         CoreComponentRepository::initializeCache();
-
+        $selected = array();
         $product = Product::findOrFail($id);
         if ($product->digital == 1) {
             return redirect('admin/digitalproducts/' . $id . '/edit');
         }
 
+        foreach ($product->related_products as $key => $value) {
+            $selected[$value->parent_id]=$value->parent_id;
+        }
+
+        
         $lang = $request->lang;
         $tags = json_decode($product->tags);
         $categories = Category::where('parent_id', 0)
@@ -291,14 +331,14 @@ class ProductController extends Controller
             ->with('childrenCategories')
             ->get();
 
-        $allProduct = Product::select(['id','name'])->where('parent_id', 0)
+        $allProduct = Product::select(['id','name'])->where('is_parent', 0)
             ->where('category_id', $product->category_id)
             ->get();
 			
 		$product_groups = ProductGroup::select(['id','name'])->orderBy('name','asc')->get();
 		$stone_types = array('gemstone'=>'Gemstone','birthstone'=>'Birthstone');
 		
-        return view('backend.product.products.edit', compact('product', 'categories', 'tags', 'lang','product_groups','stone_types','allProduct'));
+        return view('backend.product.products.edit', compact('product', 'categories', 'tags', 'lang','product_groups','stone_types','allProduct','selected'));
     }
 
     /**
@@ -364,6 +404,17 @@ class ProductController extends Controller
                 'tax_id', 'tax', 'tax_type', 'product_id'
             ]));
         }
+
+
+        //Product Related
+        $this->productRelatedService->store($request->only([
+            'parent_id','product_id'
+        ]), $product);
+
+        //Product Related
+        $this->productVariantImageService->store($request->only([
+            'variant_images','product_id'
+        ]), $product);
 
         // Product Translations
         ProductTranslation::updateOrCreate(
@@ -519,6 +570,59 @@ class ProductController extends Controller
         return 0;
     }
 
+    public function img_combination(Request $request)
+    {
+        
+        $options = array();
+
+        if ($request->has('choice_no')) {
+            foreach ($request->choice_no as $key => $no) {
+                $name = 'choice_options_' . $no;
+                $data = array();
+                if($request['choice'][$key] == 'Materials'){
+                    foreach ($request[$name] as $key => $item) {
+                        // array_push($data, $item->value);
+                        array_push($data, $item);
+                    }
+                    array_push($options, $data);
+                }
+
+            }
+        }
+
+        $combinations = Combinations::makeCombinations($options);
+        //echo "<pre>";print_r($options);die;
+        return view('backend.product.products.img_combinations', compact('options'));
+    }
+
+    public function img_combination_edit(Request $request)
+    {
+        $product = Product::with('product_variant_image')->findOrFail($request->id);
+        $options = array();
+
+        if ($request->has('choice_no')) {
+            foreach ($request->choice_no as $key => $no) {
+                $name = 'choice_options_' . $no;
+                $data = array();
+                if($request['choice'][$key] == 'Materials'){
+                    foreach ($request[$name] as $key => $item) {
+                        // array_push($data, $item->value);
+                        array_push($data, $item);
+                    }
+                    array_push($options, $data);
+                }
+
+            }
+        }
+
+        $combinations = Combinations::makeCombinations($options);
+        //$product_variant_image = ProductVariantImage::where('product_id', $request->id)->get();
+        
+        /*echo "<pre>product";print_r($product);
+        echo "<pre>";print_r($options);die;*/
+        return view('backend.product.products.img_combination_edit', compact('options','product'));
+    }
+
     public function sku_combination(Request $request)
     {
         $options = array();
@@ -607,7 +711,7 @@ class ProductController extends Controller
 	
 	public function get_all_main_product(Request $request)
     {
-        $products = Product::where('category_id', $request->category_id)->where('parent_id',0)->get();
+        $products = Product::where('category_id', $request->category_id)->where('is_parent',0)->get();
         $html = '<option value="">'.translate("Select Product").'</option>';
         //echo "<pre>";print_r($products);die;
         foreach ($products as $product) {
@@ -615,5 +719,34 @@ class ProductController extends Controller
         }
         
         echo json_encode($html);
+    }
+
+
+    /**
+     * product_child the specified resource from storage.
+     *
+     * @param  int  $main_product_id
+     * @return \Illuminate\Http\Response
+     */
+
+    public function product_child($main_product_id='')
+    {
+        $products =array();
+        $subMain =array();
+        if (!empty($main_product_id)) {
+            $sub_products = RelatedProduct::select('product_id')->where('parent_id', $main_product_id)->get()->toArray();
+            foreach ($sub_products as $value) {
+                $subMain[$value['product_id']] = $value['product_id'];
+            }
+            //echo "<pre>";print_r($subMain);die;
+            if (!empty($subMain)){
+                $products = Product::whereIN('id', $subMain)->where('is_parent',1);
+                $products = $products->paginate(15);
+            }
+            
+        }
+        
+        
+        return view('backend.product.products.product_child', compact('products'));
     }
 }

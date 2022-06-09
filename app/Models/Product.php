@@ -15,10 +15,10 @@ class Product extends Model
         'cash_on_delivery', 'featured', 'seller_featured', 'current_stock', 'unit', 'min_qty', 'low_stock_quantity', 
         'discount', 'discount_type', 'discount_start_date', 'discount_end_date', 'shipping_type', 'shipping_cost', 'is_quantity_multiplied',
         'est_shipping_days', 'meta_title', 'meta_description', 'meta_img', 'pdf', 'slug', 'rating', 'barcode', 'digital', 'external_link', 
-        'external_link_btn','refundable','earn_point','product_group_id','gemstone_size','gemstone_weight','product_weight','is_group_main_product','parent_id'
+        'external_link_btn','refundable','earn_point','product_group_id','gemstone_size','gemstone_weight','product_weight','is_group_main_product','is_parent'
     ];
 
-    protected $with = ['product_translations', 'taxes'];
+    protected $with = ['product_translations', 'taxes', 'related_products'];
 
     public function getTranslation($field = '', $lang = false)
     {
@@ -70,6 +70,14 @@ class Product extends Model
     public function taxes()
     {
         return $this->hasMany(ProductTax::class);
+    }
+    public function related_products()
+    {
+        return $this->hasMany(RelatedProduct::class);
+    }
+    public function product_variant_image()
+    {
+        return $this->hasMany(ProductVariantImage::class);
     }
 
     public function flash_deal_product()

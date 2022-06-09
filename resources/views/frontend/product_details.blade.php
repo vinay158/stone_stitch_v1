@@ -481,6 +481,21 @@
                                     <div class="aiz-share"></div>
                                 </div>
                             </div>
+
+                            <div class="row no-gutters mt-4">
+                                
+                                <div class="col-sm-12">
+                                    <?php foreach ($subProduct as $key => $value){ ?>
+                                        <div class="col-sm-2 float-left">
+                                            <a href="{{ route('product', $value->slug) }}" class="d-block text-reset">
+                                            <img class="img-fit lazyload h-xxl-110px h-xl-20px h-20px" src="{{ uploaded_asset($value->thumbnail_img) }}" alt="">
+                                            <b>{{$value->brand->name}}</b>
+                                        </a>
+                                        </div>
+                                    <?php } ?>                                    
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>

@@ -1,6 +1,11 @@
 @extends('backend.layouts.app')
 
 @section('content')
+<style type="text/css">
+    div#img_combination table {
+    opacity: inherit !important;
+}
+</style>
 <div class="aiz-titlebar text-left mt-2 mb-3">
     <h1 class="mb-0 h6">{{ translate('Edit Product') }}</h5>
 </div>
@@ -57,14 +62,15 @@
                                 </select>
                             </div>
                         </div>
-
+                       <?php //echo '<pre>'; print_r($selected); ?>
                         <div class="form-group row" id="category">
                             <label class="col-lg-3 col-from-label">{{translate('Parent Product')}}</label>
                             <div class="col-lg-8">
-                                <select class="form-control aiz-selectpicker" name="parent_id" id="parent_id" data-selected="{{ $product->parent_id }}" data-live-search="true">
+                                <select class="form-control aiz-selectpicker" name="parent_id[]" id="parent_id"  data-live-search="true">
                                     <option value="">{{ translate('Select Product') }}</option>
                                     @foreach ($allProduct as $allprodu)
-                                    <option value="{{ $allprodu->id }}">{{ $allprodu->name  }}</option>
+
+                                    <option value="{{ $allprodu->id }}" <?php echo (!empty($selected) && in_array($allprodu->id , $selected))?'selected="selected"':'' ?>>{{ $allprodu->name  }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -306,7 +312,7 @@
                             <div class="form-group row">
                                 <div class="col-lg-3">
                                     <input type="hidden" name="choice_no[]" value="{{ $choice_option->attribute_id }}">
-                                    <input type="text" class="form-control" name="choice[]" value="{{ optional(\App\Models\Attribute::find($choice_option->attribute_id))->getTranslation('name') }}" placeholder="{{ translate('Choice Title') }}" disabled>
+                                    <input type="text" class="form-control" name="choice[]" value="{{ optional(\App\Models\Attribute::find($choice_option->attribute_id))->getTranslation('name') }}" placeholder="{{ translate('Choice Title') }}" readonly>
                                 </div>
                                 <div class="col-lg-8">
                                     <select class="form-control aiz-selectpicker attribute_choice" data-live-search="true" name="choice_options_{{ $choice_option->attribute_id }}[]" multiple>
@@ -328,6 +334,7 @@
                         <h5 class="mb-0 h6">{{translate('Product price + stock')}}</h5>
                     </div>
                     <div class="card-body">
+                        <div class="img_combination" id="img_combination"></div>
                         <div class="form-group row">
                             <label class="col-lg-3 col-from-label">{{translate('Unit price')}}</label>
                             <div class="col-lg-6">
@@ -833,7 +840,7 @@
     });
     
     function get_all_main_product(category_id) {
-        $('[name="parent_id"]').html("");
+        $('#parent_id').html("");
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -846,7 +853,7 @@
             success: function (response) {
                 var obj = JSON.parse(response);
                 if(obj != '') {
-                    $('[name="parent_id"]').html(obj);
+                    $('#parent_id').html(obj);
                     AIZ.plugins.bootstrapSelect('refresh');
                 }
             }
@@ -957,6 +964,10 @@
 
     $(document).on("change", ".attribute_choice",function() {
         update_sku();
+        var selectedval = $('input[name="choice[]"]').val();
+        if (selectedval == 'Materials') {
+            update_sku_img();
+        }
     });
 
     $('#colors').on('change', function() {
@@ -991,11 +1002,28 @@
         });
     }
 
+    function update_sku_img(){
+        $.ajax({
+           type:"POST",
+           url:'{{ route('products.img_combination_edit') }}',
+           data:$('#choice_form').serialize(),
+           success: function(data){
+                $('#img_combination').html(data);
+                AIZ.uploader.previewGenerate();
+                //AIZ.plugins.fooTable();
+                
+           }
+        });
+    }
+
     AIZ.plugins.tagify();
 
     $(document).ready(function(){
         update_sku();
-
+        var selectedval = $('input[name="choice[]"]').val();
+        if (selectedval == 'Materials') {
+            update_sku_img();
+        }
         $('.remove-files').on('click', function(){
             $(this).parents(".col-md-4").remove();
         });

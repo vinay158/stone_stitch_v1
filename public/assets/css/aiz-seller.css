@@ -5031,11 +5031,11 @@ input[type="number"] {
 .file-preview.box a {
     color: inherit;
 }
-.file-preview.box:after {
+/*.file-preview.box:after {
     content: "";
     clear: both;
     display: table;
-}
+}*/
 .file-preview.box .file-preview-item {
     width: 160px;
     float: left;

@@ -14,6 +14,10 @@ class ProductService
     public function store(array $data)
     {
         $collection = collect($data);
+        $collection['is_parent'] = 0;
+        if (isset($collection['parent_id'][0]) && !empty($collection['parent_id'][0])) {
+               $collection['is_parent'] = 1;
+        }  
 		
 		$collection['is_group_main_product'] = (isset($collection['is_group_main_product']) && !empty($collection['is_group_main_product'])) ? $collection['is_group_main_product'] : 0;
 		
