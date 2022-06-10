@@ -300,6 +300,7 @@
                                 @csrf
                                 <input type="hidden" name="id" value="{{ $detailedProduct->id }}">
 
+
                                 @if ($detailedProduct->choice_options != null)
                                     @foreach (json_decode($detailedProduct->choice_options) as $key => $choice)
 
@@ -388,6 +389,21 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="row no-gutters mt-4">
+                                
+                                <div class="col-sm-12">
+                                    <?php foreach ($subProduct as $key => $value){ ?>
+                                        <div class="col-sm-2 float-left" style="    padding-left: 0px;    padding-right: 5px;">
+                                            <a href="{{ route('product', $value->slug) }}" class="d-block text-reset" style="border: 1px solid #ededed;padding: 5px;text-align: center;">
+                                            <img class="img-fit lazyload h-xxl-80px h-xl-20px h-20px" src="{{ uploaded_asset($value->thumbnail_img) }}" alt="">
+                                            <b style="padding: 10px;line-height: 3;">{{$value->brand->name}}</b>
+                                        </a>
+                                        </div>
+                                    <?php } ?>                                    
+                                </div>
+                            </div>
+                            
 
                                 <hr>
 
@@ -482,19 +498,7 @@
                                 </div>
                             </div>
 
-                            <div class="row no-gutters mt-4">
-                                
-                                <div class="col-sm-12">
-                                    <?php foreach ($subProduct as $key => $value){ ?>
-                                        <div class="col-sm-2 float-left">
-                                            <a href="{{ route('product', $value->slug) }}" class="d-block text-reset">
-                                            <img class="img-fit lazyload h-xxl-110px h-xl-20px h-20px" src="{{ uploaded_asset($value->thumbnail_img) }}" alt="">
-                                            <b>{{$value->brand->name}}</b>
-                                        </a>
-                                        </div>
-                                    <?php } ?>                                    
-                                </div>
-                            </div>
+                            
 
                         </div>
                     </div>

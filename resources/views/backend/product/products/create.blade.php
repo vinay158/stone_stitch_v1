@@ -838,10 +838,14 @@
 
         update_sku();
 
-        var selectedval = $('input[name="choice[]"]').val();
-        if (selectedval == 'Materials') {
-            update_sku_img();
-        }
+        
+        $.each($('input[name="choice[]"]'), function(){
+            var selectedval = $(this).val();
+            if (selectedval == 'Materials') {
+                update_sku_img();
+            }
+        });
+
 
     });
 

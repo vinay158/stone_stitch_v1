@@ -964,10 +964,12 @@
 
     $(document).on("change", ".attribute_choice",function() {
         update_sku();
-        var selectedval = $('input[name="choice[]"]').val();
-        if (selectedval == 'Materials') {
-            update_sku_img();
-        }
+        $.each($('input[name="choice[]"]'), function(){
+            var selectedval = $(this).val();
+            if (selectedval == 'Materials') {
+                update_sku_img();
+            }
+        });
     });
 
     $('#colors').on('change', function() {
@@ -1020,10 +1022,12 @@
 
     $(document).ready(function(){
         update_sku();
-        var selectedval = $('input[name="choice[]"]').val();
-        if (selectedval == 'Materials') {
-            update_sku_img();
-        }
+        $.each($('input[name="choice[]"]'), function(){
+            var selectedval = $(this).val();
+            if (selectedval == 'Materials') {
+                update_sku_img();
+            }
+        });
         $('.remove-files').on('click', function(){
             $(this).parents(".col-md-4").remove();
         });

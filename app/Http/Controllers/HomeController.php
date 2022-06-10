@@ -269,6 +269,7 @@ class HomeController extends Controller
         $getallproduct = array();
         $counter = 0;
         foreach ($dataArr as $key => $value) {
+            echo "<pre>value";print_r($value);
             if ($value->parent_id == 0) {
                 $sub_products = RelatedProduct::select('product_id')->where('parent_id', $value->product_id)->get();
                 $mainProducts = RelatedProduct::select('product_id')->where('product_id', $value->product_id)->first();
@@ -280,14 +281,16 @@ class HomeController extends Controller
 
             if (!empty($mainProducts)) {
                 $all_product[$counter] = $mainProducts->product_id;
+                //echo "<pre>mainProducts";print_r($mainProducts);
             }
             foreach ($sub_products as $key => $valuenew) {
                 $counter++;
                 $all_product[$counter] = $valuenew->product_id;
+                //echo "<pre>sub_products";print_r($sub_products);
             }   
                     
         }
-
+        die;
         if (!empty($all_product)) {
            $getallproduct = Product::with('brand')->whereIn('id', $all_product)->where('published',1)->get();
         }else{

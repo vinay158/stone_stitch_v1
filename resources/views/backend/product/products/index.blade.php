@@ -51,7 +51,7 @@
                 </select>
             </div>
             @endif
-            @if($type == 'All')
+            @if($type == 'Seller')
             <div class="col-md-2 ml-auto">
                 <select class="form-control form-control-sm aiz-selectpicker mb-2 mb-md-0" id="user_id" name="user_id" onchange="sort_products()">
                     <option value="">{{ translate('All Sellers') }}</option>
@@ -65,9 +65,10 @@
             <div class="col-md-2 ml-auto">
                 <select class="form-control form-control-sm aiz-selectpicker mb-2 mb-md-0" id="is_parent" name="is_parent" onchange="sort_products()">
                     <option value="">{{ translate('Products Type') }}</option>
-                    <option value="1" @if ($is_parent == 1) selected @endif>Main Product</option>
-                    <option value="2" @if ($is_parent == 2) selected @endif>Child Product</option>
-                    <option value="3" @if ($is_parent == 3) selected @endif>All Product</option>
+
+                    <option value="3" @if ($is_parent == 3) selected @endif>All Products</option>
+                    <option value="1" @if ($is_parent == 1) selected @endif>Main Products</option>
+                    <option value="2" @if ($is_parent == 2) selected @endif>Child Products</option>
                 </select>
             </div>
             <div class="col-md-2 ml-auto">
