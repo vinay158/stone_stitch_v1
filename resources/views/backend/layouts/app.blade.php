@@ -138,6 +138,9 @@
 .display-none,.las.la-language.text-danger, .aiz-main-content .card ul.nav.nav-tabs .nav-item .nav-link img, .aiz-main-content .card ul.nav.nav-tabs .nav-item .nav-link span{display:none !important}
 
 <?php } ?>
+.op-remove{
+            opacity: 1 !important;
+        }
 </style>
 
 </body>

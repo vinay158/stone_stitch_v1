@@ -14,7 +14,8 @@
 
     @foreach ($options as $key => $combination)
         @foreach ($combination as $key => $item)
-        <?php $image_data = $product->product_variant_image->where('variant', $item)->first(); ?>
+        <?php $variantValue = check_attribute_value($item);
+        $image_data = $product->product_variant_image->where('variant', $variantValue)->first(); ?>
 
             <tr class="variant">
                 <td>

@@ -39,7 +39,7 @@
         <div class="container">
             <div class="bg-white shadow-sm rounded p-3">
                 <div class="row">
-                    <div class="col-xl-6 col-lg-6 mb-4">
+                    <div class="col-xl-6 col-lg-6 mb-4" id="product_img_all">
                         <div class="sticky-top z-3 row gutters-10">
                             @php
                                 $photos = explode(',', $detailedProduct->photos);
@@ -98,6 +98,7 @@
                             </div>
                         </div>
                     </div>
+                   
 
                     <div class="col-xl-6 col-lg-6">
                         <div class="text-left">
@@ -303,17 +304,22 @@
 
                                 @if ($detailedProduct->choice_options != null)
                                     @foreach (json_decode($detailedProduct->choice_options) as $key => $choice)
-
+                                    <?php 
+                                    $attribute_name = \App\Models\Attribute::find($choice->attribute_id)->getTranslation('name'); ?>
                                     <div class="row no-gutters">
                                         <div class="col-sm-2">
-                                            <div class="opacity-50 my-2">{{ \App\Models\Attribute::find($choice->attribute_id)->getTranslation('name') }}:</div>
+                                            <div class="opacity-50 my-2">{{ $attribute_name }}:</div>
                                         </div>
                                         <div class="col-sm-10">
                                             <div class="aiz-radio-inline">
                                                 @foreach ($choice->values as $key => $value)
                                                 <label class="aiz-megabox pl-0 mr-2">
                                                     <input
-                                                        type="radio"
+                                                        type="radio" 
+                                                        onchange="change_product_image(this)"
+                                                        data-attribute_name = "{{ $attribute_name }}"
+                                                        data-product_id = "{{ $detailedProduct->id }}"
+                                                        class="attribute_id"
                                                         name="attribute_id_{{ $choice->attribute_id }}"
                                                         value="{{ $value }}"
                                                         @if($key == 0) checked @endif
@@ -922,6 +928,36 @@
             @else
                 $('#login_modal').modal('show');
             @endif
+        }
+
+        function change_product_image(el){
+            var attribute_value = $(el).val();
+            var attribute_name = $(el).data('attribute_name');
+            var product_id = $(el).data('product_id');
+
+            if (attribute_name == 'Materials') {
+                
+                $.ajax({
+                   type:"POST",
+                   headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                   url:'{{ route('products.change-product-image') }}',
+                   data:{attribute_value:attribute_value, attribute_name:attribute_name, product_id:product_id},
+                   success: function(data) {
+                        if (data != false) {
+                            $('#product_img_all').html(null);
+                            $('#product_img_all').html(data);
+                        }
+
+                        
+                   },
+                  error: function(e) {
+                    
+                  }
+               });
+
+            }
         }
 
     </script>

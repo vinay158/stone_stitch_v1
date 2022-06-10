@@ -199,7 +199,8 @@
                                 <i class="las la-eye"></i>
                             </a>
                             @if($product->is_parent == 0)
-                            <a class="btn btn-soft-success btn-icon btn-circle btn-sm"  href="{{ route('products.product-child', $product->id) }}" target="_blank" title="{{ translate('Child Products') }}">
+                            <a href="javascript:void(0)" class="btn btn-soft-success btn-icon btn-circle btn-sm" onclick="childProductdetailsInfo(this)" data-id="{{ $product->id }}">
+                           <!--  <a class="btn btn-soft-success btn-icon btn-circle btn-sm"  href="{{ route('products.product-child', $product->id) }}" target="_blank" title="{{ translate('Child Products') }}"> -->
                                 <i class="las la-sitemap"></i>
                             </a>
                             @endif
@@ -229,7 +230,22 @@
         </div>
     </form>
 </div>
-
+<div id="info-modal" class="modal fade">
+    <div class="modal-dialog" style="max-width: 1002px !important;">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title h6">{{ translate('Child Product') }}</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                </button>
+            </div>
+            <div class="modal-body c-scrollbar-light position-relative" id="info-modal-content">
+                <div class="c-preloader text-center absolute-center">
+                    <i class="las la-spinner la-spin la-3x opacity-70"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('modal')
@@ -239,7 +255,21 @@
 
 @section('script')
     <script type="text/javascript">
-        
+        function childProductdetailsInfo(e){
+            $('#info-modal-content').html('<div class="c-preloader text-center absolute-center"><i class="las la-spinner la-spin la-3x opacity-70"></i></div>');
+            var id = $(e).data('id')
+            $('#info-modal').modal('show');
+            update_product_child_content(id);
+
+        }
+    </script>
+    <script type="text/javascript">
+
+        function update_product_child_content(id){
+            $.post('{{ route('products.product-child-detail') }}', {_token: AIZ.data.csrf, id:id}, function(data){
+                $('#info-modal-content').html(data);
+            });
+        }        
         $(document).on("change", ".check-all", function() {
             if(this.checked) {
                 // Iterate each checkbox
@@ -323,6 +353,38 @@
             $.post('{{ route('products.featured') }}', {_token:'{{ csrf_token() }}', id:el.value, status:status}, function(data){
                 if(data == 1){
                     AIZ.plugins.notify('success', '{{ translate('Featured products updated successfully') }}');
+                }
+                else{
+                    AIZ.plugins.notify('danger', '{{ translate('Something went wrong') }}');
+                }
+            });
+        }
+
+        function delete_child(el){
+            
+            var id = $(el).data('id');
+            var mainid = $(el).data('mainid');
+            //alert(id+'=>>'+mainid);
+            $.post('{{ route('products.child-destroy') }}', {_token:'{{ csrf_token() }}', id:id, mainid:mainid}, function(data){
+                if(data == 1){
+                    AIZ.plugins.notify('success', '{{ translate('Delete successfully') }}');
+                    $(el).parent().parent().remove();
+                    update_product_child_content(mainid);
+                }
+                else{
+                    AIZ.plugins.notify('danger', '{{ translate('Something went wrong') }}');
+                }
+            });
+        }
+        function add_Child(el){
+            
+            var selected = $(el).val();
+            var mainid = $(el).data('mainid');
+            //alert(selected+'=>>'+mainid);
+            $.post('{{ route('products.child-add') }}', {_token:'{{ csrf_token() }}', selected:selected, mainid:mainid}, function(data){
+                if(data == 1){
+                    AIZ.plugins.notify('success', '{{ translate('Add successfully') }}');
+                    update_product_child_content(mainid);
                 }
                 else{
                     AIZ.plugins.notify('danger', '{{ translate('Something went wrong') }}');

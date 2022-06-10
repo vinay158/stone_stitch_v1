@@ -112,6 +112,7 @@ Route::controller(HomeController::class)->group(function () {
 
     //category dropdown menu ajax call
     Route::post('/category/nav-element-list', 'get_category_items')->name('category.elements');
+    Route::post('/products/change-product-image', 'change_product_image')->name('products.change-product-image');
 
     //Flash Deal Details Page
     Route::get('/flash-deals', 'all_flash_deals')->name('flash-deals');

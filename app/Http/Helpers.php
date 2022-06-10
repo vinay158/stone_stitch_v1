@@ -18,6 +18,7 @@ use App\Models\User;
 use App\Models\Addon;
 use App\Models\Product;
 use App\Models\Shop;
+use App\Models\AttributeValue;
 use App\Utility\SendSMSUtility;
 use App\Utility\NotificationUtility;
 use Carbon\Carbon;
@@ -863,6 +864,20 @@ if (!function_exists('seller_package_validity_check')) {
         return $package_validation;
         // Ture = Seller package is valid and seller has the product upload limit
         // False = Seller package is invalid or seller product upload limit exists.
+    }
+}
+
+if (!function_exists('check_attribute_value')) {
+    function check_attribute_value($attribute_id)
+    {   
+        $data = $attribute_id;
+        $attribute_value = AttributeValue::where('value', $attribute_id)->first(); 
+        if (!empty($attribute_value)) {
+            $data = $attribute_value->id;
+        }
+
+        return $data;
+
     }
 }
 

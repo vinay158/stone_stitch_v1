@@ -113,6 +113,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(
         Route::post('/products/ajax-request', 'ajax_request')->name('products.ajax-request');
         Route::post('/products/get-all-main-product', 'get_all_main_product')->name('products.get-all-main-product');
         Route::get('/products/product-child/{id}', 'product_child')->name('products.product-child');
+        Route::post('/products/product-child-detail', 'product_child_detail')->name('products.product-child-detail');
+        Route::post('/products/child-destroy', 'child_destroy')->name('products.child-destroy');
+        Route::post('/products/child-add', 'child_add')->name('products.child-add');
     });
 
     // Digital Product

@@ -750,4 +750,102 @@ class ProductController extends Controller
         
         return view('backend.product.products.product_child', compact('products'));
     }
+
+    /**
+     * product_child_detail the specified resource from storage.
+     *
+     * @param  int  $main_product_id
+     * @return \Illuminate\Http\Response
+     */
+
+    public function product_child_detail(Request $request)
+    {
+        $products =array();
+        $subMain =array();
+        $mainid = $request->id;
+        if (!empty($request->id)) {
+            $sub_products = RelatedProduct::select('product_id')->where('parent_id', $request->id)->get()->toArray();
+            foreach ($sub_products as $value) {
+                $subMain[$value['product_id']] = $value['product_id'];
+            }
+            
+            if (!empty($subMain)){
+                $products = Product::whereIN('id', $subMain)->where('is_parent',1);
+                $products = $products->paginate(15);
+            }
+            
+        }
+                
+        /*$allProducts = Product::with(['related_products' => function($q) {
+                        $q->select('product_id', 'parent_id', 'id');
+                        $q->where('parent_id', '=', 0);
+                    }])->where('is_group_main_product', 0)->where('is_parent',1)->get()->toArray();*/
+
+        $allProducts = Product::select('name', 'id')->where('is_group_main_product', 0)->where('is_parent',1)->get()->toArray();
+        $allProductsData = array();
+        foreach ($allProducts as $key => $value) {
+            $productsData = RelatedProduct::select('id')->where('product_id', $value['id'])->where('parent_id', 0)->get()->toArray();
+            if (!empty($productsData)) {
+                $allProductsData[]=$value;
+            }
+            
+        }
+        //echo "<pre>";print_r($allProductsData);die;
+
+        return view('backend.product.products.product_child_detail', compact('products','mainid','allProductsData'));
+    }
+
+    /**
+     * product_child_detail the specified resource from storage.
+     *
+     * @param  int  $main_product_id
+     * @return \Illuminate\Http\Response
+     */
+
+    public function child_destroy(Request $request)
+    {
+        //echo "<pre>";print_r($_POST);die;
+        if (!empty($request->id) && !empty($request->mainid)) {
+            $product = RelatedProduct::where('product_id', $request->id)->where('parent_id', $request->mainid)->first();
+            $product->parent_id = 0;
+            if ($product->save()) {
+                Artisan::call('view:clear');
+                Artisan::call('cache:clear');
+                return 1;
+            }
+        }
+
+        return 0;
+    }
+
+    /**
+     * child_add the specified resource from storage.
+     *
+     * @param  int  $main_product_id
+     * @return \Illuminate\Http\Response
+     */
+
+    public function child_add(Request $request)
+    {
+        //echo "<pre>";print_r($_POST);die;
+        if (isset($request->selected) && !empty($request->selected) && !empty($request->mainid)) {
+            foreach ($request->selected as $key => $value) {
+                
+                $product = RelatedProduct::where('product_id', $value)->where('parent_id', 0)->first();
+                if (!empty($product)) {
+                    $product->parent_id = $request->mainid;
+                    $product->save(); 
+                }
+                                              
+            }
+
+            Artisan::call('view:clear');
+            Artisan::call('cache:clear');
+            return 1;
+
+        }
+
+        return 0;
+    }
+
 }

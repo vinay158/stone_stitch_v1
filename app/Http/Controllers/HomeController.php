@@ -18,6 +18,7 @@ use App\Models\Order;
 use App\Models\BusinessSetting;
 use App\Models\Coupon;
 use App\Models\RelatedProduct;
+use App\Models\ProductVariantImage;
 use Cookie;
 use Illuminate\Support\Str;
 use App\Mail\SecondEmailVerifyMailManager;
@@ -46,7 +47,7 @@ class HomeController extends Controller
         });
 
         $newest_products = Cache::remember('newest_products', 3600, function () {
-            return filter_products(Product::latest())->limit(12)->get();
+            return filter_products(Product::where('is_group_main_product',1)->latest())->limit(12)->get();
         });
 
         return view('frontend.index', compact('featured_categories', 'todays_deal_products', 'newest_products'));
@@ -269,7 +270,7 @@ class HomeController extends Controller
         $getallproduct = array();
         $counter = 0;
         foreach ($dataArr as $key => $value) {
-            echo "<pre>value";print_r($value);
+            //echo "<pre>value";print_r($value);
             if ($value->parent_id == 0) {
                 $sub_products = RelatedProduct::select('product_id')->where('parent_id', $value->product_id)->get();
                 $mainProducts = RelatedProduct::select('product_id')->where('product_id', $value->product_id)->first();
@@ -290,7 +291,7 @@ class HomeController extends Controller
             }   
                     
         }
-        die;
+        //die;
         if (!empty($all_product)) {
            $getallproduct = Product::with('brand')->whereIn('id', $all_product)->where('published',1)->get();
         }else{
@@ -668,5 +669,17 @@ class HomeController extends Controller
     public function inhouse_products(Request $request) {
         $products = filter_products(Product::where('added_by', 'admin'))->with('taxes')->paginate(12)->appends(request()->query());
         return view('frontend.inhouse_products', compact('products'));
+    }
+
+    public function change_product_image(Request $request)
+    {
+        
+        $attribute_value = check_attribute_value($request->attribute_value);
+        $product_variant_image = ProductVariantImage::where('variant', $attribute_value)->where('product_id', $request->product_id)->first();
+        if (empty($product_variant_image)) {
+           return false;
+        }
+        //echo "<pre>";print_r($product_variant_image);die;
+        return view('frontend.change_product_image',compact('product_variant_image'));
     }
 }
