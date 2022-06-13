@@ -917,6 +917,8 @@
                 if($(this).prop("checked") == true){
                     //alert($(this).val());
                     change_product_image(this);
+                }else{
+                    $("#loader").css("display",'none');
                 }
 
             });

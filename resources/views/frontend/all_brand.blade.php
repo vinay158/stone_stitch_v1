@@ -30,7 +30,7 @@
 <section class="mb-4 gemstones-list">
     <div class="container">
         <div class="bg-white shadow-sm rounded px-3 pt-3">
-            <div class="row row-cols-xxl-6 row-cols-xl-4 row-cols-lg-4 row-cols-md-3 row-cols-2 gutters-10">
+            <div class="row row-cols-xxl-4 row-cols-xl-4 row-cols-lg-4 row-cols-md-3 row-cols-2 gutters-10">
                 @foreach (\App\Models\Brand::all() as $brand)
                    <!-- <div class="col text-center">
                         <a href="{{ route('products.gemstone', $brand->slug) }}" class="d-block p-1 mb-3 border border-light rounded hov-shadow-md">

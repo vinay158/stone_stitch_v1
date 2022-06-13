@@ -35,7 +35,7 @@
 <section class="mb-4 gemstones-list">
     <div class="container">
         <div class="bg-white shadow-sm rounded px-3 pt-3">
-            <div class="row row-cols-xxl-6 row-cols-xl-4 row-cols-lg-4 row-cols-md-3 row-cols-2 gutters-10">
+            <div class="row row-cols-xxl-4 row-cols-xl-4 row-cols-lg-4 row-cols-md-3 row-cols-2 gutters-10">
                 @foreach ($gemstones as $brand)
                    
 					<div class="content">
