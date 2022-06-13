@@ -220,7 +220,7 @@
                 
                 <div class="d-none d-lg-none ml-3 mr-0">
                     <div class="nav-search-box">
-                        <a href="#" class="nav-box-link">
+                        <a href="javascript:void(0)" class="nav-box-link">
                             <i class="la la-search la-flip-horizontal d-inline-block nav-box-icon"></i>
                         </a>
                     </div>
@@ -277,9 +277,9 @@
 				<div class="top_navigation megamenusip">
    
     <ul class="exo-menu">
-      <li><a href="#">Home</a></li>
-      <li><a href="#">About Us</a></li>
-      <li><a href="#">Services</a></li>
+      <li><a href="{{ route('home') }}">Home</a></li>
+      <li><a href="javascript:void(0)">About Us</a></li>
+      <li><a href="javascript:void(0)">Services</a></li>
       <li class="mega-drop-down"><a href="javascript:void(0)"><i class="fa fa-list"></i> Shop </a>
         <div class="animated fadeIn mega-menu">
 		
@@ -324,7 +324,7 @@
         </div>
       </li>
 	  <?php if(!empty($menu_months)){ ?>
-      <li class="drop-down"><a href="#"><i class="fa fa-cogs"></i> Birthstones</a>
+      <li class="drop-down"><a href="javascript:void(0)"><i class="fa fa-cogs"></i> Birthstones</a>
         <ul class="drop-down-ul animated fadeIn">
 		
         <?php foreach($menu_months as $menu_month){ ?>
@@ -348,7 +348,7 @@
         </li> 
 	  <?php } ?>
 		
-		<li class="drop-down"><a href="#">Contact Us</a></li>
+		<li class="drop-down"><a href="javascript:void(0)">Contact Us</a></li>
 	</ul>
    </div>
    
@@ -448,9 +448,9 @@
 				<div class="top_navigation megamenusip  py-20px ">
    
     <ul class="exo-menu ">
-      <li><a href="#">Home</a></li>
-      <li><a href="#">About Us</a></li>
-      <li><a href="#">Services</a></li>
+      <li><a href="javascript:void(0)">Home</a></li>
+      <li><a href="javascript:void(0)">About Us</a></li>
+      <li><a href="javascript:void(0)">Services</a></li>
       <li class="mega-drop-down"><a href="javascript:void(0)"><i class="fa fa-list"></i> Shop </a>
         <div class="animated fadeIn mega-menu">
 		
@@ -495,7 +495,7 @@
         </div>
       </li>
      <?php if(!empty($menu_months)){ ?>
-      <li class="drop-down"><a href="#"><i class="fa fa-cogs"></i> Birthstones</a>
+      <li class="drop-down"><a href="javascript:void(0)"><i class="fa fa-cogs"></i> Birthstones</a>
         <ul class="drop-down-ul animated fadeIn">
 		
         <?php foreach($menu_months as $menu_month){ ?>
@@ -518,7 +518,7 @@
         </ul>     
         </li> 
 	  <?php } ?>
-		<li class="drop-down"><a href="#">Contact Us</a></li>
+		<li class="drop-down"><a href="javascript:void(0)">Contact Us</a></li>
 	</ul>
    </div>
    
