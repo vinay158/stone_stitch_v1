@@ -45,6 +45,10 @@
                                 $photos = explode(',', $detailedProduct->photos);
                             @endphp
                             <div class="col order-1 order-md-2">
+                                <div id="loader" style="display:none;"><img
+                                                class="img-fluid lazyload"
+                                                src="{{ static_asset('assets/img/Preloader.gif') }}"
+                                            ></div> 
                                 <div class="aiz-carousel product-gallery" data-nav-for='.product-gallery-thumb' data-fade='true' data-auto-height='true'>
                                     @foreach ($photos as $key => $photo)
                                         <div class="carousel-box img-zoom rounded">
@@ -301,7 +305,24 @@
                                 @csrf
                                 <input type="hidden" name="id" value="{{ $detailedProduct->id }}">
 
+                                <div class="row no-gutters mt-4 gemstone-list-product">
+                                
+                                    <div class="col-sm-12">
+                                        <?php foreach ($subProduct as $key => $value){ 
+                                            $active=($detailedProduct->slug==$value->slug)?'active':''; 
+                                            $url=($detailedProduct->slug==$value->slug)?"javascript:void(0)":"route('product', $value->slug) "; ?>
+                                            <div class="col-sm-2 float-left" style="    padding-left: 0px;    padding-right: 5px;">
+                                                <a href="{{ ($detailedProduct->slug==$value->slug)?'javascript:void(0)':route('product', $value->slug) }}" class="d-block text-reset {{$active}}" style="border: 1px solid #ededed;padding: 5px;text-align: center;">
+                                                <img class="img-fit lazyload h-xxl-80px h-xl-20px h-20px" src="{{ uploaded_asset($value->thumbnail_img) }}" alt="">
+                                                <b style="padding: 10px;line-height: 3;">{{$value->brand->name}}</b>
+                                            </a>
+                                            </div>
+                                        <?php } ?>                                    
+                                    </div>
+                                </div>
+                            
 
+                                <hr>
                                 @if ($detailedProduct->choice_options != null)
                                     @foreach (json_decode($detailedProduct->choice_options) as $key => $choice)
                                     <?php 
@@ -396,7 +417,7 @@
                                     </div>
                                 </div>
 
-                                <div class="row no-gutters mt-4">
+                                <!-- <div class="row no-gutters mt-4">
                                 
                                 <div class="col-sm-12">
                                     <?php foreach ($subProduct as $key => $value){ ?>
@@ -408,7 +429,7 @@
                                         </div>
                                     <?php } ?>                                    
                                 </div>
-                            </div>
+                            </div> -->
                             
 
                                 <hr>
@@ -891,6 +912,17 @@
     <script type="text/javascript">
         $(document).ready(function() {
             getVariantPrice();
+            $("#loader").css("display",'block');
+            $.each($('.attribute_id'), function(){
+                if($(this).prop("checked") == true){
+                    //alert($(this).val());
+                    change_product_image(this);
+                }
+
+            });
+              
+            
+
     	});
 
         function CopyToClipboard(e) {
@@ -948,6 +980,7 @@
                         if (data != false) {
                             $('#product_img_all').html(null);
                             $('#product_img_all').html(data);
+                            $("#loader").css("display",'none');
                         }
 
                         
