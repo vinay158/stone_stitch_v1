@@ -49,7 +49,7 @@
                                                 class="img-fluid lazyload"
                                                 src="{{ static_asset('assets/img/Preloader.gif') }}"
                                             ></div> 
-                                <div class="aiz-carousel product-gallery" data-nav-for='.product-gallery-thumb' data-fade='true' data-auto-height='true'>
+                                <div class="aiz-carousel product-gallery main-product-detail" data-nav-for='.product-gallery-thumb' data-fade='true' data-auto-height='true' style="display:none;">
                                     @foreach ($photos as $key => $photo)
                                         <div class="carousel-box img-zoom rounded">
                                             <img
@@ -74,7 +74,7 @@
                                     @endforeach
                                 </div>
                             </div>
-                            <div class="col-12 col-md-auto w-md-80px order-2 order-md-1 mt-3 mt-md-0">
+                            <div class="col-12 col-md-auto w-md-80px order-2 order-md-1 mt-3 mt-md-0 main-product-detail" style="display:none;">
                                 <div class="aiz-carousel product-gallery-thumb" data-items='5' data-nav-for='.product-gallery' data-vertical='true' data-vertical-sm='false' data-focus-select='true' data-arrows='true'>
                                     @foreach ($photos as $key => $photo)
                                     <div class="carousel-box c-pointer border p-1 rounded">
@@ -433,7 +433,7 @@
                             
 
                                 <hr>
-
+                                @if (isset(Auth::user()->id))
                                 <div class="row no-gutters pb-3 d-none" id="chosen_price_div">
                                     <div class="col-sm-2">
                                         <div class="opacity-50 my-2">{{ translate('Total Price')}}:</div>
@@ -446,7 +446,7 @@
                                         </div>
                                     </div>
                                 </div>
-
+                                 @endif
                             </form>
 
                             <div class="mt-3">
@@ -758,12 +758,15 @@
                                             </a>
                                         </div>
                                         <div class="p-md-3 p-2 text-left">
+                                            @if (isset(Auth::user()->id))
+
                                             <div class="fs-17">
                                                 @if(home_base_price($related_product) != home_discounted_base_price($related_product))
                                                     <del class="fw-400 opacity-50 mr-1">{{ home_base_price($related_product) }}</del>
                                                 @endif
                                                 <span class="fw-400 text-primary">{{ home_discounted_base_price($related_product) }}</span>
                                             </div>
+                                             @endif
                                             <div class="rating rating-sm mt-1">
                                                 {{ renderStarRating($related_product->rating) }}
                                             </div>
@@ -914,11 +917,11 @@
             getVariantPrice();
             $("#loader").css("display",'block');
             $.each($('.attribute_id'), function(){
-                if($(this).prop("checked") == true){
-                    //alert($(this).val());
+                if($(this).prop("checked") == true /*&& $(this).data('attribute_name') == 'Materials'*/){
+                  
                     change_product_image(this);
                 }else{
-                    $("#loader").css("display",'none');
+                    
                 }
 
             });
@@ -971,6 +974,7 @@
 
             if (attribute_name == 'Materials') {
                 
+                $("#loader").css("display",'block');
                 $.ajax({
                    type:"POST",
                    headers: {
@@ -979,19 +983,30 @@
                    url:'{{ route('products.change-product-image') }}',
                    data:{attribute_value:attribute_value, attribute_name:attribute_name, product_id:product_id},
                    success: function(data) {
+                 
                         if (data != false) {
+                            
                             $('#product_img_all').html(null);
                             $('#product_img_all').html(data);
-                            $("#loader").css("display",'none');
+                            //$("#loader").css("display",'none');
                         }
+                            $("#loader").css("display",'none');
+                            $(".main-product-detail").css("display",'block');
+                        
 
                         
                    },
                   error: function(e) {
                     
+                        $("#loader").css("display",'none');
+                        $(".main-product-detail").css("display",'block');
                   }
                });
 
+            }else{
+                       
+                        $("#loader").css("display",'none');
+                        $(".main-product-detail").css("display",'block');
             }
         }
 

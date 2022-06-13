@@ -15,11 +15,13 @@ class ProductService
     {
         $collection = collect($data);
         $collection['is_parent'] = 0;
+        $collection['is_group_main_product'] = 1;
         if (isset($collection['parent_id'][0]) && !empty($collection['parent_id'][0])) {
                $collection['is_parent'] = 1;
+               $collection['is_group_main_product'] = 0;
         }  
 		
-		$collection['is_group_main_product'] = (isset($collection['is_group_main_product']) && !empty($collection['is_group_main_product'])) ? $collection['is_group_main_product'] : 0;
+		
 		
         $approved = 1;
         if (auth()->user()->user_type == 'seller') {

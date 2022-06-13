@@ -452,6 +452,10 @@ font-size: 12px;
   height: 100% !important;
 }
 
+#product_img_all .slick-list .slick-slide, #product_img_all .slick-list .slick-track {
+  width: 100% !important;
+}
+
 .gemstone-list-product .active{
   border: 3px solid var(--custom-color) !important;
   padding: 4px !important;

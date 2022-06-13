@@ -38,12 +38,14 @@
         </div>
     </div>
     <div class="p-md-3 p-2 text-left">
+        @if (isset(Auth::user()->id))
         <div class="fs-17">
             @if(home_base_price($product) != home_discounted_base_price($product))
                 <del class="fw-400 opacity-50 mr-1">{{ home_base_price($product) }}</del>
             @endif
             <span class="fw-400 text-primary">{{ home_discounted_base_price($product) }}</span>
         </div>
+        @endif
         <div class="rating rating-sm mt-1">
             {{ renderStarRating($product->rating) }}
         </div>
