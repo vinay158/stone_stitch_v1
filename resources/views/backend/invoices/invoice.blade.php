@@ -175,6 +175,10 @@
 							            <th class="gry-color text-left">{{ translate('Coupon Discount') }}</th>
 							            <td class="currency">{{ single_price($order->coupon_discount) }}</td>
 							        </tr>
+				                    <tr class="border-bottom">
+							            <th class="gry-color text-left">{{ translate('Wholesale Discount') }}</th>
+							            <td class="currency">{{ single_price($order->wholesale_commission) }}</td>
+							        </tr>
 							        <tr>
 							            <th class="text-left strong">{{ translate('Grand Total') }}</th>
 							            <td class="currency">{{ single_price($order->grand_total) }}</td>

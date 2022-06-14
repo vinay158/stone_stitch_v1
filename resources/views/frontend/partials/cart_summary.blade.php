@@ -102,7 +102,15 @@
                         <span class="font-italic">{{ single_price($shipping) }}</span>
                     </td>
                 </tr>
-
+                <?php $wholesaleCommissionAmount=wholesaleCommissionAmount($subtotal);?>
+                @if ($wholesaleCommissionAmount > 0)
+                <tr class="cart-shipping">
+                    <th>{{translate('Wholesale Discount')}}</th>
+                    <td class="text-right">
+                        <span class="font-italic">{{ '$'.number_format($wholesaleCommissionAmount,2,'.') }}</span>
+                    </td>
+                </tr>
+                @endif
                 @if (Session::has('club_point'))
                     <tr class="cart-shipping">
                         <th>{{translate('Redeem point')}}</th>
@@ -122,7 +130,7 @@
                 @endif
 
                 @php
-                    $total = $subtotal+$tax+$shipping;
+                    $total = ($subtotal+$tax+$shipping)-$wholesaleCommissionAmount;
                     if(Session::has('club_point')) {
                         $total -= Session::get('club_point');
                     }

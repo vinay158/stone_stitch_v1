@@ -27,6 +27,7 @@ class CheckoutController extends Controller
     //check the selected payment gateway and redirect to that controller accordingly
     public function checkout(Request $request)
     {
+       // echo "<pre>";print_r($_POST);die;
         // Minumum order amount check
         if(get_setting('minimum_order_amount_check') == 1){
             $subtotal = 0;
@@ -133,6 +134,8 @@ class CheckoutController extends Controller
         $tax = 0;
         $shipping = 0;
         $subtotal = 0;
+        $subtotal = 0;
+        $wholesaleCommissionAmount = 0;
 
         if ($carts && count($carts) > 0) {
             foreach ($carts as $key => $cartItem) {
@@ -174,7 +177,8 @@ class CheckoutController extends Controller
                 $cartItem->save();
 
             }
-            $total = $subtotal + $tax + $shipping;
+            $wholesaleCommissionAmount=wholesaleCommissionAmount($subtotal);
+            $total = ($subtotal + $tax + $shipping) - $wholesaleCommissionAmount;
             return view('frontend.payment_select', compact('carts', 'shipping_info', 'total'));
 
         } else {

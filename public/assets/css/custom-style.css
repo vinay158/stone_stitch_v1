@@ -451,11 +451,33 @@ font-size: 12px;
 #product_img_all .slick-list.draggable {
   height: 100% !important;
 }
-
+/*
 #product_img_all .slick-list .slick-slide, #product_img_all .slick-list .slick-track {
   width: 100% !important;
+}*/
+#overlay{
+  vertical-align:middle !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 10000 !important;
+  background-color: rgba(0,0,0,0.5) !important; 
 }
-
+#PleaseWait{
+  vertical-align:middle !important;
+  position: fixed !important;
+  top: 45% !important;
+  left: 47% !important;
+  z-index: 10001 !important;
+}
+.img-width{
+  width: 100px !important;
+}
+.login-popup{
+  top: 15% !important;
+}
 .gemstone-list-product .active{
   border: 3px solid var(--custom-color) !important;
   padding: 4px !important;

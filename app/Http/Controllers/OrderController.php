@@ -289,6 +289,8 @@ class OrderController extends Controller
         $carts = Cart::where('user_id', Auth::user()->id)
             ->get();
 
+       // echo '<pre>carts'; print_r($carts); die;
+
         if ($carts->isEmpty()) {
             flash(translate('Your cart is empty'))->warning();
             return redirect()->route('home');
@@ -405,8 +407,9 @@ class OrderController extends Controller
                     }
                 }
             }
-
-            $order->grand_total = $subtotal + $tax + $shipping;
+            $wholesaleCommissionAmount=wholesaleCommissionAmount($subtotal);
+            $order->grand_total = ($subtotal + $tax + $shipping) - $wholesaleCommissionAmount;
+            $order->wholesale_commission = $wholesaleCommissionAmount;
 
             if ($seller_product[0]->coupon_code != null) {
                 // if (Session::has('club_point')) {

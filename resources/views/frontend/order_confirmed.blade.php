@@ -189,6 +189,12 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
+                                                        <th>{{ translate('Wholesale Discount')}}</th>
+                                                        <td class="text-right">
+                                                            <span class="font-italic">{{ single_price($order->wholesale_commission) }}</span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
                                                         <th><span class="fw-600">{{ translate('Total')}}</span></th>
                                                         <td class="text-right">
                                                             <strong><span>{{ single_price($order->grand_total) }}</span></strong>

@@ -38,17 +38,20 @@
     <section class="mb-4 pt-3 product-detail-page">
         <div class="container">
             <div class="bg-white shadow-sm rounded p-3">
-                <div class="row">
-                    <div class="col-xl-6 col-lg-6 mb-4" id="product_img_all">
+                
+                <div class="row" >
+                    <!-- <div class="col-xl-6 col-lg-6 mb-4" id="loader" style="display:block;"><img
+                            class="img-fluid lazyload"
+                            src="{{ static_asset('assets/img/Preloader.gif') }}"
+                        ></div>  -->
+                    <div class="col-xl-6 col-lg-6 mb-4 product_img_all_new" id="product_img_all">
                         <div class="sticky-top z-3 row gutters-10">
                             @php
                                 $photos = explode(',', $detailedProduct->photos);
                             @endphp
+
                             <div class="col order-1 order-md-2">
-                                <div id="loader" style="display:none;"><img
-                                                class="img-fluid lazyload"
-                                                src="{{ static_asset('assets/img/Preloader.gif') }}"
-                                            ></div> 
+                                
                                 <div class="aiz-carousel product-gallery main-product-detail" data-nav-for='.product-gallery-thumb' data-fade='true' data-auto-height='true' style="display:none;">
                                     @foreach ($photos as $key => $photo)
                                         <div class="carousel-box img-zoom rounded">
@@ -104,7 +107,7 @@
                     </div>
                    
 
-                    <div class="col-xl-6 col-lg-6">
+                    <div class="col-xl-6 col-lg-6 ">
                         <div class="text-left">
                             <h1 class="mb-2 fs-20 fw-600">
                                 {{ $detailedProduct->getTranslation('name') }}
@@ -455,13 +458,21 @@
                                         <i class="la la-share"></i> {{ translate($detailedProduct->external_link_btn)}}
                                     </a>
                                 @else
-                                    <button type="button" class="btn btn-soft-primary mr-2 add-to-cart fw-600 custom_add_cart_btn" onclick="addToCart()">
-                                        <i class="las la-shopping-bag"></i>
-                                        <span class="d-none d-md-inline-block"> {{ translate('Add to cart')}}</span>
-                                    </button>
-                                    <button type="button" class="btn btn-primary buy-now fw-600 display-none" onclick="buyNow()">
-                                        <i class="la la-shopping-cart"></i> {{ translate('Buy Now')}}
-                                    </button>
+                                    @if(Auth::check())
+                                        <button type="button" class="btn btn-soft-primary mr-2 add-to-cart fw-600 custom_add_cart_btn" onclick="addToCart()">
+                                            <i class="las la-shopping-bag"></i>
+                                            <span class="d-none d-md-inline-block"> {{ translate('Add to cart')}}</span>
+                                        </button>
+                                        <button type="button" class="btn btn-primary buy-now fw-600 display-none" onclick="buyNow()">
+                                            <i class="la la-shopping-cart"></i> {{ translate('Buy Now')}}
+                                        </button>
+                                    @else
+                                        <button type="button" class="btn btn-soft-primary mr-2 add-to-cart fw-600 custom_add_cart_btn" onclick="showLoginCartModal()">
+                                            <i class="las la-shopping-bag"></i>
+                                            <span class="d-none d-md-inline-block"> {{ translate('Add to cart')}}</span>
+                                        </button>
+                                    @endif
+
                                 @endif
                                 <button type="button" class="btn btn-secondary out-of-stock fw-600 d-none" disabled>
                                     <i class="la la-cart-arrow-down"></i> {{ translate('Out of Stock')}}
@@ -974,7 +985,10 @@
 
             if (attribute_name == 'Materials') {
                 
-                $("#loader").css("display",'block');
+                //$("#loader").css("display",'block');
+                $("#overlay").css("display",'block');
+                $("#PleaseWait").css("display",'block');
+                //$(".product_img_all_new").css("display",'none');
                 $.ajax({
                    type:"POST",
                    headers: {
@@ -985,28 +999,42 @@
                    success: function(data) {
                  
                         if (data != false) {
-                            
+                            //$("#loader").css("display",'none');
+                            $("#overlay").css("display",'none');
+                            $("#PleaseWait").css("display",'none');
+                            $(".product_img_all_new").css("display",'block');
+
                             $('#product_img_all').html(null);
                             $('#product_img_all').html(data);
-                            //$("#loader").css("display",'none');
-                        }
-                            $("#loader").css("display",'none');
+                            
+
                             $(".main-product-detail").css("display",'block');
-                        
+                            
+                        }else{
+                             //$("#loader").css("display",'none');
+                             $("#overlay").css("display",'none');
+                             $("#PleaseWait").css("display",'none');
+                            $(".main-product-detail").css("display",'block');
+                            $(".product_img_all_new").css("display",'block');
+                        }
 
                         
                    },
                   error: function(e) {
                     
-                        $("#loader").css("display",'none');
+                        //$("#loader").css("display",'none');
+                        $("#overlay").css("display",'none');
+                        $("#PleaseWait").css("display",'none');
                         $(".main-product-detail").css("display",'block');
+                        $(".product_img_all_new").css("display",'block');
                   }
+                        
                });
 
             }else{
                        
-                        $("#loader").css("display",'none');
-                        $(".main-product-detail").css("display",'block');
+                        //$("#loader").css("display",'none');
+                        //$(".main-product-detail").css("display",'block');
             }
         }
 

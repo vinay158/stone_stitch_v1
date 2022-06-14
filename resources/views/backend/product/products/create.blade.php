@@ -438,16 +438,28 @@
             <div class="col-lg-4">
 				<div class="card">
                     <div class="card-header">
-                        <h5 class="mb-0 h6">{{translate('Main Group Product')}}</h5>
+                        <h5 class="mb-0 h6">{{translate('Front Product Setting')}}</h5>
                     </div>
                     <div class="card-body">
                         <div class="form-group row">
                             <div class="col-md-12">
                                 <div class="form-group row">
-                                    <label class="col-md-6 col-from-label">{{translate('Main Product')}}</label>
+                                    <label class="col-md-6 col-from-label">{{translate('Is Price Show')}}</label>
                                     <div class="col-md-6">
                                         <label class="aiz-switch aiz-switch-success mb-0">
-                                            <input type="checkbox" class="is_main_group_product" name="is_group_main_product" value="1">
+                                            <input type="hidden" name="is_group_main_product" value="1">
+                                            <input type="checkbox" class="is_price_show" name="is_price_show" value="1">
+                                            <span></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <label class="col-md-6 col-from-label">{{translate('New Arrival')}}</label>
+                                    <div class="col-md-6">
+                                        <label class="aiz-switch aiz-switch-success mb-0">
+                                            <input type="checkbox" class="is_new_arrival" name="is_new_arrival" value="1">
                                             <span></span>
                                         </label>
                                     </div>

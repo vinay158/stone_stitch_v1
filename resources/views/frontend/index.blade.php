@@ -145,7 +145,7 @@
     @endif
 */ ?>
 
-    <div id="section_newest">
+<!--     <div id="section_newest">
         @if (count($newest_products) > 0)
             <section class="mb-4">
                 <div class="container">
@@ -154,6 +154,30 @@
                             <h3 class="h5 fw-700 mb-0">
                                 <span class="border-bottom border-primary border-width-2 pb-3 d-inline-block">
                                     {{ translate('New Products') }}
+                                </span>
+                            </h3>
+                        </div>
+                        <div class="aiz-carousel gutters-10 half-outside-arrow" data-items="3" data-xl-items="3" data-lg-items="3"  data-md-items="3" data-sm-items="2" data-xs-items="2" data-arrows='true'>
+                            @foreach ($newest_products as $key => $new_product)
+                            <div class="carousel-box">
+                                @include('frontend.partials.product_box_1',['product' => $new_product])
+                            </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </section>   
+        @endif
+    </div> -->
+    <div id="section_newest">
+        @if (count($newest_products) > 0)
+            <section class="mb-4">
+                <div class="container">
+                    <div class="px-2 py-4 px-md-4 py-md-3 bg-white shadow-sm rounded">
+                        <div class="d-flex mb-3 align-items-baseline border-bottom">
+                            <h3 class="h5 fw-700 mb-0">
+                                <span class="border-bottom border-primary border-width-2 pb-3 d-inline-block">
+                                    {{ translate('New Arrivals') }}
                                 </span>
                             </h3>
                         </div>

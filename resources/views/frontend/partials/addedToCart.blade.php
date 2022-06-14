@@ -9,6 +9,7 @@
             <h6 class="fw-600">
                 {{  $product->getTranslation('name')  }}
             </h6>
+            @if (isset(Auth::user()->id))
             <div class="row mt-3">
                 <div class="col-sm-2 opacity-60">
                     <div>{{ translate('Price')}}:</div>
@@ -21,6 +22,7 @@
                     </div>
                 </div>
             </div>
+            @endif
         </div>
     </div>
     <div class="bg-white rounded shadow-sm">
@@ -46,12 +48,14 @@
                             </a>
                         </div>
                         <div class="p-md-3 p-2 text-left">
+                            @if (isset(Auth::user()->id))
                             <div class="fs-15">
                                 @if(home_base_price($related_product) != home_discounted_base_price($related_product))
                                     <del class="fw-600 opacity-50 mr-1">{{ home_base_price($related_product) }}</del>
                                 @endif
                                 <span class="fw-700 text-primary">{{ home_discounted_base_price($related_product) }}</span>
                             </div>
+                            @endif
                             <div class="rating rating-sm mt-1">
                                 {{ renderStarRating($related_product->rating) }}
                             </div>

@@ -19,6 +19,7 @@ use App\Models\Addon;
 use App\Models\Product;
 use App\Models\Shop;
 use App\Models\AttributeValue;
+use App\Models\WholesaleCommission;
 use App\Utility\SendSMSUtility;
 use App\Utility\NotificationUtility;
 use Carbon\Carbon;
@@ -877,6 +878,24 @@ if (!function_exists('check_attribute_value')) {
         }
 
         return $data;
+
+    }
+}
+
+// for discount on Wholesale
+if (!function_exists('wholesaleCommissionAmount')) {
+    function wholesaleCommissionAmount($amount)
+    {   
+        $total_amount = 0;
+        if ($amount > 0) {
+            $commission_amount = WholesaleCommission::select('discount_percentage')->where('min_amount','<=', $amount)->where('max_amount','>=', $amount)->first(); 
+            if (!empty($commission_amount)) {
+                $total_amount = ($amount*$commission_amount->discount_percentage)/100;
+            }
+        }
+
+
+        return $total_amount;
 
     }
 }

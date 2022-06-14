@@ -41,6 +41,7 @@
                         </tr>
                     </table>
                 </div>
+                <?php //echo "<pre>";print_r($order->orderDetails);die; ?>
                 <div class="col-lg-6">
                     <table class="table table-borderless">
                         <tr>
@@ -53,7 +54,7 @@
                         </tr>
                         <tr>
                             <td class="w-50 fw-600">{{ translate('Total order amount') }}:</td>
-                            <td>{{ single_price($order->orderDetails->sum('price') + $order->orderDetails->sum('tax')) }}
+                            <td>{{ single_price(($order->orderDetails->sum('price') + $order->orderDetails->sum('tax'))-$order->wholesale_commission) }}
                             </td>
                         </tr>
                         <tr>
@@ -198,6 +199,12 @@
                                 <td class="w-50 fw-600">{{ translate('Coupon')}}</td>
                                 <td class="text-right">
                                     <span class="text-italic">{{ single_price($order->coupon_discount) }}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="w-50 fw-600">{{ translate('Wholesale Discount')}}</td>
+                                <td class="text-right">
+                                    <span class="text-italic">{{ single_price($order->wholesale_commission) }}</span>
                                 </td>
                             </tr>
                             <tr>

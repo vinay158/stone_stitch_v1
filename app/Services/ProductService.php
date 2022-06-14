@@ -171,7 +171,9 @@ class ProductService
 				}
 			}
 		}*/
-		$collection['is_group_main_product'] = (isset($collection['is_group_main_product']) && !empty($collection['is_group_main_product'])) ? $collection['is_group_main_product'] : 0;
+		$collection['is_price_show'] = (isset($collection['is_price_show']) && !empty($collection['is_price_show'])) ? $collection['is_price_show'] : 0;
+        $collection['is_new_arrival'] = (isset($collection['is_new_arrival']) && !empty($collection['is_new_arrival'])) ? $collection['is_new_arrival'] : 0;
+        $collection['is_group_main_product'] = (isset($collection['is_group_main_product']) && !empty($collection['is_group_main_product'])) ? $collection['is_group_main_product'] : 0;
         $slug = Str::slug($collection['name']);
         $slug = $collection['slug'] ? Str::slug($collection['slug']) : Str::slug($collection['name']);
         $same_slug_count = Product::where('slug', 'LIKE', $slug . '%')->count();
