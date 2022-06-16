@@ -1,6 +1,6 @@
 @php
     $best_selling_products = Cache::remember('best_selling_products', 86400, function () {
-        return filter_products(\App\Models\Product::where('is_group_main_product',1)->where('published', 1)->orderBy('num_of_sale', 'desc'))->limit(20)->get();
+        return filter_products(\App\Models\Product::where('list_product',1)->where('published', 1)->orderBy('num_of_sale', 'desc'))->limit(20)->get();
     });   
 @endphp
 

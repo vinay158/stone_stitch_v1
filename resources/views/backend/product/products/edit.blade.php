@@ -542,6 +542,17 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <label class="col-md-6 col-from-label">{{translate('List Product')}}</label>
+                                    <div class="col-md-6">
+                                        <label class="aiz-switch aiz-switch-success mb-0">
+                                            <input type="checkbox" class="list_product" name="list_product" value="1" @if($product->list_product == 1) checked @endif >
+                                            <span></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -51,6 +51,28 @@
                     @csrf
                     @if(Auth::check())
                         <div class="shadow-sm bg-white p-4 rounded mb-4">
+                            @if(Auth::user()->is_salesperson == 1)
+                            <div class="row gutters-5">
+                              
+                                <div class="col-md-12 mx-auto mb-3 border p-3 rounded mb-3 c-pointer text-center bg-white h-100 flex-column justify-content-center">
+
+                                    <div class="col-md-3 float-left">
+                                        <h3 class="fs-14 fw-600">Select Customer</h3>
+                                    </div>
+                                    <div class="col-md-6 float-left">
+                                        <select class="form-control aiz-selectpicker" data-live-search="true" name="customer_id">
+                                            <option>Select Customer</option>
+                                            @foreach($customerlist as $key => $value)
+                                                <option value="{{$value->id}}">{{ucfirst($value->name).' ('.$value->email.')'}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3 float-left">
+                                        <button type="button" class="btn btn-primary fw-600" onclick="add_customer()">{{ translate('Add New User') }}</button>
+                                    </div>
+                                </div>
+                            </div> 
+                            @endif                           
                             <div class="row gutters-5">
                                 @foreach (Auth::user()->addresses as $key => $address)
                                     <div class="col-md-6 mb-3">
@@ -108,6 +130,8 @@
                                     </div>
                                 </div>
                             </div>
+
+
                         </div>
                     @endif
                     <div class="row align-items-center">

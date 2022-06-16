@@ -322,6 +322,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(
         Route::get('/all_orders', 'all_orders')->name('all_orders.index');
         Route::get('/all_orders/{id}/show', 'all_orders_show')->name('all_orders.show');
 
+        // salesperson_dashboard_orders
+        Route::get('/all_salesperson_dashboard_orders/{id}/show', 'salesperson_dashboard_orders_show')->name('all_salesperson_dashboard_orders.show');
+        Route::get('/all_salesperson_dashboard_orders', 'salesperson_dashboard_orders')->name('all_salesperson_dashboard_orders.index');
+        Route::post('/all_salesperson_dashboard_orders/update_status', 'update_status')->name('all_salesperson_dashboard_orders.update_status');
+
         // Inhouse Orders
         Route::get('/inhouse-orders', 'admin_orders')->name('inhouse_orders.index');
         Route::get('/inhouse-orders/{id}/show', 'show')->name('inhouse_orders.show');

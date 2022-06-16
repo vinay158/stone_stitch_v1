@@ -49,7 +49,7 @@ class HomeController extends Controller
         /*$newest_products = Cache::remember('newest_products', 3600, function () {
             return filter_products(Product::where('is_group_main_product',1)->latest())->limit(12)->get();
         });*/
-        $newest_products = Product::where('is_new_arrival',1)->limit(12)->get();
+        $newest_products = Product::where('is_new_arrival',1)->where('published', 1)->limit(12)->get();
 
         return view('frontend.index', compact('featured_categories', 'todays_deal_products', 'newest_products'));
     }

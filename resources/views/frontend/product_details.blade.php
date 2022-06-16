@@ -436,7 +436,7 @@
                             
 
                                 <hr>
-                                @if (isset(Auth::user()->id))
+                                @if (isset(Auth::user()->id) || $detailedProduct->is_price_show)
                                 <div class="row no-gutters pb-3 d-none" id="chosen_price_div">
                                     <div class="col-sm-2">
                                         <div class="opacity-50 my-2">{{ translate('Total Price')}}:</div>

@@ -11,6 +11,7 @@ use App\Models\Coupon;
 use App\Models\CouponUsage;
 use App\Models\Address;
 use App\Models\CombinedOrder;
+use App\Models\User;
 use App\Utility\PayhereUtility;
 use App\Utility\NotificationUtility;
 use Session;
@@ -27,7 +28,7 @@ class CheckoutController extends Controller
     //check the selected payment gateway and redirect to that controller accordingly
     public function checkout(Request $request)
     {
-       // echo "<pre>";print_r($_POST);die;
+       //echo "<pre>";print_r($_POST);die;
         // Minumum order amount check
         if(get_setting('minimum_order_amount_check') == 1){
             $subtotal = 0;
@@ -95,7 +96,9 @@ class CheckoutController extends Controller
 //        if (Session::has('cart') && count(Session::get('cart')) > 0) {
         if ($carts && count($carts) > 0) {
             $categories = Category::all();
-            return view('frontend.shipping_info', compact('categories', 'carts'));
+            $customerlist = User::select('name', 'id', 'email')->where('user_type', 'customer')->where('salesperson_id', Auth::user()->id)->where('banned', 0)->get();
+            //echo "<pre>";print_r($customerlist);die;
+            return view('frontend.shipping_info', compact('categories', 'carts', 'customerlist'));
         }
         flash(translate('Your cart is empty'))->success();
         return back();
@@ -111,6 +114,11 @@ class CheckoutController extends Controller
         $carts = Cart::where('user_id', Auth::user()->id)->get();
 
         foreach ($carts as $key => $cartItem) {
+            if (isset($request->customer_id) && !empty($request->customer_id)) {
+                
+                $cartItem->salesperson_id = Auth::user()->id;
+                $cartItem->for_customer_id = $request->customer_id;
+            }
             $cartItem->address_id = $request->address_id;
             $cartItem->save();
         }

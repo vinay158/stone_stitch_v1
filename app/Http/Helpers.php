@@ -900,6 +900,23 @@ if (!function_exists('wholesaleCommissionAmount')) {
     }
 }
 
+// for unitprice
+if (!function_exists('getProductUnitPrice')) {
+    function getProductUnitPrice($product_id)
+    {   
+        $unit_price = 0;
+        $product = Product::find($product_id);
+
+        if (!empty($product) && isset($product->unit_price)) {
+            $unit_price = $product->unit_price;
+        }
+
+
+        return $unit_price;
+
+    }
+}
+
 // Get URL params
 if (!function_exists('get_url_params')) {
     function get_url_params($url, $key)

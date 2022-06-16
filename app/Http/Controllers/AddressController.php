@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Address;
 use App\Models\City;
 use App\Models\State;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use Auth;
 
 class AddressController extends Controller
@@ -162,4 +165,74 @@ class AddressController extends Controller
 
         return back();
     }
+
+    /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param  array  $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function customer_validator(array $data)
+    {
+        return Validator::make($data, [
+            'name' => 'required|string|max:255',
+            'password' => 'required|string|min:6|confirmed',
+            'email' => 'required|email',
+        ]);
+    }
+
+    /**
+     * Create a new user instance after a valid registration.
+     *
+     * @param  array  $data
+     * @return \App\Models\User
+     */
+    protected function customer_create(array $data)
+    {   
+
+
+
+        $data['is_salesperson'] = 0;
+
+        $user = User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+            'is_salesperson' => $data['is_salesperson'],
+            'banned' => 0,
+            'salesperson_id' => Auth::user()->id,
+        ]);
+
+
+        return $user;
+    }
+
+    public function customer_register(Request $request)
+    {
+
+
+        if (filter_var($request->email, FILTER_VALIDATE_EMAIL)) {
+            if(User::where('email', $request->email)->first() != null){
+                flash(translate('Email or Phone already exists.'))->error();
+                return back();
+            }
+        }
+        elseif (User::where('phone', '+'.$request->country_code.$request->phone)->first() != null) {
+            flash(translate('Phone already exists.'));
+            return back();
+        }
+
+        $this->customer_validator($request->all())->validate();
+
+        $user = $this->customer_create($request->all());
+
+        if($user->save()){
+           flash(translate('Customer Add successfully'))->success(); 
+        }else{
+            flash(translate('Somthing went Wrong'))->error(); 
+        }
+        
+        return back();
+    }
+
 }

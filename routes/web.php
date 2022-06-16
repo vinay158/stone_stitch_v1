@@ -264,6 +264,10 @@ Route::group(['middleware' => ['customer', 'verified', 'unbanned']], function() 
     Route::resource('purchase_history', PurchaseHistoryController::class);
     Route::controller(PurchaseHistoryController::class)->group(function () {
         Route::get('/purchase_history/details/{id}', 'purchase_history_details')->name('purchase_history.details');
+        Route::get('salesperson_customer', 'salesperson_customer_index')->name('salesperson_customer.index');
+        Route::get('/salesperson_customer/customer-purchase-form', 'purchase_form')->name('salesperson_customer.customer-purchase-form');
+        Route::post('/salesperson_customer/get-all-product', 'get_all_product')->name('salesperson_customer.get-all-product');
+        Route::post('/salesperson_customer/customer-purchase-store', 'custm_purchase_store')->name('salesperson_customer.customer-purchase-store');
         Route::get('/purchase_history/destroy/{id}', 'order_cancel')->name('purchase_history.destroy');
         Route::get('digital_purchase_history', 'digital_index')->name('digital_purchase_history.index');
     });
@@ -325,6 +329,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::controller(AddressController::class)->group(function () {
         Route::post('/get-states', 'getStates')->name('get-state');
         Route::post('/get-cities', 'getCities')->name('get-city');
+        Route::post('/customer-register', 'customer_register')->name('customer-register');
         Route::post('/addresses/update/{id}', 'update')->name('addresses.update');
         Route::get('/addresses/destroy/{id}', 'destroy')->name('addresses.destroy');
         Route::get('/addresses/set_default/{id}', 'set_default')->name('addresses.set_default');

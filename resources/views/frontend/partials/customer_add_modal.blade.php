@@ -1,4 +1,4 @@
-<div class="modal fade" id="new-address-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="new-customer-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -131,17 +131,9 @@
     </div>
 </div>
 
-
-
-
-
 @section('script')
     <script type="text/javascript">
-        function add_new_address(){
-            $('#new-address-modal').modal('show');
-        }
-
-       
+  
 
         function edit_address(address) {
             var url = '{{ route("addresses.edit", ":id") }}';
@@ -226,8 +218,5 @@
         }
     </script>
 
-    
-    @if (get_setting('google_map') == 1)
-        @include('frontend.partials.google_map')
-    @endif
+
 @endsection

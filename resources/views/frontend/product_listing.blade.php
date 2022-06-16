@@ -114,6 +114,7 @@
                                         </ul>
                                     </div>
                                 </div>
+                                 @if (isset(Auth::user()->id))
                                 <div class="bg-white shadow-sm rounded mb-3">
                                     <div class="fs-15 fw-600 p-3 border-bottom">
                                         {{ translate('Price range')}}
@@ -155,7 +156,7 @@
                                         </div>
                                     </div>
                                 </div>
-
+                                @endif
                                 @foreach ($attributes as $attribute)
                                     <div class="bg-white shadow-sm rounded mb-3">
                                         <div class="fs-15 fw-600 p-3 border-bottom">

@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\OrderDetail;
+use App\Models\User;
+use App\Models\Category;
+use App\Models\Product;
+use App\Models\SalespersonOrderProduct;
 use Auth;
 use DB;
 
@@ -19,6 +23,72 @@ class PurchaseHistoryController extends Controller
     {
         $orders = Order::where('user_id', Auth::user()->id)->orderBy('code', 'desc')->paginate(9);
         return view('frontend.user.purchase_history', compact('orders'));
+    }    
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function salesperson_customer_index()
+    {   
+
+        $orders = SalespersonOrderProduct::with('customer','category','product')->where('salesperson_id', Auth::user()->id)->orderBy('created_at', 'desc')->paginate(9);
+        //echo "<pre>";print_r($orders);die;
+
+        return view('frontend.user.salesperson_purchase_history', compact('orders'));
+    }
+
+    public function purchase_form()
+    {
+        $customerlist = User::select('name', 'id', 'email')->where('user_type', 'customer')->where('salesperson_id', Auth::user()->id)->where('banned', 0)->get();
+        $categories = Category::where('parent_id', 0)
+            ->where('digital', 0)
+            ->with('childrenCategories')
+            ->get();
+        return view('frontend.user.purchase_form', compact('customerlist','categories'));    
+    }
+
+    public function custm_purchase_store(Request $request)
+    {
+        if (Auth::user()->is_salesperson == 1) {
+
+            $unit_price = getProductUnitPrice($request->product_id);
+
+            $salespersonOrderProduct = new SalespersonOrderProduct;
+            $salespersonOrderProduct->customer_id= $request->customer_id;
+            $salespersonOrderProduct->category_id= $request->category_id;
+            $salespersonOrderProduct->product_id= $request->product_id;
+            $salespersonOrderProduct->qty= $request->qty;
+            $salespersonOrderProduct->description= $request->description;
+            $salespersonOrderProduct->salesperson_id= Auth::user()->id;
+            $salespersonOrderProduct->price= $unit_price;
+            $salespersonOrderProduct->status= 'Pending';
+            if($salespersonOrderProduct->save()){
+                flash(translate('Request has been send'))->success();
+                return redirect()->route('dashboard');
+            }else{
+                flash(translate('Something went wrong! Please try again'))->error();
+                return back();
+            }
+            
+        }else{
+            flash(translate('Your not authorized user'))->error();
+            return back();
+        }
+
+    }
+
+    public function get_all_product(Request $request)
+    {
+        $products = Product::with('brand')->where('category_id', $request->category_id)->where('published',1)->get();
+        $html = '<option value="">'.translate("Select Product").'</option>';
+        //echo "<pre>";print_r($products);die;
+        foreach ($products as $product) {
+            $html .= '<option value="' . $product->id . '" price="' . $product->unit_price . '">' . $product->name.' ('.$product->brand->name.')</option>';
+        }
+        
+        echo json_encode($html);
     }
 
     public function digital_index()

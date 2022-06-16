@@ -21,6 +21,7 @@ use App\Models\User;
 use App\Models\BusinessSetting;
 use App\Models\CombinedOrder;
 use App\Models\SmsTemplate;
+use App\Models\SalespersonOrderProduct;
 use Auth;
 use Session;
 use DB;
@@ -98,6 +99,33 @@ class OrderController extends Controller
         return view('backend.sales.all_orders.index', compact('orders', 'sort_search', 'delivery_status', 'date'));
     }
 
+    // All Orders
+    public function salesperson_dashboard_orders(Request $request)
+    {
+        
+        $date = $request->date;
+        $sort_search = null;
+        $status = null;
+
+        $orders = SalespersonOrderProduct::with('customer','category','product','salesperson')->orderBy('id', 'desc');
+        if ($request->status != null) {
+            $orders = $orders->where('status', $request->status);
+            $status = $request->status;
+        }
+        if ($date != null) {
+            $orders = $orders->where('created_at', '>=', date('Y-m-d', strtotime(explode(" to ", $date)[0])))->where('created_at', '<=', date('Y-m-d', strtotime(explode(" to ", $date)[1])));
+        }
+        $orders = $orders->paginate(15);
+        return view('backend.sales.all_salesperson_dashboard_orders.index', compact('orders', 'sort_search', 'status', 'date'));
+    }
+
+    public function salesperson_dashboard_orders_show($id)
+    {
+        //die('jhgv');
+        $orderDetail = SalespersonOrderProduct::findOrFail($id);
+
+        return view('backend.sales.all_salesperson_dashboard_orders.show', compact('orderDetail'));
+    }
     public function all_orders_show($id)
     {
         $order = Order::findOrFail(decrypt($id));
@@ -289,7 +317,7 @@ class OrderController extends Controller
         $carts = Cart::where('user_id', Auth::user()->id)
             ->get();
 
-       // echo '<pre>carts'; print_r($carts); die;
+       
 
         if ($carts->isEmpty()) {
             flash(translate('Your cart is empty'))->warning();
@@ -391,6 +419,9 @@ class OrderController extends Controller
                 $product->save();
 
                 $order->seller_id = $product->user_id;
+
+                $order->salesperson_id = $cartItem['salesperson_id'];
+                $order->for_customer_id = $cartItem['for_customer_id'];
 
                 if ($product->added_by == 'seller' && $product->user->seller != null){
                     $seller = $product->user->seller;
@@ -516,6 +547,15 @@ class OrderController extends Controller
         return view('seller.order_details_seller', compact('order'));
     }
 
+    public function update_status(Request $request)
+    {
+        $order = SalespersonOrderProduct::findOrFail($request->order_id);
+        $order->status = $request->status;
+        $order->save();
+
+
+        return 1;
+    }
     public function update_delivery_status(Request $request)
     {
         $order = Order::findOrFail($request->order_id);

@@ -327,7 +327,81 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="new-customer-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{{ translate('New Customer') }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form class="form-default" role="form" action="{{ route('customer-register') }}" method="POST">
+                    @csrf
 
+                    <div class="modal-body">
+                        <div class="p-3">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label>{{ translate('Full Name')}}</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <input type="text" class="form-control mb-3 {{ $errors->has('name') ? ' is-invalid' : '' }}" value="{{ old('name') }}" placeholder="{{  translate('Full Name') }}" name="name" required>
+                                                @if ($errors->has('name'))
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $errors->first('name') }}</strong>
+                                                    </span>
+                                                @endif
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label>{{ translate('Email')}}</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="mb-3">
+                                        <input type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" placeholder="{{  translate('Email') }}" name="email" required>
+                                                    @if ($errors->has('email'))
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $errors->first('email') }}</strong>
+                                                        </span>
+                                                    @endif
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label>{{ translate('Password')}}</label>
+                                </div>
+                                <div class="col-md-10">
+                                   <input type="password" class="form-control mb-3 {{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{  translate('Password') }}" name="password" required>
+                                                @if ($errors->has('password'))
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $errors->first('password') }}</strong>
+                                                    </span>
+                                                @endif
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label>{{ translate('Confirm Password')}}</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <input type="password" class="form-control mb-3" placeholder="{{  translate('Confirm Password') }}" name="password_confirmation" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group text-right">
+                                <button type="submit" class="btn btn-sm btn-primary">{{translate('Save')}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     @yield('modal')
 
 
@@ -620,6 +694,10 @@
 
         function showLoginCartModal(){
             $('#login-modal-new').modal();
+        }
+
+        function add_customer(){
+            $('#new-customer-modal').modal('show');
         }
 	
 $(window).on('scroll',function() {

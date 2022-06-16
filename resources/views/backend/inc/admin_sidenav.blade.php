@@ -229,6 +229,11 @@
                                     <span class="aiz-side-nav-text">{{translate('All Orders')}}</span>
                                 </a>
                             </li>
+                            <li class="aiz-side-nav-item">
+                                <a href="{{ route('all_salesperson_dashboard_orders.index') }}" class="aiz-side-nav-link {{ areActiveRoutes(['all_salesperson_dashboard_orders.index', 'all_orders.show'])}}">
+                                    <span class="aiz-side-nav-text">{{translate('All Salesperson Orders')}}</span>
+                                </a>
+                            </li>
                         @endif
 
                         @if(Auth::user()->user_type == 'admin' || in_array('4', json_decode(Auth::user()->staff->role->permissions)))

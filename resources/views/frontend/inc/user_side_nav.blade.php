@@ -113,6 +113,29 @@
                                 @if($delivery_viewed > 0 || $payment_status_viewed > 0)<span class="badge badge-inline badge-success">{{ translate('New') }}</span>@endif
                             </a>
                         </li>
+                        @if(Auth::user()->is_salesperson == 1)
+                            <li class="aiz-side-nav-item">
+                                <a href="{{ route('salesperson_customer.index') }}" class="aiz-side-nav-link {{ areActiveRoutes(['salesperson_customer.index','purchase_history.details'])}}">
+                                    <i class="las la-file-alt aiz-side-nav-icon"></i>
+                                    <span class="aiz-side-nav-text">{{ translate('Customer Purchase History') }}</span>
+                                    @if($delivery_viewed > 0 || $payment_status_viewed > 0)<span class="badge badge-inline badge-success">{{ translate('New') }}</span>@endif
+                                </a>
+                            </li>
+                            <li class="aiz-side-nav-item">
+                                <a href="{{ route('salesperson_customer.customer-purchase-form') }}" class="aiz-side-nav-link {{ areActiveRoutes(['salesperson_customer.customer-purchase-form'])}}">
+                                    <i class="las la-file-alt aiz-side-nav-icon"></i>
+                                    <span class="aiz-side-nav-text">{{ translate('Customer Purchase Form') }}</span>
+                                    @if($delivery_viewed > 0 || $payment_status_viewed > 0)<span class="badge badge-inline badge-success">{{ translate('New') }}</span>@endif
+                                </a>
+                            </li>
+                            <li class="aiz-side-nav-item">
+                                <a href="javascript:void(0);" class="aiz-side-nav-link" onclick="add_customer()">
+                                    <i class="las la-user aiz-side-nav-icon"></i>
+                                    <span class="aiz-side-nav-text">{{ translate('Add New Customer') }}</span>
+                                   
+                                </a>
+                            </li>
+                        @endif
 
                         <li class="aiz-side-nav-item">
                             <a href="{{ route('digital_purchase_history.index') }}" class="aiz-side-nav-link {{ areActiveRoutes(['digital_purchase_history.index'])}}">

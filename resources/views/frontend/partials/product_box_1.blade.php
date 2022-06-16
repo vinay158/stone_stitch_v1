@@ -38,7 +38,7 @@
         </div>
     </div>
     <div class="p-md-3 p-2 text-left">
-        @if (isset(Auth::user()->id))
+        @if (isset(Auth::user()->id) || $product->is_price_show == 1)
         <div class="fs-17">
             @if(home_base_price($product) != home_discounted_base_price($product))
                 <del class="fw-400 opacity-50 mr-1">{{ home_base_price($product) }}</del>
