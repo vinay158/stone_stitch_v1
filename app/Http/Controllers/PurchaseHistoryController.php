@@ -21,7 +21,7 @@ class PurchaseHistoryController extends Controller
      */
     public function index()
     {
-        $orders = Order::where('user_id', Auth::user()->id)->orderBy('code', 'desc')->paginate(9);
+        $orders = Order::with('salespersonCustomer')->where('user_id', Auth::user()->id)->orderBy('code', 'desc')->paginate(9);
         return view('frontend.user.purchase_history', compact('orders'));
     }    
 
@@ -33,7 +33,7 @@ class PurchaseHistoryController extends Controller
     public function salesperson_customer_index()
     {   
 
-        $orders = SalespersonOrderProduct::with('customer','category','product')->where('salesperson_id', Auth::user()->id)->orderBy('created_at', 'desc')->paginate(9);
+        $orders = SalespersonOrderProduct::/*with('customer','category','product')->*/where('salesperson_id', Auth::user()->id)->orderBy('created_at', 'desc')->paginate(9);
         //echo "<pre>";print_r($orders);die;
 
         return view('frontend.user.salesperson_purchase_history', compact('orders'));
@@ -64,6 +64,9 @@ class PurchaseHistoryController extends Controller
             $salespersonOrderProduct->salesperson_id= Auth::user()->id;
             $salespersonOrderProduct->price= $unit_price;
             $salespersonOrderProduct->status= 'Pending';
+            $salespersonOrderProduct->product_name= getProductName($request->product_id);
+            $salespersonOrderProduct->customer_name= getUserName($request->customer_id);
+            $salespersonOrderProduct->category_name= getCategoryName($request->category_id);
             if($salespersonOrderProduct->save()){
                 flash(translate('Request has been send'))->success();
                 return redirect()->route('dashboard');

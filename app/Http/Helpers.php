@@ -20,6 +20,7 @@ use App\Models\Product;
 use App\Models\Shop;
 use App\Models\AttributeValue;
 use App\Models\WholesaleCommission;
+use App\Models\Category;
 use App\Utility\SendSMSUtility;
 use App\Utility\NotificationUtility;
 use Carbon\Carbon;
@@ -913,6 +914,57 @@ if (!function_exists('getProductUnitPrice')) {
 
 
         return $unit_price;
+
+    }
+}
+
+// for getProductName
+if (!function_exists('getProductName')) {
+    function getProductName($product_id)
+    {   
+        $name = '';
+        $product = Product::find($product_id);
+
+        if (!empty($product) && isset($product->name)) {
+            $name = $product->name;
+        }
+
+
+        return $name;
+
+    }
+}
+
+// for getUserName
+if (!function_exists('getUserName')) {
+    function getUserName($id)
+    {   
+        $name = '';
+        $user = User::find($id);
+
+        if (!empty($user) && isset($user->name)) {
+            $name = $user->name;
+        }
+
+
+        return $name;
+
+    }
+}
+
+// for getCategoryName
+if (!function_exists('getCategoryName')) {
+    function getCategoryName($id)
+    {   
+        $name = '';
+        $category = Category::find($id);
+
+        if (!empty($category) && isset($category->name)) {
+            $name = $category->name;
+        }
+
+
+        return $name;
 
     }
 }

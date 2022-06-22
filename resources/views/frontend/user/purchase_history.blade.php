@@ -15,6 +15,9 @@
                             <th>{{ translate('Amount')}}</th>
                             <th data-breakpoints="md">{{ translate('Delivery Status')}}</th>
                             <th data-breakpoints="md">{{ translate('Payment Status')}}</th>
+                            @if(Auth::user()->is_salesperson == 1)
+                                <th data-breakpoints="md">{{ translate('Customer')}}</th>
+                            @endif
                             <th class="text-right">{{ translate('Options')}}</th>
                         </tr>
                     </thead>
@@ -45,6 +48,16 @@
                                             <span class="ml-2" style="color:green"><strong>*</strong></span>
                                         @endif
                                     </td>
+                                    @if(Auth::user()->is_salesperson == 1)
+                                        <td>
+                                            @if ($order->salespersonCustomer != null)
+                                            {{ $order->salespersonCustomer->name }}
+                                            @else
+                                            -
+                                            @endif
+                                           
+                                        </td>
+                                    @endif
                                     <td class="text-right">
                                         @if ($order->delivery_status == 'pending' && $order->payment_status == 'unpaid')
                                             <a href="javascript:void(0)" class="btn btn-soft-danger btn-icon btn-circle btn-sm confirm-delete" data-href="{{route('purchase_history.destroy', $order->id)}}" title="{{ translate('Cancel') }}">

@@ -6,7 +6,7 @@
     <form class="" action="" id="sort_orders" method="GET">
         <div class="card-header row gutters-5">
             <div class="col">
-                <h5 class="mb-md-0 h6">{{ translate('All Salesperson Orders') }}</h5>
+                <h5 class="mb-md-0 h6">{{ translate('Salesperson Dashboard Orders') }}</h5>
             </div>
 
             <div class="dropdown mb-2 mb-md-0">
@@ -119,9 +119,9 @@
                         </td>
                         <td>{{ date('d-m-Y', strtotime($order->created_at)) }}</td>
                         <td>{{ $order->salesperson->name }}</td>
-                        <td>{{ $order->customer->name }}</td>
-                        <td>{{ $order->category->name }}</td>
-                        <td>{{ $order->product->name }}</td>
+                        <td>{{ $order->customer_name }}</td>
+                        <td>{{ $order->category_name }}</td>
+                        <td>{{ $order->product_name }}</td>
                         <td>{{ $order->qty }}</td>
                         <td>{{ single_price($order->price) }}</td>
                         <td>

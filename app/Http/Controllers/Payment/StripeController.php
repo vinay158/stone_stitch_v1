@@ -66,7 +66,7 @@ class StripeController extends Controller
             'success_url' => route('stripe.success'),
             'cancel_url' => route('stripe.cancel'),
         ]);
-
+        //echo "<pre>";print_r($session);die;
         return response()->json(['id' => $session->id, 'status' => 200]);
     }
 

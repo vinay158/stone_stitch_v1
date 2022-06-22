@@ -25,9 +25,9 @@
                                 <tr>
                                    
                                     <td>{{ date('d-m-Y', strtotime($order->created_at)) }}</td>
-                                    <td>{{ $order->customer->name }}</td>
-                                    <td>{{ $order->category->name }}</td>
-                                    <td>{{ $order->product->name }}</td>
+                                    <td>{{ $order->customer_name }}</td>
+                                    <td>{{ $order->category_name }}</td>
+                                    <td>{{ $order->product_name }}</td>
                                     <td>{{ $order->qty }}</td>
                                     <td>{{ single_price($order->price) }}</td>
                                     <td>

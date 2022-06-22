@@ -20,6 +20,14 @@ class Order extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function salesperson()
+    {
+        return $this->belongsTo(User::class,'salesperson_id')->select(['id','name']);
+    }
+    public function salespersonCustomer()
+    {
+        return $this->belongsTo(User::class,'for_customer_id')->select(['id','name']);
+    }
 
     public function shop()
     {

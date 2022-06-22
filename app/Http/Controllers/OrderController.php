@@ -82,8 +82,9 @@ class OrderController extends Controller
         $date = $request->date;
         $sort_search = null;
         $delivery_status = null;
+        $user_type = null;
 
-        $orders = Order::orderBy('id', 'desc');
+        $orders = Order::with('salesperson','salespersonCustomer')->orderBy('id', 'desc');
         if ($request->has('search')) {
             $sort_search = $request->search;
             $orders = $orders->where('code', 'like', '%' . $sort_search . '%');
@@ -95,8 +96,19 @@ class OrderController extends Controller
         if ($date != null) {
             $orders = $orders->where('created_at', '>=', date('Y-m-d', strtotime(explode(" to ", $date)[0])))->where('created_at', '<=', date('Y-m-d', strtotime(explode(" to ", $date)[1])));
         }
+
+        if ($request->user_type != null) {
+            if ($request->user_type == 'salesperson') {
+                $orders = $orders->where('salesperson_id', '>', 0);
+            }else{
+                $orders = $orders->where('salesperson_id', 0); 
+            }
+            
+            $user_type = $request->user_type;
+        }
+
         $orders = $orders->paginate(15);
-        return view('backend.sales.all_orders.index', compact('orders', 'sort_search', 'delivery_status', 'date'));
+        return view('backend.sales.all_orders.index', compact('orders', 'sort_search', 'delivery_status', 'date', 'user_type'));
     }
 
     // All Orders
@@ -107,7 +119,7 @@ class OrderController extends Controller
         $sort_search = null;
         $status = null;
 
-        $orders = SalespersonOrderProduct::with('customer','category','product','salesperson')->orderBy('id', 'desc');
+        $orders = SalespersonOrderProduct::with(/*'customer','category','product',*/'salesperson')->orderBy('id', 'desc');
         if ($request->status != null) {
             $orders = $orders->where('status', $request->status);
             $status = $request->status;
@@ -128,7 +140,7 @@ class OrderController extends Controller
     }
     public function all_orders_show($id)
     {
-        $order = Order::findOrFail(decrypt($id));
+        $order = Order::with('salesperson','salespersonCustomer')->findOrFail(decrypt($id));
         $order_shipping_address = json_decode($order->shipping_address);
         $delivery_boys = User::where('city', $order_shipping_address->city)
             ->where('user_type', 'delivery_boy')

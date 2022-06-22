@@ -215,7 +215,7 @@
                 @endif
 
                 <!-- Sale -->
-                <li class="aiz-side-nav-item display-none">
+                <li class="aiz-side-nav-item">
                     <a href="#" class="aiz-side-nav-link">
                         <i class="las la-money-bill aiz-side-nav-icon"></i>
                         <span class="aiz-side-nav-text">{{translate('Sales')}}</span>
@@ -231,27 +231,27 @@
                             </li>
                             <li class="aiz-side-nav-item">
                                 <a href="{{ route('all_salesperson_dashboard_orders.index') }}" class="aiz-side-nav-link {{ areActiveRoutes(['all_salesperson_dashboard_orders.index', 'all_orders.show'])}}">
-                                    <span class="aiz-side-nav-text">{{translate('All Salesperson Orders')}}</span>
+                                    <span class="aiz-side-nav-text">{{translate('Salesperson Dashboard Orders')}}</span>
                                 </a>
                             </li>
                         @endif
 
                         @if(Auth::user()->user_type == 'admin' || in_array('4', json_decode(Auth::user()->staff->role->permissions)))
-                            <li class="aiz-side-nav-item">
+                            <li class="aiz-side-nav-item display-none">
                                 <a href="{{ route('inhouse_orders.index') }}" class="aiz-side-nav-link {{ areActiveRoutes(['inhouse_orders.index', 'inhouse_orders.show'])}}" >
                                     <span class="aiz-side-nav-text">{{translate('Inhouse orders')}}</span>
                                 </a>
                             </li>
                         @endif
                         @if(Auth::user()->user_type == 'admin' || in_array('5', json_decode(Auth::user()->staff->role->permissions)))
-                            <li class="aiz-side-nav-item">
+                            <li class="aiz-side-nav-item display-none">
                                 <a href="{{ route('seller_orders.index') }}" class="aiz-side-nav-link {{ areActiveRoutes(['seller_orders.index', 'seller_orders.show'])}}">
                                     <span class="aiz-side-nav-text">{{translate('Seller Orders')}}</span>
                                 </a>
                             </li>
                         @endif
                         @if(Auth::user()->user_type == 'admin' || in_array('6', json_decode(Auth::user()->staff->role->permissions)))
-                            <li class="aiz-side-nav-item">
+                            <li class="aiz-side-nav-item display-none">
                                 <a href="{{ route('pick_up_point.order_index') }}" class="aiz-side-nav-link {{ areActiveRoutes(['pick_up_point.order_index','pick_up_point.order_show'])}}">
                                     <span class="aiz-side-nav-text">{{translate('Pick-up Point Order')}}</span>
                                 </a>

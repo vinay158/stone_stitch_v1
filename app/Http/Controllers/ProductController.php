@@ -577,14 +577,19 @@ class ProductController extends Controller
         $options = array();
 
         if ($request->has('choice_no')) {
+            
             foreach ($request->choice_no as $key => $no) {
                 $name = 'choice_options_' . $no;
                 $data = array();
                 if($request['choice'][$key] == 'Materials'){
-                    foreach ($request[$name] as $key => $item) {
-                        // array_push($data, $item->value);
-                        array_push($data, $item);
+
+                    if (isset($request[$name])) {
+                        foreach ($request[$name] as $key => $item) {
+                            // array_push($data, $item->value);
+                            array_push($data, $item);
+                        }
                     }
+
                     array_push($options, $data);
                 }
 

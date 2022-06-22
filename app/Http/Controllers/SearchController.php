@@ -49,8 +49,9 @@ class SearchController extends Controller
 
             $products->whereIn('category_id', $category_ids);
 
-            $attribute_ids = AttributeCategory::whereIn('category_id', $category_ids)->pluck('attribute_id')->toArray();
-            $attributes = Attribute::whereIn('id', $attribute_ids)->get();
+            //$attribute_ids = AttributeCategory::whereIn('category_id', $category_ids)->pluck('attribute_id')->toArray();
+            //$attributes = Attribute::whereIn('id', $attribute_ids)->get();
+            //echo "<pre>";print_r($attribute_ids);die;
         } else {
             // if ($query != null) {
             //     foreach (explode(' ', trim($query)) as $word) {

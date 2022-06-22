@@ -53,6 +53,13 @@
             </div>
 
             <div class="col-lg-2 ml-auto">
+                <select class="form-control aiz-selectpicker" name="user_type" id="user_type">
+                    <option value="">{{translate('Filter by User Type')}}</option>
+                    <option value="salesperson" @if ($user_type == 'salesperson') selected @endif>{{translate('Salesperson')}}</option>
+                    <option value="customer" @if ($user_type == 'customer') selected @endif>{{translate('Customer')}}</option>
+                </select>
+            </div>
+            <div class="col-lg-2 ml-auto">
                 <select class="form-control aiz-selectpicker" name="delivery_status" id="delivery_status">
                     <option value="">{{translate('Filter by Delivery Status')}}</option>
                     <option value="pending" @if ($delivery_status == 'pending') selected @endif>{{translate('Pending')}}</option>
@@ -81,6 +88,7 @@
         </div>
 
         <div class="card-body">
+            <p class="float-right" style="color: rgb(247 242 192);"><span class="btn btn-icon btn-circle btn-light" style="background-color: rgb(247 242 192);"></span> Salesperson Order</p>
             <table class="table aiz-table mb-0">
                 <thead>
                     <tr>
@@ -101,6 +109,8 @@
                         <th data-breakpoints="md">{{ translate('Amount') }}</th>
                         <th data-breakpoints="md">{{ translate('Delivery Status') }}</th>
                         <th data-breakpoints="md">{{ translate('Payment Status') }}</th>
+                        <th data-breakpoints="md">{{ translate('Salesperson') }}</th>
+                        <th data-breakpoints="md">{{ translate('Salesperson-Customer') }}</th>
                         @if (addon_is_activated('refund_request'))
                         <th>{{ translate('Refund') }}</th>
                         @endif
@@ -109,7 +119,13 @@
                 </thead>
                 <tbody>
                     @foreach ($orders as $key => $order)
-                    <tr>
+                    <?php 
+                        $color_code = '';
+                        if ($order->salesperson_id > 0) {
+                            $color_code = 'background-color: rgb(247 242 192);';
+                        }
+                    ?>
+                    <tr style="<?php echo $color_code ?>">
     <!--                    <td>
                             {{ ($key+1) + ($orders->currentPage() - 1)*$orders->perPage() }}
                         </td>-->
@@ -155,6 +171,22 @@
                             @else
                             <span class="badge badge-inline badge-danger">{{translate('Unpaid')}}</span>
                             @endif
+                        </td>
+                        <td>
+                            @if ($order->salesperson != null)
+                            {{ $order->salesperson->name }}
+                            @else
+                            -
+                            @endif
+                            
+                        </td>
+                        <td>
+                            @if ($order->salespersonCustomer != null)
+                            {{ $order->salespersonCustomer->name }}
+                            @else
+                            -
+                            @endif
+                           
                         </td>
                         @if (addon_is_activated('refund_request'))
                         <td>

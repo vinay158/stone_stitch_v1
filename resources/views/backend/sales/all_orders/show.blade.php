@@ -117,6 +117,29 @@
                             <td class="text-main text-bold">{{translate('Payment method')}}</td>
                             <td class="text-right">{{ translate(ucfirst(str_replace('_', ' ', $order->payment_type))) }}</td>
                         </tr>
+                        @if ($order->salesperson_id != null)
+                        <tr>
+                            <td class="text-main text-bold">{{translate('Salesperson Name')}}</td>
+
+                            <td class="text-right">                           
+                                @if ($order->salesperson != null)
+                                {{ translate(ucfirst($order->salesperson->name)) }}
+                                @else
+                                -
+                                @endif
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-main text-bold">{{translate('Shopping For')}}</td>
+                            <td class="text-right">                           
+                                @if ($order->salespersonCustomer != null)
+                                {{ translate(ucfirst($order->salespersonCustomer->name)) }}
+                                @else
+                                -
+                                @endif
+                            </td>
+                        </tr>
+                        @endif
                     </tbody>
                 </table>
             </div>

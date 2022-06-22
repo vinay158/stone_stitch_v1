@@ -922,7 +922,7 @@
             //alert(data);
                 $('#img_combination').html(data);
                 AIZ.uploader.previewGenerate();
-                //AIZ.plugins.fooTable();
+                AIZ.plugins.fooTable();
                 
            }
        });

@@ -4,7 +4,7 @@
 
 <div class="card">
     <div class="card-header">
-        <h1 class="h2 fs-16 mb-0">{{ translate('Salesperson Order Details') }}</h1>
+        <h1 class="h2 fs-16 mb-0">{{ translate('Salesperson Dashboard Order Details') }}</h1>
     </div>
     <div class="card-body">
         <div class="row gutters-5">
