@@ -106,11 +106,11 @@
                                     <span class="aiz-side-nav-text">{{translate('Category')}}</span>
                                 </a>
                             </li>
-							 <li class="aiz-side-nav-item">
+							 <!-- <li class="aiz-side-nav-item">
                                 <a href="{{route('product-groups.index')}}" class="aiz-side-nav-link {{ areActiveRoutes(['product-groups.index', 'product-groups.create', 'product-groups.edit'])}}" >
                                     <span class="aiz-side-nav-text">{{translate('Product Groups')}}</span>
                                 </a>
-                            </li>
+                            </li> -->
                             <li class="aiz-side-nav-item">
                                 <a href="{{route('brands.index')}}" class="aiz-side-nav-link {{ areActiveRoutes(['brands.index', 'brands.create', 'brands.edit'])}}" >
                                     <span class="aiz-side-nav-text">{{translate('Gemstones')}}</span>
