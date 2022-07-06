@@ -476,6 +476,17 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <label class="col-md-6 col-from-label">{{translate('System Type')}}</label>
+                                    <div class="col-md-12">
+                                        <select class="form-control aiz-selectpicker" id="system_type" name="system_type">
+                                            <option value="wholesale" selected>Wholesale</option>
+                                            <option value="retail">Retail</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
