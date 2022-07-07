@@ -83,6 +83,8 @@ class ProductController extends Controller
                 });
         }
 
+        
+
         $products = $products->where('digital', 0)->orderBy('created_at', 'desc')->paginate(15);
 
         return view('backend.product.products.index', compact('products', 'type', 'col_name', 'query', 'sort_search', 'is_parent'));
@@ -132,7 +134,8 @@ class ProductController extends Controller
         $seller_id = null;
         $sort_search = null;
         $is_parent = 3;
-        
+        $system_search = null;
+
         $products = Product::orderBy('created_at', 'desc')->where('auction_product', 0)->where('wholesale_product', 0);
         if ($request->has('user_id') && $request->user_id != null) {
             $products = $products->where('user_id', $request->user_id);
@@ -163,11 +166,15 @@ class ProductController extends Controller
             }
             
         }
-
+        if ($request->system_type != null) {
+            $system_search = $request->system_type;
+            $products = $products->where('system_type',$system_search);
+                
+        }
         $products = $products->paginate(15);
         $type = 'All';
 
-        return view('backend.product.products.index', compact('products', 'type', 'col_name', 'query', 'seller_id', 'sort_search','is_parent'));
+        return view('backend.product.products.index', compact('products', 'type', 'col_name', 'query', 'seller_id', 'sort_search','is_parent','system_search'));
     }
 
 
