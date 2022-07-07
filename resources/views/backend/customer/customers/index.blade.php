@@ -27,8 +27,9 @@
             <div class="col-lg-2 ml-auto">
                 <select class="form-control aiz-selectpicker" name="user_type" id="user_type">
                     <option value="">{{translate('Filter by User Type')}}</option>
-                    <option value="0" @if ($user_type == 0) selected @endif>{{translate('Customer')}}</option>
-                    <option value="1" @if ($user_type == 1) selected @endif>{{translate('Salesperson')}}</option>
+                    <option value="wholesale" @if ($user_type == "wholesale") selected @endif >{{translate('Wholesale')}}</option>
+                    <option value="retail" @if ($user_type == "retail") selected @endif>{{translate('Retail')}}</option>
+                    <option value="salesperson" @if ($user_type == "salesperson") selected @endif>{{translate('Salesperson')}}</option>
                 </select>
             </div>
             <div class="col-md-3">

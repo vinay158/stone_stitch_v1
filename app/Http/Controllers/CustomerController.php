@@ -26,9 +26,21 @@ class CustomerController extends Controller
             });
         }
         if ($request->user_type != null) {
-            $users = $users->where('is_salesperson', $request->user_type);
             $user_type = $request->user_type;
+            if($request->user_type == 'salesperson')
+            {
+            $users = $users->where('is_salesperson', 1);
+            } 
+            else if($request->user_type == 'retail')
+            {
+            $users = $users->where('is_retail', 1 );
+            }
+            else{
+            $users = $users->where('is_retail', 0 )->where('is_salesperson', 0);
+
+            }
         }
+        
         $users = $users->paginate(15);
         return view('backend.customer.customers.index', compact('users', 'sort_search', 'user_type'));
     }
