@@ -126,7 +126,7 @@
                         }
                     ?>
                     <tr style="<?php echo $color_code ?>">
-    <!--                    <td>
+                        <!--<td>
                             {{ ($key+1) + ($orders->currentPage() - 1)*$orders->perPage() }}
                         </td>-->
                         <td>
