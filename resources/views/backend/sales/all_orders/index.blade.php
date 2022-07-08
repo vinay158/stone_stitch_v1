@@ -15,7 +15,7 @@
                 </button>
                 <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" href="#" onclick="bulk_delete()"> {{translate('Delete selection')}}</a>
-<!--                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModal">
+                    <!--<a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModal">
                         <i class="las la-sync-alt"></i>
                         {{translate('Change Order Status')}}
                     </a>-->
@@ -204,9 +204,12 @@
                             <a class="btn btn-soft-info btn-icon btn-circle btn-sm" href="{{ route('invoice.download', $order->id) }}" title="{{ translate('Download Invoice') }}">
                                 <i class="las la-download"></i>
                             </a>
-                            <a href="#" class="btn btn-soft-danger btn-icon btn-circle btn-sm confirm-delete" data-href="{{route('orders.destroy', $order->id)}}" title="{{ translate('Delete') }}">
+                            <!-- <a href="#" class="btn btn-soft-danger btn-icon btn-circle btn-sm confirm-delete" data-href="{{route('orders.destroy', $order->id)}}" title="{{ translate('Delete') }}">
                                 <i class="las la-trash"></i>
-                            </a>
+                            </a> -->
+                            <a href="#" class="btn btn-soft-danger btn-icon btn-circle btn-sm confirm-delete" data-href="{{route('order.cancel', $order->id)}}" title="{{ translate('Cancel') }}">
+                                <i class="las la-trash"></i>
+                            </a>                            
                         </td>
                     </tr>
                     @endforeach

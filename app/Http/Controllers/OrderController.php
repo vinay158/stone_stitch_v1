@@ -794,4 +794,20 @@ class OrderController extends Controller
 
         return 1;
     }
+    public function order_cancel($id)
+    {
+        $order = Order::where('id', $id)->first(); 
+        // echo'<pre>'; print_r($order); die;
+            
+        if($order ) {
+            $order->delivery_status = 'cancelled';
+            $order->save();
+
+            flash(translate('Order has been canceled successfully'))->success();
+        } else {
+            flash(translate('Something went wrong'))->error();
+        }
+
+        return redirect()->route('all_orders.index');
+    }
 }

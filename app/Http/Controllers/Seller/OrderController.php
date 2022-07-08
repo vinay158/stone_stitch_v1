@@ -178,6 +178,7 @@ class OrderController extends Controller
             NotificationUtility::sendFirebaseNotification($request);
         }
 
+        
 
         if (addon_is_activated('otp_system') && SmsTemplate::where('identifier', 'payment_status_change')->first()->status == 1) {
             try {
@@ -189,4 +190,5 @@ class OrderController extends Controller
         return 1;
     }
 
+    
 }

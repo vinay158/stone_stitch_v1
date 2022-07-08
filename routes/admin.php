@@ -342,6 +342,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(
         Route::get('/orders_by_pickup_point/{id}/show', 'pickup_point_order_sales_show')->name('pick_up_point.order_show');
 
         Route::get('/orders/destroy/{id}', 'destroy')->name('orders.destroy');
+        Route::get('/order/cancel/{id}', 'order_cancel')->name('order.cancel');
         Route::post('/bulk-order-delete', 'bulk_order_delete')->name('bulk-order-delete');
 
         Route::get('/orders/destroy/{id}', 'destroy')->name('orders.destroy');
