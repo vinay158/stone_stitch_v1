@@ -721,7 +721,7 @@
                     </div>
                 </div>
 
-                <div class="card">
+                <!-- <div class="card">
                     <div class="card-header">
                         <h5 class="mb-0 h6">{{translate('VAT & Tax')}}</h5>
                     </div>
@@ -745,7 +745,7 @@
                         </div>
                         @endforeach
                     </div>
-                </div>
+                </div> -->
 
             </div>
             <div class="col-12">

@@ -40,6 +40,7 @@
                                     </span>
                                 @endif
                             </div>
+                            
                             <div class="form-group">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required placeholder="{{ translate('Confrim Password') }}">
                             </div>

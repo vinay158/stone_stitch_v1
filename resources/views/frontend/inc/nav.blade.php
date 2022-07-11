@@ -77,15 +77,15 @@
 
             <div class="col-5 text-right d-none d-lg-block">
                 <ul class="list-inline mb-0 h-100 d-flex justify-content-end align-items-center">
-                    @if (get_setting('helpline_number'))
+                     @if (get_setting('contact_phone'))
                         <li class="list-inline-item mr-3 border-right border-left-0 pr-3 pl-0">
                             <a href="tel:{{ get_setting('helpline_number') }}" class="text-reset d-inline-block opacity-60 py-2">
                                 <i class="la la-phone"></i>
-                                <span>{{ translate('Help line')}}</span>  
-                                <span>{{ get_setting('helpline_number') }}</span>    
+                                <span>{{ translate('Contact Phone :')}}</span>  
+                                <span>{{ get_setting('contact_phone') }}</span>    
                             </a>
                         </li>
-                    @endif
+                    @endif 
                     @auth
                         @if(isAdmin())
                             <li class="list-inline-item mr-3 border-right border-left-0 pr-3 pl-0">
@@ -190,8 +190,8 @@
 							<p>{{ get_setting('contact_address',null,App::getLocale()) }}</p>
 						</div> 
 						<div class="contact_box float-left">
-						<label>Call free</label> 
-						<p><a href="tel:{{ get_setting('contact_phone') }}">{{ get_setting('contact_phone') }}</a></p>
+						<label>Contact</label> 
+						<p><a href="mailto:{{ get_setting('contact_email') }}">{{ get_setting('contact_email') }}</a></p>
 						</div>
 					</div>
 				</div>

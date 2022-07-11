@@ -24,7 +24,22 @@
                                                 </span>
                                             @endif
                                         </div>
-
+                                        <div class="form-group">
+                                            <input type="text" required class="form-control{{ $errors->has('tax_id') ? ' is-invalid' : '' }}" value="{{ old('tax_id') }}" placeholder="{{  translate('Tax Id') }}" name="tax_id">
+                                            @if ($errors->has('tax_id'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->first('tax_id') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" required class="form-control{{ $errors->has('business_name') ? ' is-invalid' : '' }}" value="{{ old('business_name') }}" placeholder="{{  translate('Business Name') }}" name="business_name">
+                                            @if ($errors->has('business_name'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->first('business_name') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
                                         @if (addon_is_activated('otp_system'))
                                             <div class="form-group phone-form-group mb-1">
                                                 <input type="tel" id="phone-code" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" value="{{ old('phone') }}" placeholder="" name="phone" autocomplete="off">
@@ -46,7 +61,7 @@
                                             </div>
                                         @else
                                             <div class="form-group">
-                                                <input type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" placeholder="{{  translate('Email') }}" name="email">
+                                                <input type="email" required class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" placeholder="{{  translate('Email') }}" name="email">
                                                 @if ($errors->has('email'))
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $errors->first('email') }}</strong>
@@ -66,6 +81,30 @@
 
                                         <div class="form-group">
                                             <input type="password" class="form-control" placeholder="{{  translate('Confirm Password') }}" name="password_confirmation">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control{{ $errors->has('instagram') ? ' is-invalid' : '' }}" value="{{ old('instagram') }}" placeholder="{{  translate('Instagram Handle') }}" name="instagram">
+                                            @if ($errors->has('instagram'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->first('instagarm') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control{{ $errors->has('facebook') ? ' is-invalid' : '' }}" value="{{ old('facebook') }}" placeholder="{{  translate('Facebook Handle') }}" name="facebook">
+                                            @if ($errors->has('facebook'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->first('facebook') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control{{ $errors->has('twitter') ? ' is-invalid' : '' }}" value="{{ old('twitter') }}" placeholder="{{  translate('Twitter Handle') }}" name="twitter">
+                                            @if ($errors->has('twitter'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->first('twitter') }}</strong>
+                                                </span>
+                                            @endif
                                         </div>
 
                                         @if(get_setting('google_recaptcha') == 1)

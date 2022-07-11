@@ -1,25 +1,25 @@
 <section class="bg-white border-top mt-auto return_policy_block">
     <div class="container">
         <div class="row no-gutters">
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-4 col-md-6">
                 <a class="text-reset border-left text-center p-4 d-block" href="{{ route('terms') }}">
                     <i class="la la-file-text la-3x text-primary mb-2"></i>
                     <h4 class="h6">{{ translate('Terms & conditions') }}</h4>
                 </a>
             </div>
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-4 col-md-6">
                 <a class="text-reset border-left text-center p-4 d-block" href="{{ route('returnpolicy') }}">
                     <i class="la la-mail-reply la-3x text-primary mb-2"></i>
                     <h4 class="h6">{{ translate('Return Policy') }}</h4>
                 </a>
             </div>
-            <div class="col-lg-3 col-md-6">
+            <!-- <div class="col-lg-3 col-md-6">
                 <a class="text-reset border-left text-center p-4 d-block" href="{{ route('supportpolicy') }}">
                     <i class="la la-support la-3x text-primary mb-2"></i>
                     <h4 class="h6">{{ translate('Support Policy') }}</h4>
                 </a>
-            </div>
-            <div class="col-lg-3 col-md-6">
+            </div> -->
+            <div class="col-lg-4 col-md-6">
                 <a class="text-reset border-left border-right text-center p-4 d-block" href="{{ route('privacypolicy') }}">
                     <i class="las la-exclamation-circle la-3x text-primary mb-2"></i>
                     <h4 class="h6">{{ translate('Privacy Policy') }}</h4>
@@ -29,7 +29,7 @@
     </div>
 </section>
 
-<section class="bg-white  subscribe-wrap d-flex justify-content-center footer_newsletter">
+<!-- <section class="bg-white  subscribe-wrap d-flex justify-content-center footer_newsletter">
    <div class="container">
       <div class="row justify-content-center">
          <div class="col-xl-12 col-lg-12">
@@ -66,7 +66,7 @@
          </div>
       </div>
    </div>
-</section>
+</section> -->
 
 
 <section class="bg-dark py-2 text-light footer-widget footer_area_1">
@@ -82,9 +82,9 @@
                             <img class="lazyload" src="{{ static_asset('assets/img/placeholder-rect.jpg') }}" data-src="{{ static_asset('assets/img/logo.png') }}" alt="{{ env('APP_NAME') }}" height="70">
                         @endif
                     </a>
-                    <div class="my-3">
+                    <!-- <div class="my-3">
                         {!! get_setting('about_us_description',null,App::getLocale()) !!}
-                    </div>
+                    </div> -->
                     
                     <div class="w-300px mw-100 mx-auto mx-md-0">
                         @if(get_setting('play_store_link') != null)
@@ -192,8 +192,7 @@
                                <a href="mailto:{{ get_setting('contact_email') }}" class="text-reset"><i class="las la-envelope"></i> {{ get_setting('contact_email')  }}</a>
                             </span>
                         </li>
-						
-						<li class="mb-2">
+						<!-- <li class="mb-2">
 							 @if ( get_setting('show_social_links') )
 							<ul class="list-inline my-3 my-md-0 social">
 								@if ( get_setting('facebook_link') !=  null )
@@ -223,7 +222,7 @@
 								@endif
 							</ul>
 							@endif
-						</li>
+						</li> -->
                     </ul>
                 </div>
             </div>

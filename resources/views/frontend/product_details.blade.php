@@ -529,12 +529,12 @@
                                     </div>
                                 </div>
                             @endif
-                            <div class="row no-gutters mt-4">
+                            <!-- <div class="row no-gutters mt-4">
                                 
                                 <div class="col-sm-12">
                                     <div class="aiz-share"></div>
                                 </div>
-                            </div>
+                            </div> -->
 
                             
 

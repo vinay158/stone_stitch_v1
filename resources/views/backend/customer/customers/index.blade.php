@@ -27,8 +27,6 @@
             <div class="col-lg-2 ml-auto">
                 <select class="form-control aiz-selectpicker" name="user_type" id="user_type">
                     <option value="">{{translate('Filter by User Type')}}</option>
-                    <option value="wholesale" @if ($user_type == "wholesale") selected @endif >{{translate('Wholesale')}}</option>
-                    <option value="retail" @if ($user_type == "retail") selected @endif>{{translate('Retail')}}</option>
                     <option value="salesperson" @if ($user_type == "salesperson") selected @endif>{{translate('Salesperson')}}</option>
                 </select>
             </div>
@@ -61,7 +59,8 @@
                         </th>
                         <th>{{translate('Name')}}</th>
                         <th data-breakpoints="lg">{{translate('Email Address')}}</th>
-                        <th data-breakpoints="lg">{{translate('Phone')}}</th>
+                        <th data-breakpoints="lg">{{translate('Tax Id')}}</th>
+                        <th data-breakpoints="lg">{{translate('Business Name')}}</th>
                         <th data-breakpoints="lg">{{translate('Type')}}</th>
                         <!-- <th data-breakpoints="lg">{{translate('Package')}}</th>
                         <th data-breakpoints="lg">{{translate('Wallet Balance')}}</th> -->
@@ -85,8 +84,9 @@
                                 </td>
                                 <td>@if($user->banned == 1) <i class="fa fa-ban text-danger" aria-hidden="true"></i> @endif {{$user->name}}</td>
                                 <td>{{$user->email}}</td>
-                                <td>{{$user->phone}}</td>
-                                <td>@if($user->is_salesperson == 1) Saleperson @else Customer @endif</td>
+                                <td>{{$user->tax_id}}</td>
+                                <td>{{$user->business_name}}</td>
+                                <td>@if($user->is_salesperson == 1) Salesperson @else Wholesaler @endif</td>
                                 <!-- <td>
                                     @if ($user->customer_package != null)
                                     {{$user->customer_package->getTranslation('name')}}
