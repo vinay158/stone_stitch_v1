@@ -6,7 +6,7 @@
                 {{ count($carts) }} 
                 {{translate('Items')}}
             </span>
-            @php $subtotal_for_min_order_amount = 0; @endphp
+            @php $subtotal_for_min_order_amount = 500; @endphp
             @foreach ($carts as $key => $cartItem)
                 @php $subtotal_for_min_order_amount += $cartItem['price'] * $cartItem['quantity']; @endphp
             @endforeach

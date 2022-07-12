@@ -72,13 +72,6 @@
                 </select>
             </div>
             <div class="col-md-2 ml-auto">
-                <select class="form-control form-control-sm aiz-selectpicker mb-2 mb-md-0" id="system_type" name="system_type" onchange="sort_products()">
-                    <option value="">{{ translate('System Type') }}</option>
-                    <option value="wholesale" @if ($system_search == "wholesale") selected @endif >Wholesale</option>
-                    <option value="retail" @if ($system_search == "retail") selected @endif >Retail</option>
-                </select>
-            </div>
-            <div class="col-md-2 ml-auto">
                 <select class="form-control form-control-sm aiz-selectpicker mb-2 mb-md-0" name="type" id="type" onchange="sort_products()">
                     <option value="">{{ translate('Sort By') }}</option>
                     <option value="rating,desc" @isset($col_name , $query) @if($col_name == 'rating' && $query == 'desc') selected @endif @endisset>{{translate('Rating (High > Low)')}}</option>

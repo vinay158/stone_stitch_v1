@@ -166,15 +166,10 @@ class ProductController extends Controller
             }
             
         }
-        if ($request->system_type != null) {
-            $system_search = $request->system_type;
-            $products = $products->where('system_type',$system_search);
-                
-        }
         $products = $products->paginate(15);
         $type = 'All';
 
-        return view('backend.product.products.index', compact('products', 'type', 'col_name', 'query', 'seller_id', 'sort_search','is_parent','system_search'));
+        return view('backend.product.products.index', compact('products', 'type', 'col_name', 'query', 'seller_id', 'sort_search','is_parent'));
     }
 
 

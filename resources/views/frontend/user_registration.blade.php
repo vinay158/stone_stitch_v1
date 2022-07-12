@@ -25,7 +25,7 @@
                                             @endif
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" required class="form-control{{ $errors->has('tax_id') ? ' is-invalid' : '' }}" value="{{ old('tax_id') }}" placeholder="{{  translate('Tax Id') }}" name="tax_id">
+                                            <input type="text" required class="form-control{{ $errors->has('tax_id') ? ' is-invalid' : '' }}" value="{{ old('tax_id') }}" placeholder="{{  translate('Tax Id ') }}" name="tax_id">
                                             @if ($errors->has('tax_id'))
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $errors->first('tax_id') }}</strong>

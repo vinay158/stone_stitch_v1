@@ -134,9 +134,9 @@
                         </div> -->
 						
 						 <div class="form-group row" id="brand">
-                            <label class="col-lg-3 col-from-label">{{translate('Gemstone')}} <span class="text-danger">*</span></label>
+                            <label class="col-lg-3 col-from-label">{{translate('Gemstone')}}</label>
                             <div class="col-lg-8">
-                                <select class="form-control aiz-selectpicker" name="brand_id" id="brand_id" data-live-search="true" required>
+                                <select class="form-control aiz-selectpicker" name="brand_id" id="brand_id" data-live-search="true" >
                                     <option value="">{{ translate('Select Gemstone') }}</option>
                                     @foreach (\App\Models\Brand::all() as $brand)
                                     <option value="{{ $brand->id }}">{{ $brand->getTranslation('name') }}  {{ !empty($brand->gemstone_month) ? ' - '. $brand->gemstone_month : ''; }}</option>
@@ -473,17 +473,6 @@
                                             <input type="checkbox" class="list_product" name="list_product" value="1">
                                             <span></span>
                                         </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group row">
-                                    <label class="col-md-6 col-from-label">{{translate('System Type')}}</label>
-                                    <div class="col-md-12">
-                                        <select class="form-control aiz-selectpicker" id="system_type" name="system_type">
-                                            <option value="wholesale" selected>Wholesale</option>
-                                            <option value="retail">Retail</option>
-                                        </select>
                                     </div>
                                 </div>
                             </div>
