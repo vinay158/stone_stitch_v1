@@ -13,6 +13,7 @@ class GeneralSettingCollection extends ResourceCollection
                 return [
                     'logo' => $data->logo,
                     'site_name' => $data->site_name,
+                    'min_checkout' => $data->min_checkout,
                     'address' => $data->address,
                     'description' => $data->description,
                     'phone' => $data->phone,

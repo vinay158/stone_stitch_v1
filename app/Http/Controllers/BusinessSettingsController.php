@@ -12,6 +12,7 @@ class BusinessSettingsController extends Controller
 {
     public function general_setting(Request $request)
     {
+        
         CoreComponentRepository::instantiateShopRepository();
         CoreComponentRepository::initializeCache();
     	return view('backend.setup_configurations.general_settings');
@@ -381,7 +382,7 @@ class BusinessSettingsController extends Controller
 
     public function update(Request $request)
     {
-
+        // echo'<pre>'; print_r($_POST);die; 
         foreach ($request->types as $key => $type) {
             if($type == 'site_name'){
                 $this->overWriteEnvFile('APP_NAME', $request[$type]);

@@ -49,12 +49,14 @@
                             @php
                                 $photos = explode(',', $detailedProduct->photos);
                             @endphp
-
+                            <?php //echo '<pre>';print_r($photos);die;?>
                             <div class="col order-1 order-md-2">
                                 
                                 <div class="aiz-carousel product-gallery main-product-detail" data-nav-for='.product-gallery-thumb' data-fade='true' data-auto-height='true' style="display:none;">
                                     @foreach ($photos as $key => $photo)
+                                    
                                         <div class="carousel-box img-zoom rounded">
+                                        {{$photo}}
                                             <img
                                                 class="img-fluid lazyload"
                                                 src="{{ static_asset('assets/img/placeholder.jpg') }}"
@@ -317,7 +319,9 @@
                                             <div class="col-sm-2 float-left" style="    padding-left: 0px;    padding-right: 5px;">
                                                 <a href="{{ ($detailedProduct->slug==$value->slug)?'javascript:void(0)':route('product', $value->slug) }}" class="d-block text-reset {{$active}}" style="border: 1px solid #ededed;padding: 5px;text-align: center;">
                                                 <img class="img-fit lazyload h-xxl-80px h-xl-20px h-20px" src="{{ uploaded_asset($value->thumbnail_img) }}" alt="">
+                                                @if(isset($value->brand->name))
                                                 <b style="padding: 10px;line-height: 3;">{{$value->brand->name}}</b>
+                                                @endif
                                             </a>
                                             </div>
                                         <?php } ?>                                    
@@ -419,22 +423,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <!-- <div class="row no-gutters mt-4">
-                                
-                                <div class="col-sm-12">
-                                    <?php foreach ($subProduct as $key => $value){ ?>
-                                        <div class="col-sm-2 float-left" style="    padding-left: 0px;    padding-right: 5px;">
-                                            <a href="{{ route('product', $value->slug) }}" class="d-block text-reset" style="border: 1px solid #ededed;padding: 5px;text-align: center;">
-                                            <img class="img-fit lazyload h-xxl-80px h-xl-20px h-20px" src="{{ uploaded_asset($value->thumbnail_img) }}" alt="">
-                                            <b style="padding: 10px;line-height: 3;">{{$value->brand->name}}</b>
-                                        </a>
-                                        </div>
-                                    <?php } ?>                                    
-                                </div>
-                            </div> -->
-                            
-
                                 <hr>
                                 @if (isset(Auth::user()->id) || $detailedProduct->is_price_show)
                                 <div class="row no-gutters pb-3 d-none" id="chosen_price_div">

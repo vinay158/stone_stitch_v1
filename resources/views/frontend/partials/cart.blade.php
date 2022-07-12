@@ -77,12 +77,21 @@ if(auth()->user() != null) {
                         {{translate('View cart')}}
                     </a>
                 </li>
+                <?php $min_cart_amount= get_setting('min_checkout');  ?>
                 @if (Auth::check())
-                <li class="list-inline-item">
-                    <a href="{{ route('checkout.shipping_info') }}" class="btn btn-primary btn-sm">
-                        {{translate('Checkout')}}
-                    </a>
-                </li>
+                    @if($total >= $min_cart_amount)
+                        <li class="list-inline-item">
+                            <a href="{{ route('checkout.shipping_info') }}" class="btn btn-primary btn-sm">
+                                {{translate('Checkout')}}
+                            </a>
+                        </li>
+                    @else
+                    <li class="list-inline-item">
+                            <button disabled class="btn btn-primary btn-sm">
+                                {{translate('Checkout')}}
+                            </button>
+                        </li>
+                    @endif
                 @endif
             </ul>
         </div>

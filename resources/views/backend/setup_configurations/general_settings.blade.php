@@ -50,6 +50,13 @@
                             </div>
                         </div>
                         <div class="form-group row">
+                            <label class="col-sm-3 col-from-label">{{translate('Min Checkout Amount')}}</label>
+                            <div class="col-sm-9">
+                                <input type="hidden" name="types[]" value="min_checkout">
+                                <input type="number" name="min_checkout" class="form-control" value="{{ get_setting('min_checkout') }}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
                             <label class="col-sm-3 col-from-label">{{translate('System Timezone')}}</label>
                             <div class="col-sm-9">
                                 <input type="hidden" name="types[]" value="timezone">

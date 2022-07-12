@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Cart;
+use App\Models\BusinessSetting;
 use Auth;
 use Session;
 use Cookie;
@@ -13,7 +14,7 @@ use Cookie;
 class CartController extends Controller
 {
     public function index(Request $request)
-    {
+    {   
         if(auth()->user() != null) {
             $user_id = Auth::user()->id;
             if($request->session()->get('temp_user_id')) {
@@ -358,4 +359,6 @@ class CartController extends Controller
             'nav_cart_view' => view('frontend.partials.cart')->render(),
         );
     }
+
+
 }
