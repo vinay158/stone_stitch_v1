@@ -479,7 +479,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card">
+                <!-- <div class="card">
                     <div class="card-header">
                         <h5 class="mb-0 h6">
                             {{translate('Shipping Configuration')}}
@@ -535,7 +535,7 @@
                         </p>
                         @endif
                     </div>
-                </div>
+                </div> -->
 
                 <div class="card">
                     <div class="card-header">

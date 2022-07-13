@@ -355,7 +355,7 @@
                                                         <span class="d-block p-3 aiz-megabox-elem">
                                                             <img src="{{ static_asset('assets/img/cards/cod.png')}}" class="img-fluid mb-2">
                                                             <span class="d-block text-center">
-                                                                <span class="d-block fw-600 fs-15">{{ translate('Cash on Delivery')}}</span>
+                                                                <span class="d-block fw-600 fs-15">{{ translate('Pay By Cheque')}}</span>
                                                             </span>
                                                         </span>
                                                     </label>

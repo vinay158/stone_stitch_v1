@@ -148,11 +148,11 @@
                                 {{ translate('My Wishlist') }}
                             </a>
                         </li>
-                        <li class="mb-2">
+                        <!-- <li class="mb-2">
                             <a class="opacity-50 hov-opacity-100 text-reset" href="{{ route('orders.track') }}">
                                 {{ translate('Track Order') }}
                             </a>
-                        </li>
+                        </li> -->
                         @if (addon_is_activated('affiliate_system'))
                             <li class="mb-2">
                                 <a class="opacity-50 hov-opacity-100 text-light" href="{{ route('affiliate.apply') }}">{{ translate('Be an affiliate partner')}}</a>
