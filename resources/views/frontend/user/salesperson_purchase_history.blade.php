@@ -21,6 +21,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <?php //echo'<pre>';print_r($orders);die;?>
                         @foreach ($orders as $key => $order)
                                 <tr>
                                    
