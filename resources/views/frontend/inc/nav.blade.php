@@ -278,8 +278,6 @@
    
     <ul class="exo-menu">
       <li><a href="{{ route('home') }}">Home</a></li>
-      <li><a href="javascript:void(0)">About Us</a></li>
-      <li><a href="javascript:void(0)">Services</a></li>
       <li class="mega-drop-down"><a href="javascript:void(0)"><i class="fa fa-list"></i> Shop </a>
         <div class="animated fadeIn mega-menu">
 		
@@ -348,7 +346,7 @@
         </li> 
 	  <?php } ?>
 		
-		<li class="drop-down"><a href="javascript:void(0)">Contact Us</a></li>
+		<li class="drop-down"><a href="{{route('pages.contact-us')}}">Contact Us</a></li>
 	</ul>
    </div>
    

@@ -166,4 +166,8 @@ class PageController extends Controller
         }
         abort(404);
     }
+
+    public function contact_us(){
+        return view('frontend.contact_us');
+    }
 }

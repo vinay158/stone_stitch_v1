@@ -420,6 +420,9 @@ Route::controller(PageController::class)->group(function () {
 
     //Custom page
     Route::get('/{slug}', 'show_custom_page')->name('custom-pages.show_custom_page');
+
+    //Contact
+    Route::get('/pages/contact-us', 'contact_us')->name('pages.contact-us');
 });
 
 
