@@ -299,9 +299,9 @@
 				<div class="col-xl-4">
 					<h4 class="row mega-title">Gemstones</h4>
 					<ul class="cabeza">
-					<?php foreach($menu_gemstones as $menu_gemstone){ ?>
-					  <li><a href="{{ route('products.gemstone', $menu_gemstone->slug) }}">{{ $menu_gemstone->getTranslation('name') }}</a></li>
-					<?php } ?>
+					<?php  foreach($menu_gemstones as $menu_gemstone){ ?>
+					  <li><a href="{{ route('products.gemstone', $menu_gemstone->slug) }}">{{ $menu_gemstone->getTranslation('name') }}</a></li> 
+					<?php  } ?>
 					</ul>
                 </div>
 			<?php } ?>

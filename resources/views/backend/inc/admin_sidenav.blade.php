@@ -879,6 +879,39 @@
                                     <span class="aiz-side-nav-text">{{translate('Currency')}}</span>
                                 </a>
                             </li>
+                            <li class="aiz-side-nav-item">
+                                <a href="{{ route('order_configuration.index') }}" class="aiz-side-nav-link">
+                                    <span class="aiz-side-nav-text">{{translate('Order Configuration')}}</span>
+                                </a>
+                            </li>
+                            <li class="aiz-side-nav-item ">
+                                <a href="javascript:void(0);" class="aiz-side-nav-link">
+                                    <span class="aiz-side-nav-text">{{translate('Shipping')}}</span>
+                                    <span class="aiz-side-nav-arrow"></span>
+                                </a>
+                                <ul class="aiz-side-nav-list level-3">
+                                    <li class="aiz-side-nav-item">
+                                        <a href="{{route('shipping_configuration.index')}}" class="aiz-side-nav-link {{ areActiveRoutes(['shipping_configuration.index','shipping_configuration.edit','shipping_configuration.update'])}}">
+                                            <span class="aiz-side-nav-text">{{translate('Shipping Configuration')}}</span>
+                                        </a>
+                                    </li>
+                                    <li class="aiz-side-nav-item">
+                                        <a href="{{route('countries.index')}}" class="aiz-side-nav-link {{ areActiveRoutes(['countries.index','countries.edit','countries.update'])}}">
+                                            <span class="aiz-side-nav-text">{{translate('Shipping Countries')}}</span>
+                                        </a>
+                                    </li>
+                                    <li class="aiz-side-nav-item">
+                                        <a href="{{route('states.index')}}" class="aiz-side-nav-link {{ areActiveRoutes(['states.index','states.edit','states.update'])}}">
+                                            <span class="aiz-side-nav-text">{{translate('Shipping States')}}</span>
+                                        </a>
+                                    </li>
+                                    <li class="aiz-side-nav-item">
+                                        <a href="{{route('cities.index')}}" class="aiz-side-nav-link {{ areActiveRoutes(['cities.index','cities.edit','cities.update'])}}">
+                                            <span class="aiz-side-nav-text">{{translate('Shipping Cities')}}</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
 						<div class=" display-none"> 
                             <li class="aiz-side-nav-item">
                                 <a href="{{route('tax.index')}}" class="aiz-side-nav-link {{ areActiveRoutes(['tax.index', 'tax.create', 'tax.store', 'tax.show', 'tax.edit'])}}">
@@ -898,11 +931,6 @@
                             <li class="aiz-side-nav-item">
                                 <a href="{{ route('payment_method.index') }}" class="aiz-side-nav-link">
                                     <span class="aiz-side-nav-text">{{translate('Payment Methods')}}</span>
-                                </a>
-                            </li>
-                            <li class="aiz-side-nav-item">
-                                <a href="{{ route('order_configuration.index') }}" class="aiz-side-nav-link">
-                                    <span class="aiz-side-nav-text">{{translate('Order Configuration')}}</span>
                                 </a>
                             </li>
                             <li class="aiz-side-nav-item">
@@ -964,34 +992,7 @@
                                 </ul>
                             </li>
 
-                            <li class="aiz-side-nav-item ">
-                                <a href="javascript:void(0);" class="aiz-side-nav-link">
-                                    <span class="aiz-side-nav-text">{{translate('Shipping')}}</span>
-                                    <span class="aiz-side-nav-arrow"></span>
-                                </a>
-                                <ul class="aiz-side-nav-list level-3">
-                                    <li class="aiz-side-nav-item">
-                                        <a href="{{route('shipping_configuration.index')}}" class="aiz-side-nav-link {{ areActiveRoutes(['shipping_configuration.index','shipping_configuration.edit','shipping_configuration.update'])}}">
-                                            <span class="aiz-side-nav-text">{{translate('Shipping Configuration')}}</span>
-                                        </a>
-                                    </li>
-                                    <li class="aiz-side-nav-item">
-                                        <a href="{{route('countries.index')}}" class="aiz-side-nav-link {{ areActiveRoutes(['countries.index','countries.edit','countries.update'])}}">
-                                            <span class="aiz-side-nav-text">{{translate('Shipping Countries')}}</span>
-                                        </a>
-                                    </li>
-                                    <li class="aiz-side-nav-item">
-                                        <a href="{{route('states.index')}}" class="aiz-side-nav-link {{ areActiveRoutes(['states.index','states.edit','states.update'])}}">
-                                            <span class="aiz-side-nav-text">{{translate('Shipping States')}}</span>
-                                        </a>
-                                    </li>
-                                    <li class="aiz-side-nav-item">
-                                        <a href="{{route('cities.index')}}" class="aiz-side-nav-link {{ areActiveRoutes(['cities.index','cities.edit','cities.update'])}}">
-                                            <span class="aiz-side-nav-text">{{translate('Shipping Cities')}}</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
+                            
 							</div>
                         </ul>
                     </li>

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Page;
 use App\Models\PageTranslation;
-
+use App\Models\Contact;
 
 class PageController extends Controller
 {
@@ -169,5 +169,21 @@ class PageController extends Controller
 
     public function contact_us(){
         return view('frontend.contact_us');
+    }
+
+    public function contactsave(Request $request){
+    //    print_r($_POST);
+        // die;
+        
+        $contact = new Contact;
+        $contact->name = $request->name;
+        $contact->email = $request->email;
+        $contact->phone = $request->phone;
+        $contact->message = $request->message;
+        $contact->save();
+        flash(translate('Your Details have been successfully submitted'))->success();
+        return redirect()->route('pages.contact-us');
+        // print_r($contact); die;
+
     }
 }

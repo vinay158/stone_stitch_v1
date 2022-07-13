@@ -12,21 +12,21 @@
                 <form action="{{ route('shipping_configuration.update') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="type" value="shipping_type">
-                    <div class="radio mar-btm">
+                    <!-- <div class="radio mar-btm">
                         <input id="product-shipping" class="magic-radio" type="radio" name="shipping_type" value="product_wise_shipping" <?php if(get_setting('shipping_type') == 'product_wise_shipping') echo "checked";?>>
                         <label for="product-shipping">
                             <span>{{translate('Product Wise Shipping Cost')}}</span>
                             <span></span>
                         </label>
-                    </div>
+                    </div> -->
                     <div class="radio mar-btm">
                         <input id="flat-shipping" class="magic-radio" type="radio" name="shipping_type" value="flat_rate" <?php if(get_setting('shipping_type') == 'flat_rate') echo "checked";?>>
                         <label for="flat-shipping">{{translate('Flat Rate Shipping Cost')}}</label>
                     </div>
-                    <div class="radio mar-btm">
+                    <!-- <div class="radio mar-btm">
                         <input id="seller-shipping" class="magic-radio" type="radio" name="shipping_type" value="seller_wise_shipping" <?php if(get_setting('shipping_type') == 'seller_wise_shipping') echo "checked";?>>
                         <label for="seller-shipping">{{translate('Seller Wise Flat Shipping Cost')}}</label>
-                    </div>
+                    </div> -->
                     <div class="radio mar-btm">
                         <input id="area-shipping" class="magic-radio" type="radio" name="shipping_type" value="area_wise_shipping" <?php if(get_setting('shipping_type') == 'area_wise_shipping') echo "checked";?>>
                         <label for="area-shipping">{{translate('Area Wise Flat Shipping Cost')}}</label>
@@ -45,17 +45,17 @@
             </div>
             <div class="card-body">
                 <ul class="list-group">
-                    <li class="list-group-item">
+                    <!-- <li class="list-group-item">
                         1. {{ translate('Product Wise Shipping Cost calculation: Shipping cost is calculate by addition of each product shipping cost') }}.
-                    </li>
+                    </li> -->
                     <li class="list-group-item">
-                        2. {{ translate('Flat Rate Shipping Cost calculation: How many products a customer purchase, doesn\'t matter. Shipping cost is fixed') }}.
+                        1. {{ translate('Flat Rate Shipping Cost calculation: How many products a customer purchase, doesn\'t matter. Shipping cost is fixed') }}.
                     </li>
-                    <li class="list-group-item">
+                    <!-- <li class="list-group-item">
                         3. {{ translate('Seller Wise Flat Shipping Cost calculation: Fixed rate for each seller. If customers purchase 2 product from two seller shipping cost is calculated by addition of each seller flat shipping cost') }}.
-                    </li>
+                    </li> -->
                     <li class="list-group-item">
-                        4. {{ translate('Area Wise Flat Shipping Cost calculation: Fixed rate for each area. If customers purchase multiple products from one seller shipping cost is calculated by the customer shipping area. To configure area wise shipping cost go to ') }} <a href="{{ route('cities.index') }}">{{ translate('Shipping Cities') }}</a>.
+                        2. {{ translate('Area Wise Flat Shipping Cost calculation: Fixed rate for each area. If customers purchase multiple products from one seller shipping cost is calculated by the customer shipping area. To configure area wise shipping cost go to ') }} <a href="{{ route('cities.index') }}">{{ translate('Shipping Cities') }}</a>.
                     </li>
                 </ul>
             </div>
@@ -101,7 +101,7 @@
     </div>
 </div>
 
-<div class="row">
+<!-- <div class="row">
     <div class="col-lg-6">
         <div class="card">
             <div class="card-header">
@@ -137,6 +137,6 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 @endsection

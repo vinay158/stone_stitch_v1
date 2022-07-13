@@ -423,6 +423,7 @@ Route::controller(PageController::class)->group(function () {
 
     //Contact
     Route::get('/pages/contact-us', 'contact_us')->name('pages.contact-us');
+    Route::post('/pages/contact-save', 'contactsave')->name('pages.contact-save');
 });
 
 
