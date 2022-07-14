@@ -8,6 +8,9 @@
             <div class="col">
                 <h5 class="mb-md-0 h6">{{$heading->name}}{{ translate("'s Order List")}}</h5>
             </div>
+            <a class="btn btn-soft-primary btn-icon btn-sm" href="{{route('customers.index')}}" title="{{ translate('Back') }}">
+                <i class="las la-arrow-left"></i>
+            </a>
             <!-- Change Status Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
