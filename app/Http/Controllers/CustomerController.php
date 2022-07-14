@@ -144,6 +144,15 @@ class CustomerController extends Controller
         flash(translate('Customer has been deleted successfully'))->success();
         return redirect()->route('customers.index');
     }
+
+    public function customers_info($id)
+    {
+        $orders = Order::where('user_id', $id)->paginate(15);
+        $heading = User::where('id', $id)->first();
+        // echo($heading);die;
+        // echo'<pre>'; print_r($heading);die;
+        return view('backend.customer.customers.customer_information', compact('orders','heading'));
+    }
     
     public function bulk_customer_delete(Request $request) {
         if($request->id) {
