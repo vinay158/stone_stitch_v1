@@ -25,6 +25,13 @@ class PurchaseHistoryController extends Controller
         return view('frontend.user.purchase_history', compact('orders'));
     }    
 
+    public function salesperson_customer_history()
+    {
+        $orders = Order::with('salespersonCustomerName')->where('salesperson_id', Auth::user()->id)->orderBy('code', 'desc')->paginate(9);
+        return view('frontend.user.salesperson_customer_history', compact('orders'));
+
+        
+    }
     /**
      * Display a listing of the resource.
      *

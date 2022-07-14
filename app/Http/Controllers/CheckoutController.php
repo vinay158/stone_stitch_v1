@@ -339,7 +339,6 @@ class CheckoutController extends Controller
         foreach($combined_order->orders as $order){
             NotificationUtility::sendOrderPlacedNotification($order);
         }
-
         return view('frontend.order_confirmed', compact('combined_order'));
     }
 }

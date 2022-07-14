@@ -106,15 +106,17 @@
                         $payment_status_viewed = App\Models\Order::where('user_id', Auth::user()->id)->where('payment_status_viewed', 0)->get()->count();
                     @endphp
                     @if(Auth::user()->user_type == 'customer')
-                        <li class="aiz-side-nav-item">
-                            <a href="{{ route('purchase_history.index') }}" class="aiz-side-nav-link {{ areActiveRoutes(['purchase_history.index','purchase_history.details'])}}">
-                                <i class="las la-file-alt aiz-side-nav-icon"></i>
-                                <span class="aiz-side-nav-text">{{ translate('Purchase History') }}</span>
-                                @if($delivery_viewed > 0 || $payment_status_viewed > 0)<span class="badge badge-inline badge-success">{{ translate('New') }}</span>@endif
-                            </a>
-                        </li>
-                        @if(Auth::user()->is_salesperson == 1)
+                        @if(Auth::user()->is_salesperson == 0)
                             <li class="aiz-side-nav-item">
+                                <a href="{{ route('purchase_history.index') }}" class="aiz-side-nav-link {{ areActiveRoutes(['purchase_history.index','purchase_history.details'])}}">
+                                    <i class="las la-file-alt aiz-side-nav-icon"></i>
+                                    <span class="aiz-side-nav-text">{{ translate('Purchase History') }}</span>
+                                    @if($delivery_viewed > 0 || $payment_status_viewed > 0)<span class="badge badge-inline badge-success">{{ translate('New') }}</span>@endif
+                                </a>
+                            </li>
+                        @endif
+                        @if(Auth::user()->is_salesperson == 1)
+                            <!-- <li class="aiz-side-nav-item">
                                 <a href="{{ route('salesperson_customer.index') }}" class="aiz-side-nav-link {{ areActiveRoutes(['salesperson_customer.index','purchase_history.details'])}}">
                                     <i class="las la-file-alt aiz-side-nav-icon"></i>
                                     <span class="aiz-side-nav-text">{{ translate('Customer Purchase History') }}</span>
@@ -126,6 +128,20 @@
                                     <i class="las la-file-alt aiz-side-nav-icon"></i>
                                     <span class="aiz-side-nav-text">{{ translate('Customer Purchase Form') }}</span>
                                     @if($delivery_viewed > 0 || $payment_status_viewed > 0)<span class="badge badge-inline badge-success">{{ translate('New') }}</span>@endif
+                                </a>
+                            </li> -->
+                            <li class="aiz-side-nav-item">
+                                <a href="{{ route('salesperson-customer-purchase-history') }}" class="aiz-side-nav-link {{ areActiveRoutes(['salesperson_customer.customer-purchase-form'])}}">
+                                    <i class="las la-file-alt aiz-side-nav-icon"></i>
+                                    <span class="aiz-side-nav-text">{{ translate('Customer Purchase History') }}</span>
+                                    @if($delivery_viewed > 0 || $payment_status_viewed > 0)<span class="badge badge-inline badge-success">{{ translate('New') }}</span>@endif
+                                </a>
+                            </li>
+                            <li class="aiz-side-nav-item">
+                                <a href="honey.com" class="aiz-side-nav-link" >
+                                    <i class="las la-user aiz-side-nav-icon"></i>
+                                    <span class="aiz-side-nav-text">{{ translate('Revenue Generated') }}</span>
+                                   
                                 </a>
                             </li>
                             <li class="aiz-side-nav-item">

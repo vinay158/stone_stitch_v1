@@ -5,7 +5,8 @@
         <div class="card-header">
             <h5 class="mb-0 h6">{{ translate('Customer Purchase History') }}</h5>
         </div>
-        @if (count($orders) > 0)
+        <?php //echo'<pre>'; print_r($orders); die;?>
+        @if (count($orders) > 0 )
             <div class="card-body">
                 <table class="table aiz-table mb-0">
                     <thead>

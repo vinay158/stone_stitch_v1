@@ -270,6 +270,7 @@ Route::group(['middleware' => ['customer', 'verified', 'unbanned']], function() 
         Route::post('/salesperson_customer/customer-purchase-store', 'custm_purchase_store')->name('salesperson_customer.customer-purchase-store');
         Route::get('/purchase_history/destroy/{id}', 'order_cancel')->name('purchase_history.destroy');
         Route::get('digital_purchase_history', 'digital_index')->name('digital_purchase_history.index');
+        Route::get('/salesperson-customer-purchase-history', 'salesperson_customer_history')->name('salesperson-customer-purchase-history');
     });
 
     // Wishlist

@@ -28,6 +28,10 @@ class Order extends Model
     {
         return $this->belongsTo(User::class,'for_customer_id')->select(['id','name']);
     }
+    public function salespersonCustomerName()
+    {
+        return $this->belongsTo(User::class,'user_id')->select(['id','name']);
+    }
 
     public function shop()
     {

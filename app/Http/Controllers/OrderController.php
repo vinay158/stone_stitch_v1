@@ -454,6 +454,8 @@ class OrderController extends Controller
             $order->grand_total = ($subtotal + $tax + $shipping) - $wholesaleCommissionAmount;
             $order->wholesale_commission = $wholesaleCommissionAmount;
 
+            $order->salesperson_id = Auth::user()->salesperson_id;
+
             if ($seller_product[0]->coupon_code != null) {
                 // if (Session::has('club_point')) {
                 //     $order->club_point = Session::get('club_point');
