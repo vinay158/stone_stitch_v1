@@ -9,6 +9,7 @@
 <div class="aiz-titlebar text-left mt-2 mb-3">
     <h1 class="mb-0 h6">{{ translate('Edit Product') }}</h5>
 </div>
+<?php //print_r($product); die;  ?>
 <div class="">
     <form class="form form-horizontal mar-top" action="{{route('products.update', $product->id)}}" method="POST" enctype="multipart/form-data" id="choice_form">
         <div class="row gutters-5">
@@ -270,6 +271,7 @@
                                     <input type="hidden" type="file" id="videos" name="videos" class="selected-files">
                                 </div>
                                 <div class="file-preview box sm">
+
                                 </div>
                                 <small class="text-muted">{{translate('These Videos are visible in product details page gallery. Use Videos Max Size 5MB.')}}</small>
                                 <!-- <input type="file" id="file"> -->

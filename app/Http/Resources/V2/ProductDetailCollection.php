@@ -19,7 +19,6 @@ class ProductDetailCollection extends ResourceCollection
                 $calculable_price = floatval($calculable_price);
                 // $calculable_price = round($calculable_price, 2);
                 $photo_paths = get_images_path($data->photos);
-
                 $photos = [];
 
                 if (!empty($photo_paths)) {

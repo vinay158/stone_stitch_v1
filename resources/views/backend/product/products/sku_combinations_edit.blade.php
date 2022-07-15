@@ -14,9 +14,9 @@
             <td class="text-center" data-breakpoints="lg">
                 {{translate('Quantity')}}
             </td>
-            <td class="text-center" data-breakpoints="lg">
+            <!-- <td class="text-center" data-breakpoints="lg">
                 {{translate('Photo')}}
-            </td>
+            </td> -->
         </tr>
     </thead>
     <tbody>
@@ -92,7 +92,7 @@
                             }
                            @endphp" min="0" step="1" class="form-control" required>
                 </td>
-                <td>
+                <!-- <td>
                     <div class=" input-group " data-toggle="aizuploader" data-type="image">
                         <div class="input-group-prepend">
                             <div class="input-group-text bg-soft-secondary font-weight-medium">{{ translate('Browse') }}</div>
@@ -108,7 +108,7 @@
                                @endphp">
                     </div>
                     <div class="file-preview box sm"></div>
-                </td>
+                </td> -->
             </tr>
             @endif
         @endforeach
