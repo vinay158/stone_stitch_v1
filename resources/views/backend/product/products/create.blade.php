@@ -222,6 +222,22 @@
                                 <small class="text-muted">{{translate("Use proper link without extra parameter. Don't use short share link/embeded iframe code.")}}</small>
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label" for="signinSrEmail">{{translate('Video')}} <small>(MAX 5MB)</small></label>
+                            <div class="col-md-8">
+                                <div class="input-group" data-toggle="aizuploader" data-type="video" data-multiple="true">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text bg-soft-secondary font-weight-medium">{{ translate('Browse')}}</div>
+                                    </div>
+                                    <div class="form-control file-amount">{{ translate('Choose File') }}</div>
+                                    <input type="hidden" type="file" id="videos" name="videos" class="selected-files">
+                                </div>
+                                <div class="file-preview box sm">
+                                </div>
+                                <small class="text-muted">{{translate('These Videos are visible in product details page gallery. Use Videos Max Size 5MB.')}}</small>
+                                <!-- <input type="file" id="file"> -->
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="card">
@@ -756,6 +772,15 @@
 @section('script')
 
 <script type="text/javascript">
+    //Video
+//     var uploadField = document.getElementById("video");
+
+// uploadField.onchange = function() {
+//     if(this.files[0].size > 0){
+//        alert("File is too big!");
+//        this.value = "";
+//     };
+// };
 
     $(document).on('change', '[name=category_id]', function() {
         var category_id = $(this).val();
@@ -783,7 +808,8 @@
         });
     }
 
-  
+        
+
     $('form').bind('submit', function (e) {
 		if ( $(".action-btn").attr('attempted') == 'true' ) {
 			//stop submitting the form because we have already clicked submit.

@@ -677,10 +677,11 @@ class HomeController extends Controller
         
         $attribute_value = check_attribute_value($request->attribute_value);
         $product_variant_image = ProductVariantImage::where('variant', $attribute_value)->where('product_id', $request->product_id)->first();
+        $product_video = Product::where('id', $request->product_id)->first();
         if (empty($product_variant_image)) {
            return false;
         }
-        //echo "<pre>";print_r($product_variant_image);die;
-        return view('frontend.change_product_image',compact('product_variant_image'));
+        // echo "<pre>";print_r($product_video);die;
+        return view('frontend.change_product_image',compact('product_variant_image','product_video'));
     }
 }

@@ -259,6 +259,22 @@
                                 <input type="text" class="form-control" name="video_link" value="{{ $product->video_link }}" placeholder="{{ translate('Video Link') }}">
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label" for="signinSrEmail">{{translate('Video')}} <small>(MAX 5MB)</small></label>
+                            <div class="col-md-8">
+                                <div class="input-group" data-toggle="aizuploader" data-type="video" data-multiple="true">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text bg-soft-secondary font-weight-medium">{{ translate('Browse')}}</div>
+                                    </div>
+                                    <div class="form-control file-amount">{{ translate('Choose File') }}</div>
+                                    <input type="hidden" type="file" id="videos" name="videos" class="selected-files">
+                                </div>
+                                <div class="file-preview box sm">
+                                </div>
+                                <small class="text-muted">{{translate('These Videos are visible in product details page gallery. Use Videos Max Size 5MB.')}}</small>
+                                <!-- <input type="file" id="file"> -->
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="card">

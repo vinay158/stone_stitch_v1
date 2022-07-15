@@ -2,6 +2,7 @@
     <div class="sticky-top z-3 row gutters-10">
         @php
             $photos = explode(',', $product_variant_image->image);
+            $videos = explode(',', $product_video->videos);
         @endphp
         <div class="col order-1 order-md-2">
             <div class="aiz-carousel product-gallery" data-nav-for='.product-gallery-thumb' data-fade='true' data-auto-height='true'>
@@ -15,7 +16,13 @@
                         >
                     </div>
                 @endforeach
-                
+                @foreach ($videos as $key => $video)
+                    <div class="carousel-box img-zoom rounded">
+                        <video  class="img-fluid lazyload"   id="vid" loop autoplay muted>
+                            <source  id="vid" src="{{ uploaded_asset($video) }}">
+                        </video>
+                    </div>
+                @endforeach
             </div>
         </div>
         <div class="col-12 col-md-auto w-md-80px order-2 order-md-1 mt-3 mt-md-0">
@@ -29,6 +36,13 @@
                         onerror="this.onerror=null;this.src='{{ static_asset('assets/img/placeholder.jpg') }}';"
                     >
                 </div>
+                @endforeach
+                @foreach ($videos as $key => $video)
+                    <div class="carousel-box c-pointer border p-1 rounded">
+                        <video  class="lazyload mw-100 size-50px mx-auto"   id="vid" loop autoplay muted>
+                            <source  id="vid" src="{{ uploaded_asset($video) }}">
+                        </video>
+                    </div>
                 @endforeach
             </div>
         </div>

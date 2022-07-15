@@ -37,8 +37,7 @@
 @section('content')
     <section class="mb-4 pt-3 product-detail-page">
         <div class="container">
-            <div class="bg-white shadow-sm rounded p-3">
-                
+            <div class="bg-white shadow-sm rounded p-3"> 
                 <div class="row" >
                     <!-- <div class="col-xl-6 col-lg-6 mb-4" id="loader" style="display:block;"><img
                             class="img-fluid lazyload"
@@ -50,8 +49,7 @@
                                 $photos = explode(',', $detailedProduct->photos);
                             @endphp
                             <?php //echo '<pre>';print_r($photos);die;?>
-                            <div class="col order-1 order-md-2">
-                                
+                            <div class="col order-1 order-md-2"> 
                                 <div class="aiz-carousel product-gallery main-product-detail" data-nav-for='.product-gallery-thumb' data-fade='true' data-auto-height='true' style="display:none;">
                                     @foreach ($photos as $key => $photo)
                                     
@@ -65,6 +63,7 @@
                                             >
                                         </div>
                                     @endforeach
+                                   
                                     @foreach ($detailedProduct->stocks as $key => $stock)
                                         @if ($stock->image != null)
                                             <div class="carousel-box img-zoom rounded">
@@ -77,7 +76,11 @@
                                             </div>
                                         @endif
                                     @endforeach
+                                    
                                 </div>
+                            </div>
+                            <div>
+
                             </div>
                             <div class="col-12 col-md-auto w-md-80px order-2 order-md-1 mt-3 mt-md-0 main-product-detail" style="display:none;">
                                 <div class="aiz-carousel product-gallery-thumb" data-items='5' data-nav-for='.product-gallery' data-vertical='true' data-vertical-sm='false' data-focus-select='true' data-arrows='true'>
@@ -103,18 +106,19 @@
                                             </div>
                                         @endif
                                     @endforeach
+                                    
                                 </div>
                             </div>
                         </div>
                     </div>
-                   
+                    
 
                     <div class="col-xl-6 col-lg-6 ">
                         <div class="text-left">
                             <h1 class="mb-2 fs-20 fw-600">
                                 {{ $detailedProduct->getTranslation('name') }}
                             </h1>
-
+                            
                             <div class="row align-items-center">
                                 <div class="col-12">
                                     @php
@@ -911,6 +915,7 @@
 @endsection
 
 @section('script')
+
     <script type="text/javascript">
         $(document).ready(function() {
             getVariantPrice();
