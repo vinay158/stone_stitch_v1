@@ -573,6 +573,35 @@ class ProductController extends Controller
         return 0;
     }
 
+    /*public function img_combination(Request $request)
+    {
+        
+        $options = array();
+
+        if ($request->has('choice_no')) {
+            echo "<pre>";print_r($_REQUEST);die;
+            foreach ($request->choice_no as $key => $no) {
+                $name = 'choice_options_' . $no;
+                $data = array();
+                if($request['choice'][$key] == 'Materials'){
+
+                    if (isset($request[$name])) {
+                        foreach ($request[$name] as $key => $item) {
+                            // array_push($data, $item->value);
+                            array_push($data, $item);
+                        }
+                    }
+
+                    array_push($options, $data);
+                }
+
+            }
+        }
+
+        $combinations = Combinations::makeCombinations($options);
+        //echo "<pre>";print_r($options);die;
+        return view('backend.product.products.img_combinations', compact('options'));
+    }*/
     public function img_combination(Request $request)
     {
         
@@ -583,7 +612,7 @@ class ProductController extends Controller
             foreach ($request->choice_no as $key => $no) {
                 $name = 'choice_options_' . $no;
                 $data = array();
-                if($request['choice'][$key] == 'Materials'){
+                if($request['choice'][$key] == 'Metals'){
 
                     if (isset($request[$name])) {
                         foreach ($request[$name] as $key => $item) {
