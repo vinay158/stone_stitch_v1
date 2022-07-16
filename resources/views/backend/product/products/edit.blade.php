@@ -1007,7 +1007,7 @@
         update_sku();
         $.each($('input[name="choice[]"]'), function(){
             var selectedval = $(this).val();
-            if (selectedval == 'Materials') {
+            if (selectedval == 'Metals') {
                 update_sku_img();
             }
         });
@@ -1065,7 +1065,7 @@
         update_sku();
         $.each($('input[name="choice[]"]'), function(){
             var selectedval = $(this).val();
-            if (selectedval == 'Materials') {
+            if (selectedval == 'Metals') {
                 update_sku_img();
             }
         });

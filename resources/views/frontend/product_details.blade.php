@@ -969,7 +969,7 @@
             var attribute_name = $(el).data('attribute_name');
             var product_id = $(el).data('product_id');
 
-            if (attribute_name == 'Materials') {
+            if (attribute_name == 'Metals') {
                 
                 //$("#loader").css("display",'block');
                 $("#overlay").css("display",'block');
