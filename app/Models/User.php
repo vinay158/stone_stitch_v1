@@ -45,6 +45,10 @@ class User extends Authenticatable implements MustVerifyEmail
     {
     return $this->hasOne(Customer::class);
     }
+    public function salesperson()
+    {
+        return $this->belongsTo(User::class,'salesperson_id')->select(['id','name']);
+    }
 
     public function affiliate_user()
     {

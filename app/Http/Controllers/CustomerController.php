@@ -18,7 +18,7 @@ class CustomerController extends Controller
     {
         $sort_search = null;
         $user_type = null;
-        $users = User::where('user_type', '!=','admin')/*->where('email_verified_at', '!=', null)*/->orderBy('created_at', 'desc');
+        $users = User::with('salesperson')->where('user_type', '!=','admin')/*->where('email_verified_at', '!=', null)*/->orderBy('created_at', 'desc');
         if ($request->has('search')){
             $sort_search = $request->search;
             $users->where(function ($q) use ($sort_search){
@@ -40,9 +40,11 @@ class CustomerController extends Controller
 
             }
         }
+
+        $all_salesperson = User::select('id','name')->where('is_salesperson',1)->get();
         
         $users = $users->paginate(15);
-        return view('backend.customer.customers.index', compact('users', 'sort_search', 'user_type'));
+        return view('backend.customer.customers.index', compact('users', 'sort_search', 'user_type','all_salesperson'));
     }
 
     /**
