@@ -246,6 +246,7 @@
         </div>
     </div>
 </div>
+
 @endsection
 
 @section('modal')
@@ -269,7 +270,7 @@
             $.post('{{ route('products.product-child-detail') }}', {_token: AIZ.data.csrf, id:id}, function(data){
                 $('#info-modal-content').html(data);
             });
-        }        
+        }              
         $(document).on("change", ".check-all", function() {
             if(this.checked) {
                 // Iterate each checkbox

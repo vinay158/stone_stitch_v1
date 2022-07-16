@@ -82,9 +82,7 @@
                                 <input onchange="update_todays_deal(this)" value="{{ $product->id }}" type="checkbox" <?php if ($product->todays_deal == 1) echo "checked"; ?> >
                                 <span class="slider round"></span>
                             </label>
-                        </td> -->
-                        
-                        
+                        </td> -->                        
                     </tr>
                     @endforeach
                 </tbody>

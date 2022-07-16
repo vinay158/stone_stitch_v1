@@ -223,7 +223,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-md-3 col-form-label" for="signinSrEmail">{{translate('Video')}} <small>(MAX 5MB)</small></label>
+                            <label class="col-md-3 col-form-label" for="signinSrEmail">{{translate('Video')}} <small>(MAX 2MB)</small></label>
                             <div class="col-md-8">
                                 <div class="input-group" data-toggle="aizuploader" data-type="video" data-multiple="true">
                                     <div class="input-group-prepend">
@@ -234,7 +234,7 @@
                                 </div>
                                 <div class="file-preview box sm">
                                 </div>
-                                <small class="text-muted">{{translate('These Videos are visible in product details page gallery. Use Videos Max Size 5MB.')}}</small>
+                                <small class="text-muted">{{translate('These Videos are visible in product details page gallery. Use Videos Max Size 2MB.')}}</small>
                                 <!-- <input type="file" id="file"> -->
                             </div>
                         </div>

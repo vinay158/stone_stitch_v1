@@ -116,6 +116,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(
         Route::post('/products/product-child-detail', 'product_child_detail')->name('products.product-child-detail');
         Route::post('/products/child-destroy', 'child_destroy')->name('products.child-destroy');
         Route::post('/products/child-add', 'child_add')->name('products.child-add');
+        Route::post('/products/product-related', 'product_related')->name('products.product-related');
+        
     });
 
     // Digital Product

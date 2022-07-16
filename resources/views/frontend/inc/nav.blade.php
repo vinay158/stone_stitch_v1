@@ -77,7 +77,7 @@
 
             <div class="col-5 text-right d-none d-lg-block">
                 <ul class="list-inline mb-0 h-100 d-flex justify-content-end align-items-center">
-                     @if (get_setting('contact_phone'))
+                    @if (get_setting('contact_phone'))
                         <li class="list-inline-item mr-3 border-right border-left-0 pr-3 pl-0">
                             <a href="tel:{{ get_setting('helpline_number') }}" class="text-reset d-inline-block opacity-60 py-2">
                                 <i class="la la-phone"></i>
@@ -182,7 +182,7 @@
     <div class="position-relative logo-bar-area z-1">
         <div class="container">
             <div class="d-flex align-items-center">
-				<div class="col-auto col-xl-5 pl-0 pr-3  pt-3  d-flex align-items-center">
+				<div class="col-auto col-xl-4 pl-0 pr-3  pt-3  d-flex align-items-center">
 					
 					<div class="home_contact">
 						<div class="contact_box contact_box_address float-left">
@@ -285,37 +285,58 @@
           <div class="mega-menu-wrap">
             <div class="row">
 			<?php if(!empty($menu_categories)){ ?>
-				<div class="col-xl-4">
+				<div class="col-xl-2">
 					<h4 class="row mega-title">Categories</h4>
 					<ul class="cabeza">
 					<?php foreach($menu_categories as $menu_category){ ?>
 					  <li><a href="{{ route('products.category', $menu_category->slug) }}">{{ $menu_category->getTranslation('name') }}</a></li>
 					<?php } ?>
 					</ul>
+					
+					
+					<?php if(!empty($menu_months)){ ?>
+						
+						<h4 class="row mega-title">Birthstones</h4>
+						<ul class="cabeza">
+						<?php foreach($menu_months as $menu_month){ ?>
+						  <li><a href="{{ route('birthstones.gemstone_month', strtolower($menu_month)) }}">{{ $menu_month .' Birthstone'; }}</a></li>
+						<?php } ?>
+						</ul>
+				<?php } ?>
                 </div>
 			<?php } ?>
 			
-			<?php if(!empty($menu_gemstones)){ ?>
-				<div class="col-xl-4">
+			<?php 
+				$menuGemstonesArr = array();
+				
+				if(!empty($menu_gemstones)){
+					$i = 0;
+					foreach($menu_gemstones as $k => $menu_gemstone){
+						if($k % 22 == 0 ){
+							
+							$i++;
+						}
+						
+						$menuGemstonesArr[$i][$k] = $menu_gemstone;
+					}
+				}
+			
+			?>
+			<?php 
+				if(!empty($menuGemstonesArr)){ 
+					foreach($menuGemstonesArr as $menu_gemstones){
+			?>
+				<div class="col-xl-2">
 					<h4 class="row mega-title">Gemstones</h4>
 					<ul class="cabeza">
-					<?php  foreach($menu_gemstones as $menu_gemstone){ ?>
-					  <li><a href="{{ route('products.gemstone', $menu_gemstone->slug) }}">{{ $menu_gemstone->getTranslation('name') }}</a></li> 
-					<?php  } ?>
-					</ul>
-                </div>
-			<?php } ?>
-			
-			<?php if(!empty($menu_months)){ ?>
-				<div class="col-xl-4">
-					<h4 class="row mega-title">Birthstones</h4>
-					<ul class="cabeza">
-					<?php foreach($menu_months as $menu_month){ ?>
-					  <li><a href="{{ route('birthstones.gemstone_month', strtolower($menu_month)) }}">{{ $menu_month .' Birthstone'; }}</a></li>
+					<?php foreach($menu_gemstones as $menu_gemstone){ ?>
+					  <li><a href="{{ route('products.gemstone', $menu_gemstone->slug) }}">{{ $menu_gemstone->getTranslation('name') }}</a></li>
 					<?php } ?>
 					</ul>
                 </div>
-			<?php } ?>
+				<?php } }  ?>
+			
+			
 			
              </div>
           </div>  
@@ -346,7 +367,7 @@
         </li> 
 	  <?php } ?>
 		
-		<li class="drop-down"><a href="{{route('pages.contact-us')}}">Contact Us</a></li>
+      <li class="drop-down"><a href="{{route('pages.contact-us')}}">Contact Us</a></li>
 	</ul>
    </div>
    
@@ -447,8 +468,6 @@
    
     <ul class="exo-menu ">
       <li><a href="javascript:void(0)">Home</a></li>
-      <li><a href="javascript:void(0)">About Us</a></li>
-      <li><a href="javascript:void(0)">Services</a></li>
       <li class="mega-drop-down"><a href="javascript:void(0)"><i class="fa fa-list"></i> Shop </a>
         <div class="animated fadeIn mega-menu">
 		
@@ -456,18 +475,31 @@
           <div class="mega-menu-wrap">
             <div class="row">
 			<?php if(!empty($menu_categories)){ ?>
-				<div class="col-xl-4">
+				<div class="col-xl-2">
 					<h4 class="row mega-title">Categories</h4>
 					<ul class="cabeza">
 					<?php foreach($menu_categories as $menu_category){ ?>
 					  <li><a href="{{ route('products.category', $menu_category->slug) }}">{{ $menu_category->getTranslation('name') }}</a></li>
 					<?php } ?>
 					</ul>
+					
+					<?php if(!empty($menu_months)){ ?>
+						
+							<h4 class="row mega-title">Birthstones</h4>
+							<ul class="cabeza">
+							<?php foreach($menu_months as $menu_month){ ?>
+							  <li><a href="{{ route('birthstones.gemstone_month', strtolower($menu_month)) }}">{{ $menu_month .' Birthstone'; }}</a></li>
+							<?php } ?>
+							</ul>
+					<?php } ?>
                 </div>
 			<?php } ?>
 			
-			<?php if(!empty($menu_gemstones)){ ?>
-				<div class="col-xl-4">
+			<?php 
+				if(!empty($menuGemstonesArr)){ 
+					foreach($menuGemstonesArr as $menu_gemstones){
+			?>
+				<div class="col-xl-2">
 					<h4 class="row mega-title">Gemstones</h4>
 					<ul class="cabeza">
 					<?php foreach($menu_gemstones as $menu_gemstone){ ?>
@@ -475,18 +507,9 @@
 					<?php } ?>
 					</ul>
                 </div>
-			<?php } ?>
+				<?php } }  ?>
 			
-			<?php if(!empty($menu_months)){ ?>
-				<div class="col-xl-4">
-					<h4 class="row mega-title">Birthstones</h4>
-					<ul class="cabeza">
-					<?php foreach($menu_months as $menu_month){ ?>
-					  <li><a href="{{ route('birthstones.gemstone_month', strtolower($menu_month)) }}">{{ $menu_month .' Birthstone'; }}</a></li>
-					<?php } ?>
-					</ul>
-                </div>
-			<?php } ?>
+			
 			
              </div>
           </div>  
@@ -516,7 +539,7 @@
         </ul>     
         </li> 
 	  <?php } ?>
-		<li class="drop-down"><a href="javascript:void(0)">Contact Us</a></li>
+      <li class="drop-down"><a href="{{route('pages.contact-us')}}">Contact Us</a></li>
 	</ul>
    </div>
    
