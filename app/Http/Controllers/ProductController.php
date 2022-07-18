@@ -13,6 +13,7 @@ use App\Models\Cart;
 use App\Models\ProductGroup;
 use App\Models\ProductVariantImage;
 use App\Models\RelatedProduct;
+use App\Models\FrontRelatedProduct;
 use Carbon\Carbon;
 use Combinations;
 use CoreComponentRepository;
@@ -883,5 +884,117 @@ class ProductController extends Controller
 
         return 0;
     }
+
+
+    /*public function front_related_products($product_id)
+    {
+        $allProducts = Product::select('name', 'id')->get()->toArray();
+        $product_data = Product::select('name', 'id')->where('id', $product_id)->first();
+        return view('backend.product.products.front_related_products', compact('product_data','allProductsData'));
+    }*/
+
+    /**
+     * product_child_detail the specified resource from storage.
+     *
+     * @param  int  $main_product_id
+     * @return \Illuminate\Http\Response
+     */
+
+    public function front_related_products(Request $request,$id)
+    {
+        $products =array();
+        $product =array();
+        $subMain =array();
+        $mainid = $id;
+        $category_id = $id;
+        $is_related_product = 0;
+        
+        CoreComponentRepository::initializeCache();
+
+        $categories = Category::where('parent_id', 0)
+            ->where('digital', 0)
+            ->with('childrenCategories')
+            ->get();
+
+        $products = Product::where('id','!=',$mainid);
+
+        if ($request->has('category_id') && $request->category_id != null) {
+            $products = $products->where('category_id', $request->category_id);
+            $category_id = $request->category_id;
+        }
+        if ($request->has('is_related_product') && $request->is_related_product != null) {
+            if ($request->is_related_product == 1) {
+                $is_related_product = 1;
+            }
+            
+        }
+
+        $products = $products->paginate(30);
+        //echo "<pre>";print_r($products);die;
+        foreach ($products as $key => $value) {
+            $value['is_selected'] = $this->relatedProductIs($value->id,$mainid);
+            if ($is_related_product == 1 && $value['is_selected'] == 0) {
+                unset($products[$key]);
+            }
+
+        }
+        
+
+
+        $mainproduct = Product::select('id','name')->where('id', $mainid)->first();            
+        
+              
+        return view('backend.product.products.front_related_products', compact('products','mainid','mainproduct','categories','category_id','is_related_product'));
+    }  
+
+    public function relatedProductIs($product_id,$parent_id)
+    {
+        $relatedproduct = FrontRelatedProduct::select('id')->where('parent_id', $parent_id)->where('product_id', $product_id)->first();
+        if (!empty($relatedproduct)) {
+            return 1;
+        }
+        return 0;
+    }
+
+    public function update_related(Request $request)
+    {
+        $mainproduct = Product::select('id','name')->where('id', $request->id)->first();
+
+        if(!empty($mainproduct)){
+
+            $relatedproduct = FrontRelatedProduct::select('id')->where('parent_id', $request->mainid)->where('product_id', $request->id)->first();
+            if (!empty($relatedproduct)) {
+                FrontRelatedProduct::where('id', $relatedproduct->id)->delete();
+            }
+            $frontrelatedProduct = new FrontRelatedProduct;                
+            $frontrelatedProduct->parent_id = $request->mainid;                
+            $frontrelatedProduct->product_id = $request->id;                
+            $frontrelatedProduct->save();
+            return 1;
+            
+
+            
+        }
+
+        return 0;
+
+    }
+
+    public function related_product_destroy($product_id,$mainid)
+    {
+
+        $relatedproduct = FrontRelatedProduct::select('id')->where('parent_id', $mainid)->where('product_id', $product_id)->first();
+        if (!empty($relatedproduct)) {
+            FrontRelatedProduct::where('id', $relatedproduct->id)->delete();
+            flash(translate('Related Product Remove successfully'))->success();
+
+            Artisan::call('view:clear');
+            Artisan::call('cache:clear');
+
+            return back();
+        }
+        return back();
+
+    }  
 
 }

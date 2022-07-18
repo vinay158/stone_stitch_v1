@@ -73,11 +73,18 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(
     });
     
     // Brand
+    /*Route::resource('brands', BrandController::class);
+    Route::controller(BrandController::class)->group(function () {
+        Route::get('/brands/edit/{id}', 'edit')->name('brands.edit');
+        Route::get('/brands/destroy/{id}', 'destroy')->name('brands.destroy');
+    });*/
+    // Brand
     Route::resource('brands', BrandController::class);
     Route::controller(BrandController::class)->group(function () {
         Route::get('/brands/edit/{id}', 'edit')->name('brands.edit');
         Route::get('/brands/destroy/{id}', 'destroy')->name('brands.destroy');
-    });
+        Route::post('/brands/gemstone-is-active/', 'gemstone_is_active')->name('brands.gemstone-is-active');
+    });    
 	
 	// Product Group
     Route::resource('product-groups', ProductGroupController::class);
@@ -116,7 +123,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(
         Route::post('/products/product-child-detail', 'product_child_detail')->name('products.product-child-detail');
         Route::post('/products/child-destroy', 'child_destroy')->name('products.child-destroy');
         Route::post('/products/child-add', 'child_add')->name('products.child-add');
-        Route::post('/products/product-related', 'product_related')->name('products.product-related');
+        
+        Route::get('/products/front-related-products/{id}', 'front_related_products')->name('products.front-related-products');
+        Route::get('/products/related-product-destroy/{id}/{mainid}', 'related_product_destroy')->name('products.related-product-destroy');
+        Route::post('/products/update-related', 'update_related')->name('products.update-related');
         
     });
 

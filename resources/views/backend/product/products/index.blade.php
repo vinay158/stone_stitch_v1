@@ -199,7 +199,7 @@
                                 <i class="las la-eye"></i>
                             </a>
                             @if($product->is_parent == 0)
-                            <a href="javascript:void(0)" class="btn btn-soft-success btn-icon btn-circle btn-sm" onclick="childProductdetailsInfo(this)" data-id="{{ $product->id }}">
+                            <a href="javascript:void(0)" class="btn btn-soft-success btn-icon btn-circle btn-sm" onclick="childProductdetailsInfo(this)" data-id="{{ $product->id }}"  title="{{ translate('Child Products') }}">
                            <!--  <a class="btn btn-soft-success btn-icon btn-circle btn-sm"  href="{{ route('products.product-child', $product->id) }}" target="_blank" title="{{ translate('Child Products') }}"> -->
                                 <i class="las la-sitemap"></i>
                             </a>
@@ -213,9 +213,12 @@
                                 <i class="las la-edit"></i>
                             </a>
                             @endif
-                            <a class="btn btn-soft-warning btn-icon btn-circle btn-sm" href="{{route('products.duplicate', ['id'=>$product->id, 'type'=>$type]  )}}" title="{{ translate('Duplicate') }}">
+                           <!--  <a class="btn btn-soft-warning btn-icon btn-circle btn-sm" href="{{route('products.duplicate', ['id'=>$product->id, 'type'=>$type]  )}}" title="{{ translate('Duplicate') }}">
                                 <i class="las la-copy"></i>
+                            </a> -->
+                            <a class="btn btn-soft-warning btn-icon btn-circle btn-sm" href="{{route('products.front-related-products', $product->id)}}" title="{{ translate('Duplicate') }}"><i class="las la-copy"></i>
                             </a>
+
                             <a href="#" class="btn btn-soft-danger btn-icon btn-circle btn-sm confirm-delete" data-href="{{route('products.destroy', $product->id)}}" title="{{ translate('Delete') }}">
                                 <i class="las la-trash"></i>
                             </a>
@@ -230,6 +233,23 @@
         </div>
     </form>
 </div>
+<!-- <div id="info-modal-related-product" class="modal fade">
+    <div class="modal-dialog" style="max-width: 1002px !important;">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title h6">{{ translate('Related Products') }}</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                </button>
+            </div>
+            <div class="modal-body c-scrollbar-light position-relative" id="info-modal-content-related-product">
+                <div class="c-preloader text-center absolute-center">
+                    <i class="las la-spinner la-spin la-3x opacity-70"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+
 <div id="info-modal" class="modal fade">
     <div class="modal-dialog" style="max-width: 1002px !important;">
             <div class="modal-content">
@@ -263,6 +283,13 @@
             update_product_child_content(id);
 
         }
+        /*function frontRelatedProductdetailsInfo(e){
+            $('#info-modal-content-related-product').html('<div class="c-preloader text-center absolute-center"><i class="las la-spinner la-spin la-3x opacity-70"></i></div>');
+            var id = $(e).data('id')
+            $('#info-modal-related-product').modal('show');
+            update_product_related_content(id);
+
+        }*/
     </script>
     <script type="text/javascript">
 
@@ -270,7 +297,10 @@
             $.post('{{ route('products.product-child-detail') }}', {_token: AIZ.data.csrf, id:id}, function(data){
                 $('#info-modal-content').html(data);
             });
-        }              
+        } 
+
+        
+
         $(document).on("change", ".check-all", function() {
             if(this.checked) {
                 // Iterate each checkbox
