@@ -12,8 +12,8 @@
 
 <?php 
 	$menu_categories = \App\Models\Category::select(['name','slug'])->where('level', 0)->orderBy('order_level','asc')->get();
-	$menu_gemstones = \App\Models\Brand::select(['name','slug'])->where('gemstone_month',null)->orderBy('name','asc')->get();
-	$menu_months = array('January','February','March','April','May','June','July','August','September','October','November','December');
+	$menu_gemstones = \App\Models\Brand::select(['name','slug'])->where('active',1)->orderBy('name','asc')->get();
+    $menu_months = array('January','February','March','April','May','June','July','August','September','October','November','December');
 	
 ?>
 
@@ -312,29 +312,33 @@
 				if(!empty($menu_gemstones)){
 					$i = 0;
 					foreach($menu_gemstones as $k => $menu_gemstone){
-						if($k % 22 == 0 ){
-							
-							$i++;
-						}
-						
-						$menuGemstonesArr[$i][$k] = $menu_gemstone;
+                        // echo $menu_gemstone->active; echo'<br>';
+                    if($k % 22 == 0 ){
+                    
+						$i++;
+					}
+                
+					$menuGemstonesArr[$i][$k] = $menu_gemstone;
 					}
 				}
 			
 			?>
 			<?php 
+                $title_gemstone= 'Gemstones';
 				if(!empty($menuGemstonesArr)){ 
 					foreach($menuGemstonesArr as $menu_gemstones){
 			?>
 				<div class="col-xl-2">
-					<h4 class="row mega-title">Gemstones</h4>
+					<h4 class="row mega-title"><?php echo$title_gemstone ?></h4>
 					<ul class="cabeza">
 					<?php foreach($menu_gemstones as $menu_gemstone){ ?>
 					  <li><a href="{{ route('products.gemstone', $menu_gemstone->slug) }}">{{ $menu_gemstone->getTranslation('name') }}</a></li>
 					<?php } ?>
 					</ul>
                 </div>
-				<?php } }  ?>
+				<?php
+                $title_gemstone = " ";
+                } }  ?>
 			
 			
 			

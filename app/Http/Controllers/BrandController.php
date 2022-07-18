@@ -7,6 +7,8 @@ use App\Models\Brand;
 use App\Models\BrandTranslation;
 use App\Models\Product;
 use Illuminate\Support\Str;
+use Artisan;
+
 
 class BrandController extends Controller
 {
@@ -151,5 +153,20 @@ class BrandController extends Controller
         flash(translate('Gemstone has been deleted successfully'))->success();
         return redirect()->route('brands.index');
 
+    }
+
+    public function gemstone_is_active(Request $request){
+        //echo'<pre> POST :'; print_r($_POST);
+        
+        //  echo'<pre> id:';  print_r($request->gemstone_id); 
+        $gemstone = Brand::findOrFail($request->gemstone_id);
+        $gemstone->active = $request->status;
+        // $gemstone->save();
+        if ($gemstone->save()) {
+            Artisan::call('view:clear');
+            Artisan::call('cache:clear');
+            return 1;
+        }
+        return 0;
     }
 }

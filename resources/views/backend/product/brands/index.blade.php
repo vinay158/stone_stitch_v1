@@ -31,6 +31,7 @@
 		                    <th>{{translate('Name')}}</th>
 		                    <th>{{translate('Logo')}}</th>
 		                    <th>{{translate('Birthstone Month')}}</th>
+		                    <th>{{translate('Active')}}</th>
 		                    <th class="text-right">{{translate('Options')}}</th>
 		                </tr>
 		            </thead>
@@ -43,7 +44,13 @@
 		                            <img src="{{ uploaded_asset($brand->logo) }}" alt="" class="h-50px">
 		                        </td> 
 								<td class="text-center">{{ (!empty($brand->gemstone_month)) ? $brand->gemstone_month : '-'; }}</td>
-		                        <td class="text-right">
+		                        <td>
+									<label class="aiz-switch aiz-switch-success mb-0">
+                                			<input onchange="gemstone_is_active(this)" value="1" gemstone_id="{{$brand->id}}" <?php if ($brand->active == 1) echo "checked"; ?> type="checkbox"  >
+                                			<span class="slider round"></span>
+                            		</label>
+								</td>
+								<td class="text-right">
 		                            <a class="btn btn-soft-primary btn-icon btn-circle btn-sm" href="{{route('brands.edit', ['id'=>$brand->id, 'lang'=>env('DEFAULT_LANGUAGE')] )}}" title="{{ translate('Edit') }}">
 		                                <i class="las la-edit"></i>
 		                            </a>
@@ -123,5 +130,23 @@
     function sort_brands(el){
         $('#sort_brands').submit();
     }
+	
+	function gemstone_is_active(el){
+	    if(el.checked){
+	        var status = 1;
+	    }
+	    else{
+	        var status = 0;
+	    }
+		var gemstone_id= $(el).attr('gemstone_id');
+	    $.post('{{ route('brands.gemstone-is-active') }}', {_token:'{{ csrf_token() }}', id:gemstone_id, status:status, gemstone_id:gemstone_id }, function(data){
+	        if(data == 1){
+	            AIZ.plugins.notify('success', '{{ translate('Gemstone updated successfully') }}');
+	        }
+	        else{
+	            AIZ.plugins.notify('danger', '{{ translate('Something went wrong') }}');
+	        }
+	    });
+	}
 </script>
 @endsection

@@ -216,7 +216,7 @@
                            <!--  <a class="btn btn-soft-warning btn-icon btn-circle btn-sm" href="{{route('products.duplicate', ['id'=>$product->id, 'type'=>$type]  )}}" title="{{ translate('Duplicate') }}">
                                 <i class="las la-copy"></i>
                             </a> -->
-                            <a class="btn btn-soft-warning btn-icon btn-circle btn-sm" href="{{route('products.front-related-products', $product->id)}}" title="{{ translate('Duplicate') }}"><i class="las la-copy"></i>
+                            <a class="btn btn-soft-warning btn-icon btn-circle btn-sm" href="{{route('products.front-related-products', $product->id)}}" title="{{ translate('Related') }}"><i class="las la-copy"></i>
                             </a>
 
                             <a href="#" class="btn btn-soft-danger btn-icon btn-circle btn-sm confirm-delete" data-href="{{route('products.destroy', $product->id)}}" title="{{ translate('Delete') }}">
