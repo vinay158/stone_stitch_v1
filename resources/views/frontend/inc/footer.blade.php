@@ -1,4 +1,4 @@
-<section class="bg-white border-top mt-auto return_policy_block">
+<section class="bg-black border-top mt-auto return_policy_block">
     <div class="container">
         <div class="row no-gutters">
             <div class="col-lg-4 col-md-6">
