@@ -20,10 +20,13 @@ use App\Models\Product;
 use App\Models\Shop;
 use App\Models\AttributeValue;
 use App\Models\WholesaleCommission;
+use App\Models\FrontRelatedProduct;
 use App\Models\Category;
 use App\Utility\SendSMSUtility;
 use App\Utility\NotificationUtility;
 use Carbon\Carbon;
+
+
 
 //sensSMS function for OTP
 if (!function_exists('sendSMS')) {
@@ -95,6 +98,20 @@ if (!function_exists('filter_products')) {
         } else {
             return $products->where('published', '1')->where('auction_product', 0)->where('added_by', 'admin');
         }
+    }
+}
+
+//filter products based on vendor activation system
+if (!function_exists('getRelatedProductId')) {
+    function getRelatedProductId($id)
+    {
+        $id_data = array();
+        $relatedproduct = FrontRelatedProduct::select('product_id')->where('parent_id', $id)->get()->toArray();
+        foreach ($relatedproduct as $key => $value) {
+            $id_data[$value['product_id']] = $value['product_id'];
+        }
+
+        return $id_data;
     }
 }
 
