@@ -165,7 +165,7 @@
                                 <textarea name="website_popup_content" rows="4" class="aiz-text-editor form-control" >{{ get_setting('website_popup_content') }}</textarea>
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <!-- <div class="form-group row">
                             <label class="col-md-3 col-from-label">{{translate('Show Subscriber form?')}}</label>
                             <div class="col-md-8">
                                 <label class="aiz-switch aiz-switch-success mb-0">
@@ -174,7 +174,7 @@
                                     <span></span>
                                 </label>
                             </div>
-                        </div>
+                        </div> -->
     					<div class="text-right">
     						<button type="submit" class="btn btn-primary">{{ translate('Update') }}</button>
     					</div>

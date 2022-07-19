@@ -23,6 +23,9 @@
                                             <input type="text" required class="form-control" value="" placeholder="{{  translate('E-mail') }}" name="email">
                                         </div>
                                         <div class="form-group">
+                                            <input type="text" required class="form-control" value="" placeholder="{{  translate('Subject') }}" name="subject">
+                                        </div>
+                                        <div class="form-group">
                                             <input type="text" required class="form-control" value="" placeholder="{{  translate('Phone') }}" name="phone">
                                         </div>
                                         <div class="form-group">

@@ -6,8 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Page;
 use App\Models\PageTranslation;
 use App\Models\Contact;
-use Mail;
-use App\Mail\EmailManager;
+use App\Http\Controllers\Mail;
 
 class PageController extends Controller
 {
@@ -182,30 +181,21 @@ class PageController extends Controller
         $contact->email = $request->email;
         $contact->phone = $request->phone;
         $contact->message = $request->message;
-        $contact->subject = $request->subject;
-        //$contact->save();
-        if ($contact->save()) {
-            //sends newsletter to selected users
-
+        if($contact->save()){
             $array['view'] = 'emails.newsletter';
-            $array['subject'] = $request->subject;
+            $array['name'] = $request->name;
+            $array['phone'] = $request->phone;
             $array['from'] = env('MAIL_FROM_ADDRESS');
             $array['content'] = $request->message;
 
             try {
                 Mail::to($request->email)->queue(new EmailManager($array));
             } catch (\Exception $e) {
-                flash(translate('Something Went Wrong catch'))->error();
+                //dd($e);
             }
-            flash(translate('Your Details have been successfully submitted'))->success();
-                
-            
         }
-        else {
-            flash(translate('Something Went Wrong'))->error();
-            return back();
-        }
-
+        
+        flash(translate('Your Details have been successfully submitted'))->success();
         return redirect()->route('pages.contact-us');
         // print_r($contact); die;
 

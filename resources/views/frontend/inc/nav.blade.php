@@ -499,19 +499,21 @@
                 </div>
 			<?php } ?>
 			
-			<?php 
+			<?php $gemstone_sticky="Gemstone";
 				if(!empty($menuGemstonesArr)){ 
 					foreach($menuGemstonesArr as $menu_gemstones){
 			?>
 				<div class="col-xl-2">
-					<h4 class="row mega-title">Gemstones</h4>
+					<h4 class="row mega-title"><?php echo $gemstone_sticky; ?></h4>
 					<ul class="cabeza">
 					<?php foreach($menu_gemstones as $menu_gemstone){ ?>
 					  <li><a href="{{ route('products.gemstone', $menu_gemstone->slug) }}">{{ $menu_gemstone->getTranslation('name') }}</a></li>
 					<?php } ?>
 					</ul>
                 </div>
-				<?php } }  ?>
+				<?php
+                $gemstone_sticky=" ";
+                } }  ?>
 			
 			
 			

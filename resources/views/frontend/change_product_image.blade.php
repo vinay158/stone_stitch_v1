@@ -3,6 +3,7 @@
         @php
             $photos = explode(',', $product_variant_image->image);
             $videos = explode(',', $product_video->videos);
+            $videos = (isset($videos[0]) && !empty($videos[0]))?$videos:array();
         @endphp
         <div class="col order-1 order-md-2">
             <div class="aiz-carousel product-gallery" data-nav-for='.product-gallery-thumb' data-fade='true' data-auto-height='true'>
@@ -16,13 +17,13 @@
                         >
                     </div>
                 @endforeach
-                @foreach ($videos as $key => $video)
-                    <div class="carousel-box img-zoom rounded">
-                        <video  class="img-fluid lazyload" id="vid" loop autoplay muted>
-                            <source  id="vid" src="{{ uploaded_asset($video) }}">
-                        </video>
-                    </div>
-                @endforeach
+                    @foreach ($videos as $key => $video)
+                        <div class="carousel-box img-zoom rounded">
+                            <video  class="img-fluid lazyload" id="vid" loop autoplay muted>
+                                <source  id="vid" src="{{ uploaded_asset($video) }}">
+                            </video>
+                        </div>
+                    @endforeach
             </div>
         </div>
         <div class="col-12 col-md-auto w-md-80px order-2 order-md-1 mt-3 mt-md-0">

@@ -740,9 +740,14 @@
                         </div>
                         <div class="p-3">
                             <div class="aiz-carousel gutters-5 half-outside-arrow" data-items="3" data-xl-items="3" data-lg-items="3"  data-md-items="3" data-sm-items="2" data-xs-items="2" data-arrows='true' data-infinite='true'>
-                                <?php $relatd_product_id = getRelatedProductId($detailedProduct->id);
+                                <?php
+                                $related_product_id= array();
+                                $related_product_id = getRelatedProductId($detailedProduct->id);
+                                    // print_r($related_product_id)
+                                    // die('sgfs');
+                                    if(!empty($related_product_id)){
                                 ?>
-                                @foreach (filter_products(\App\Models\Product::where('id', $relatd_product_id))->limit(10)->get() as $key => $related_product)
+                                @foreach (filter_products(\App\Models\Product::whereIN('id', $related_product_id))->limit(10)->get() as $key => $related_product)
                                 <div class="carousel-box">
                                     <div class="aiz-card-box border border-light rounded hov-shadow-md my-2 has-transition">
                                         <div class="">
@@ -782,6 +787,7 @@
                                     </div>
                                 </div>
                                 @endforeach
+                                <?php }?>
                             </div>
                         </div>
                     </div>

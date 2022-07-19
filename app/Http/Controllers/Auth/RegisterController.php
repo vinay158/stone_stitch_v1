@@ -13,6 +13,8 @@ use App\Notifications\EmailVerificationNotification;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\EmailManager;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Cookie;
@@ -63,7 +65,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => 'required|string|max:255',
             'password' => 'required|string|min:6|confirmed',
-            'tax-id' => 'required',
+            'tax_id' => 'required',
             'business_name' => 'required',
             'email'=>'required'
         ]);
@@ -79,7 +81,6 @@ class RegisterController extends Controller
     {   
 
         //$data['is_salesperson'] = 0;
-        
         if (filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
             if (isset($data['is_salesperson']) && $data['is_salesperson'] == 1) {
                 $data['is_salesperson'] = 1;
@@ -99,7 +100,6 @@ class RegisterController extends Controller
                 'is_salesperson' => $data['is_salesperson'],
                 'banned' => 1,
             ]);
-
         }
         else {
             if (addon_is_activated('otp_system')){
@@ -132,6 +132,28 @@ class RegisterController extends Controller
                 $user->referred_by = $referred_by_user->id;
                 $user->save();
             }
+        }
+        // Mail::to('honeyagarwal1221@gmail.com')->send(new \App\Mail\MailToAdmin());
+        if ($user) {
+            //sends newsletter to selected users
+
+            $array['view'] = 'emails.newsletter';
+            $array['subject'] = $data['name'];
+            $array['from'] = env('MAIL_FROM_ADDRESS');
+            $array['content'] = $data['business_name'];
+
+            try {
+                Mail::to('honeyagarwal1221@gmail.com')->queue(new EmailManager($array));
+            } catch (\Exception $e) {
+                flash(translate('Something Went Wrong catch'))->error();
+            }
+            // flash(translate('Your Details have been successfully submitted'))->success();
+                
+            
+        }
+        else {
+            flash(translate('Something Went Wrong'))->error();
+            return back();
         }
 
         return $user;
@@ -166,7 +188,6 @@ class RegisterController extends Controller
             else {
                 try {
                     $user->sendEmailVerificationNotification();
-                    flash(translate('Registration successful. Please verify your email.'))->success();
                 } catch (\Throwable $th) {
                     $user->delete();
                     flash(translate('Registration failed. Please try again later.'))->error();
