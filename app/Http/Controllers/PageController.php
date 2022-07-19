@@ -193,11 +193,11 @@ class PageController extends Controller
             $array['content'] = $request->message;
 
             try {
-                Mail::to($request->email)->queue(new EmailManager($array));
+                Mail::to(get_setting('admin_email'))->queue(new EmailManager($array));
             } catch (\Exception $e) {
                 flash(translate('Something Went Wrong catch'))->error();
             }
-            flash(translate('Your Details have been successfully submitted'))->success();
+            flash(translate("Thank you for Contacting us, We'll get back to you as soon as possible"))->success();
                 
             
         }

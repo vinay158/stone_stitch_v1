@@ -141,9 +141,9 @@ class RegisterController extends Controller
             $array['subject'] = $data['name'];
             $array['from'] = env('MAIL_FROM_ADDRESS');
             $array['content'] = $data['business_name'];
-
+        
             try {
-                Mail::to('honeyagarwal1221@gmail.com')->queue(new EmailManager($array));
+                Mail::to(get_setting('admin_email'))->queue(new EmailManager($array));
             } catch (\Exception $e) {
                 flash(translate('Something Went Wrong catch'))->error();
             }

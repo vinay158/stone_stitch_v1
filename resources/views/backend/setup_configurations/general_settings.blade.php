@@ -49,11 +49,12 @@
                                 <small>{{ translate('Will be used in admin panel topbar in mobile + Admin login page') }}</small>
                             </div>
                         </div>
+                        
                         <div class="form-group row">
-                            <label class="col-sm-3 col-from-label">{{translate('Min Checkout Amount')}}</label>
+                            <label class="col-sm-3 col-from-label">{{translate('Admin E-Mail')}}</label>
                             <div class="col-sm-9">
-                                <input type="hidden" name="types[]" value="min_checkout">
-                                <input type="number" name="min_checkout" class="form-control" value="{{ get_setting('min_checkout') }}">
+                                <input type="hidden" name="types[]" value="admin_email">
+                                <input type="text" name="admin_email" class="form-control" value="{{ get_setting('admin_email') }}">
                             </div>
                         </div>
                         <div class="form-group row">

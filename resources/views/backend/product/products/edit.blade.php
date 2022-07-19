@@ -175,7 +175,7 @@
                     </div>
                     <div class="card-body">
 
-                        <div class="form-group row">
+                        <!-- <div class="form-group row">
                             <label class="col-md-3 col-form-label" for="signinSrEmail">{{translate('Gallery Images')}}</label>
                             <div class="col-md-8">
                                 <div class="input-group" data-toggle="aizuploader" data-type="image" data-multiple="true">
@@ -188,7 +188,7 @@
                                 <div class="file-preview box sm">
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label" for="signinSrEmail">{{translate('Thumbnail Image')}} <small>(290x300)</small></label>
                             <div class="col-md-8">
@@ -284,7 +284,7 @@
                         <h5 class="mb-0 h6">{{translate('Product Variation')}}</h5>
                     </div>
                     <div class="card-body">
-                        <div class="form-group row gutters-5">
+                        <!-- <div class="form-group row gutters-5">
                             <div class="col-lg-3">
                                 <input type="text" class="form-control" value="{{translate('Colors')}}" disabled>
                             </div>
@@ -305,7 +305,7 @@
                                     <span></span>
                                 </label>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="form-group row gutters-5">
                             <div class="col-lg-3">
@@ -459,7 +459,7 @@
                     </div>
                 </div>-->
 
-                <div class="card">
+                <!-- <div class="card">
                     <div class="card-header">
                         <h5 class="mb-0 h6">{{translate('PDF Specification')}}</h5>
                     </div>
@@ -479,7 +479,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="card">
                     <div class="card-header">
                         <h5 class="mb-0 h6">{{translate('SEO Meta Tags')}}</h5>
@@ -687,7 +687,7 @@
                     </div>
                 </div>
 
-                <div class="card">
+                <!-- <div class="card">
                     <div class="card-header">
                         <h5 class="mb-0 h6">{{translate('Cash On Delivery')}}</h5>
                     </div>
@@ -715,7 +715,7 @@
                             </p>
                         @endif
                     </div>
-                </div>
+                </div> -->
                 <div class="card">
                     <div class="card-header">
                         <h5 class="mb-0 h6">{{translate('Featured')}}</h5>
