@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Page;
 use App\Models\PageTranslation;
 use App\Models\Contact;
+use Mail;
+use App\Mail\EmailManager;
 
 class PageController extends Controller
 {
@@ -180,7 +182,28 @@ class PageController extends Controller
         $contact->email = $request->email;
         $contact->phone = $request->phone;
         $contact->message = $request->message;
-        $contact->save();
+        //$contact->save();
+        if ($contact->save()) {
+            //sends newsletter to selected users
+
+            $array['view'] = 'emails.newsletter';
+            $array['subject'] = 'oooop TEST';
+            $array['from'] = env('MAIL_FROM_ADDRESS');
+            $array['content'] = 'uo';
+
+            try {
+                Mail::to($request->email)->queue(new EmailManager($array));
+            } catch (\Exception $e) {
+                //dd($e);
+            }
+                
+            
+        }
+        else {
+            flash(translate('Please configure SMTP first gfdfh'))->error();
+            return back();
+        }
+
         flash(translate('Your Details have been successfully submitted'))->success();
         return redirect()->route('pages.contact-us');
         // print_r($contact); die;
