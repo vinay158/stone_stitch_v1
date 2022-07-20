@@ -1,13 +1,13 @@
 <section class="bg-black border-top mt-auto return_policy_block">
     <div class="container">
         <div class="row no-gutters">
-            <div class="col-lg-4 col-md-6 text-footer-white">
+            <div class="col-lg-4 col-md-6 col-sm-4 text-footer-white terms-width">
                 <a class="text-reset border-left text-center p-4 d-block" href="{{ route('terms') }}">
                     <i class="la la-file-text la-3x mb-2"></i>
                     <h4 class="h6">{{ translate('Terms & conditions') }}</h4>
                 </a>
             </div>
-            <div class="col-lg-4 col-md-6 text-footer-white">
+            <div class="col-lg-4 col-md-6 col-sm-4 text-footer-white terms-width">
                 <a class="text-reset border-left text-center p-4 d-block" href="{{ route('returnpolicy') }}">
                     <i class="la la-mail-reply la-3x  mb-2"></i>
                     <h4 class="h6">{{ translate('Return Policy') }}</h4>
@@ -19,7 +19,7 @@
                     <h4 class="h6">{{ translate('Support Policy') }}</h4>
                 </a>
             </div> -->
-            <div class="col-lg-4 col-md-6 text-footer-white">
+            <div class="col-lg-4 col-md-6 col-sm-4 text-footer-white terms-width">
                 <a class="text-reset border-left border-right text-center p-4 d-block" href="{{ route('privacypolicy') }}">
                     <i class="las la-exclamation-circle la-3x  mb-2"></i>
                     <h4 class="h6">{{ translate('Privacy Policy') }}</h4>
@@ -270,9 +270,9 @@
             </a>
         </div>
         <div class="col">
-            <a href="{{ route('categories.all') }}" class="text-reset d-block text-center pb-2 pt-3">
-                <i class="las la-list-ul fs-20 opacity-60 {{ areActiveRoutes(['categories.all'],'opacity-100 text-primary')}}"></i>
-                <span class="d-block fs-10 fw-600 opacity-60 {{ areActiveRoutes(['categories.all'],'opacity-100 fw-600')}}">{{ translate('Categories') }}</span>
+            <a href="{{ route('search') }}" class="text-reset d-block text-center pb-2 pt-3">
+                <i class="las la-list-ul fs-20 opacity-60 {{ areActiveRoutes(['search'],'opacity-100 text-primary')}}"></i>
+                <span class="d-block fs-10 fw-600 opacity-60 {{ areActiveRoutes(['search'],'opacity-100 fw-600')}}">{{ translate('Shop') }}</span>
             </a>
         </div>
         @php

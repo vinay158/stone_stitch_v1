@@ -541,3 +541,14 @@ font-size: 12px;
 .text-footer-white{
   color:#ffffff !important;
 }
+@media  (max-width: 600px) {
+  .mobile-display-not {
+    display: none !important;
+  }
+  .logo-mid{
+    margin-left: 25% !important;
+  }
+  .terms-width{
+    width: 33% !important;
+  }
+}

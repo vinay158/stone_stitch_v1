@@ -21,7 +21,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-7 col">
-                <ul class="list-inline d-flex justify-content-between justify-content-lg-start mb-0">
+                <ul class="list-inline d-flex justify-content-between justify-content-lg-start  mb-0">
 					<li class="welcome_text">Welcome to {{ get_setting('site_name') }}</li>
                     @if(get_setting('show_language_switcher') == 'on')
                     <li class="list-inline-item dropdown mr-3" id="lang-change">
@@ -182,8 +182,7 @@
     <div class="position-relative logo-bar-area z-1">
         <div class="container">
             <div class="d-flex align-items-center">
-				<div class="col-auto col-xl-4 pl-0 pr-3  pt-3  d-flex align-items-center">
-					
+				<div class="col-auto col-xl-4 pl-0 pr-3  pt-3  d-flex align-items-center  mobile-display-not">
 					<div class="home_contact">
 						<div class="contact_box contact_box_address float-left">
 							<label>Location</label>
@@ -196,12 +195,12 @@
 					</div>
 				</div>
                 <div class="col-auto col-xl-4 pl-4 pr-3 d-flex align-items-center">
-                    <a class="d-block py-10px mr-3 ml-0" href="{{ route('home') }}">
+                    <a class="d-block py-10px mr-3 ml-0 " href="{{ route('home') }}">
                         @php
                             $header_logo = get_setting('header_logo');
                         @endphp
                         @if($header_logo != null)
-                            <img src="{{ uploaded_asset($header_logo) }}" alt="{{ env('APP_NAME') }}" class="mw-100 h-30px h-md-70px" height="40">
+                            <img src="{{ uploaded_asset($header_logo) }}" alt="{{ env('APP_NAME') }}" class="mw-100 h-30px h-md-70px logo-mid" height="40">
                         @else
                             <img src="{{ static_asset('assets/img/logo.png') }}" alt="{{ env('APP_NAME') }}" class="mw-100 h-30px h-md-100px" height="40">
                         @endif
@@ -260,7 +259,7 @@
         @endif
     </div>
     @if ( get_setting('header_menu_labels') !=  null )
-        <div class="bg-white top_last_header border-top border-gray-200 py-2">
+        <div class="bg-white top_last_header border-top border-gray-200 mobile-display-not py-2">
             <div class="container">
 			<div  class="col-xl-12">
 				<div class="col-12 col-xl-9 float-left menu_area">
@@ -274,7 +273,7 @@
                     @endforeach
                 </ul> -->
 				
-				<div class="top_navigation megamenusip">
+				<div class="top_navigation mobile-display-not megamenusip">
    
     <ul class="exo-menu">
       <li><a href="{{ route('home') }}">Home</a></li>
@@ -437,7 +436,7 @@
     @endif
 </header>
 
-<header class="@if(get_setting('header_stikcy') == 'on') sticky-header sticky-top @endif " style="display:none">
+<header class="@if(get_setting('header_stikcy') == 'on') sticky-header sticky-top @endif mobile-display-not" style="display:none">
 
     @if ( get_setting('header_menu_labels') !=  null )
         <div class="bg-white top_last_header border-top border-gray-200 py-2">
