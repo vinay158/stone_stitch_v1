@@ -199,4 +199,32 @@ class PurchaseHistoryController extends Controller
 
         return back();
     }
+
+    /**
+     * Show salesperson revenue
+     *
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function salesperson_monthly_revenue()
+    {   
+
+        $mainOrderArr = array();
+        $customerlist = User::select('id')->where('salesperson_id', Auth::user()->id)->get()->toArray();
+        $order = Order::select('grand_total','created_at','payment_status')->whereIn('user_id', $customerlist)/*->where('payment_status','paid')*/->get()->toArray();
+
+        foreach ($order as $key => $value) { 
+
+            $month_name = date('F', strtotime($value['created_at']));            
+            if (isset($mainOrderArr[$month_name])) {
+                $mainOrderArr[$month_name] += $value['grand_total'];
+            }else{
+                $mainOrderArr[$month_name] = $value['grand_total']; 
+            }
+
+        }
+
+        return view('frontend.user.salesperson_monthly_revenue', compact('mainOrderArr'));        
+
+    }
 }

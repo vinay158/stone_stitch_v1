@@ -138,9 +138,9 @@
                                 </a>
                             </li>
                             <li class="aiz-side-nav-item">
-                                <a href="honey.com" class="aiz-side-nav-link" >
+                                <a href="{{ route('salesperson-monthly-revenue') }}" class="aiz-side-nav-link" >
                                     <i class="las la-user aiz-side-nav-icon"></i>
-                                    <span class="aiz-side-nav-text">{{ translate('Revenue Generated') }}</span>
+                                    <span class="aiz-side-nav-text">{{ translate('Monthly Revenue') }}</span>
                                    
                                 </a>
                             </li>
