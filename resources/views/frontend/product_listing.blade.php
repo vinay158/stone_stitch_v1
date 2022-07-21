@@ -47,7 +47,7 @@
                         <a class="text-reset" href="{{ route('home') }}">{{ translate('Home')}}</a>
                     </li>
                     <li class="text-dark fw-600 breadcrumb-item">
-                        <a class="text-reset" href="{{ route('brands.all') }}">{{ translate('All Gemstones') }}</a>
+                        <a class="text-reset" href="{{ route('brands.all') }}">{{ translate('All Products') }}</a>
                     </li>
                 </ul>
             </div>
