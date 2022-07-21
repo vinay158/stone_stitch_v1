@@ -551,4 +551,7 @@ font-size: 12px;
   .terms-width{
     width: 33% !important;
   }
+  .breadcrumb_area {
+    padding: 14px 18px !important; 
+  }
 }
