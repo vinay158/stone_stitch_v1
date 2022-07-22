@@ -554,4 +554,7 @@ font-size: 12px;
   .breadcrumb_area {
     padding: 14px 18px !important; 
   }
+  .fs-20 {
+    font-size: 0.9375rem !important;
+  } 
 }
