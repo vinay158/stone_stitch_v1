@@ -799,13 +799,29 @@ class OrderController extends Controller
     public function order_cancel($id)
     {
         $order = Order::where('id', $id)->first(); 
-        // echo'<pre>'; print_r($order); die;
+        $user_info=json_decode($order->shipping_address,true);
+        //  echo'<pre>'; print_r($user_info);
+        //  echo'<pre> order:-'; print_r($order);
+        //  die;
             
         if($order ) {
             $order->delivery_status = 'cancelled';
-            $order->save();
+            
+            if ($order->save()) {
+                    $array['view'] = 'emails.invoice';
+                    $array['subject'] = translate('Your Order has been cancelled ')."-".$order->code ;
+                    $array['from'] =  env('MAIL_FROM_ADDRESS');
+                    $array['order'] = $order;
 
-            flash(translate('Order has been canceled successfully'))->success();
+
+                    // echo'<pre>'; print_r($array);die;
+                    try {
+                        Mail::to('honeyagarwal1221@gmail.com')->queue(new InvoiceEmailManager($array));
+                    } catch (\Exception $e) {
+    
+                    }
+                }
+            flash(translate('Order has been cancelled successfully'))->success();
         } else {
             flash(translate('Something went wrong'))->error();
         }

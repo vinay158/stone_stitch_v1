@@ -180,6 +180,32 @@
                                         </div>
                                     </div>
                                 @endforeach
+                                <?php 
+                                $shapes = array("Marquise","Round","Trillion","Oval","Pear","Square","Ocatagon","Baguette"); 
+                                ?>
+                                
+                                    <div class="bg-white shadow-sm rounded mb-3">
+                                        <div class="fs-15 fw-600 p-3 border-bottom">
+                                            {{ translate('Filter by') }} Shape
+                                        </div>
+                                        <div class="p-3">
+                                            <div class="aiz-checkbox-list">
+                                                @foreach ($shapes as $shape)
+                                                    <label class="aiz-checkbox">
+                                                        <input
+                                                            type="checkbox"
+                                                            name="selected_shape_values[]"
+                                                            value="{{ $shape }}" @if (in_array($shape, $selected_shape_values)) checked @endif 
+                                                            onchange="filter()"
+                                                        >
+                                                        <span class="aiz-square-check"></span>
+                                                        <span>{{ $shape }}</span>
+                                                    </label>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    </div>
+                                
 
                                 @if (get_setting('color_filter_activation'))
                                     <div class="bg-white shadow-sm rounded mb-3">

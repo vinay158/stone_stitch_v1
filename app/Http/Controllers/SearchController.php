@@ -25,6 +25,7 @@ class SearchController extends Controller
         $seller_id = $request->seller_id;
         $attributes = Attribute::all();
         $selected_attribute_values = array();
+        $selected_shape_values = array();
         $colors = Color::all();
         $selected_color = null;
 
@@ -122,9 +123,18 @@ class SearchController extends Controller
             }
         }
 
+        if ($request->has('selected_shape_values')) {
+            $selected_shape_values = $request->selected_shape_values;
+            foreach ($selected_shape_values as $key => $value) {
+                // echo'<pre>'; print_r($str); die; 
+                $products->where('tags', 'like', '%' . $value . '%')->get();
+                // $products= Category::where('name', 'like', '%' . $query . '%')->get()->take(3);
+            }
+        }
+
         $products = filter_products($products)->with('taxes')->paginate(12)->appends(request()->query());
 
-        return view('frontend.product_listing', compact('products', 'query', 'category_id', 'brand_id', 'sort_by', 'seller_id', 'min_price', 'max_price', 'attributes', 'selected_attribute_values', 'colors', 'selected_color'));
+        return view('frontend.product_listing', compact('products', 'query', 'category_id', 'brand_id', 'sort_by', 'seller_id', 'min_price', 'max_price', 'attributes', 'selected_attribute_values','selected_shape_values', 'colors', 'selected_color'));
     }
 
     public function listing(Request $request)
@@ -155,6 +165,8 @@ class SearchController extends Controller
     {
         $keywords = array();
         $query = $request->search;
+        // echo'<pre>'; print_r($query); die; 
+
         $products = Product::where('published', 1)->where('tags', 'like', '%' . $query . '%')->get();
         foreach ($products as $key => $product) {
             foreach (explode(',', $product->tags) as $key => $tag) {
