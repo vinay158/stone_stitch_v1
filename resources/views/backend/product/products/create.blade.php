@@ -394,7 +394,7 @@
                     </div>
                 </div>-->
 
-                <!-- <div class="card">
+                <div class="card">
                     <div class="card-header">
                         <h5 class="mb-0 h6">{{translate('PDF Specification')}}</h5>
                     </div>
@@ -414,7 +414,7 @@
                             </div>
                         </div>
                     </div>
-                </div> -->
+                </div>
                 <div class="card">
                     <div class="card-header">
                         <h5 class="mb-0 h6">{{translate('SEO Meta Tags')}}</h5>

@@ -60,21 +60,7 @@
 </head>
 <body>
 	<div>
-		@php
-			$logo = get_setting('header_logo');
-		@endphp
 		<div style="background: #eceff4;padding: 1.5rem;">
-			<table>
-				<tr>
-					<td>
-						@if($logo != null)
-							<img loading="lazy"  src="{{ uploaded_asset($logo) }}" height="40" style="display:inline-block;">
-						@else
-							<img loading="lazy"  src="{{ static_asset('assets/img/logo.png') }}" height="40" style="display:inline-block;">
-						@endif
-					</td>
-				</tr>
-			</table>
 			<table>
 				<tr>
 					<td style="font-size: 1.2rem;" class="strong">{{ get_setting('site_name') }}</td>
