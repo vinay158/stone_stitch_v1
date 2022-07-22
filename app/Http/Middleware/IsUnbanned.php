@@ -22,7 +22,7 @@ class IsUnbanned
 
             
 
-            $message = translate("You are account is Inactive");
+            $message = translate("Your account is Inactive");
             flash($message);
         
             

@@ -131,6 +131,11 @@
                                     <span class="aiz-side-nav-text">{{translate('Product Reviews')}}</span>
                                 </a>
                             </li>
+                            <li class="aiz-side-nav-item">
+                                <a href="{{ route('stock_report.index') }}" class="aiz-side-nav-link {{ areActiveRoutes(['stock_report.index'])}}">
+                                    <span class="aiz-side-nav-text">{{ translate('Products Stock') }}</span>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                 @endif
@@ -855,14 +860,11 @@
                                     <span class="aiz-side-nav-text">{{translate('General Settings')}}</span>
                                 </a>
                             </li>
-
                             <li class="aiz-side-nav-item">
                                 <a href="{{route('wholesale.index')}}" class="aiz-side-nav-link">
-                                    <i class="las la-wrench aiz-side-nav-icon"></i>
                                     <span class="aiz-side-nav-text">{{translate('Wholesale')}}</span>
                                 </a>
                             </li>
-
                             <li class="aiz-side-nav-item">
                                 <a href="{{route('activation.index')}}" class="aiz-side-nav-link">
                                     <span class="aiz-side-nav-text">{{translate('Features activation')}}</span>

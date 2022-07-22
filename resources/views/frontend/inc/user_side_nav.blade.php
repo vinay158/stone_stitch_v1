@@ -131,7 +131,7 @@
                                 </a>
                             </li> -->
                             <li class="aiz-side-nav-item">
-                                <a href="{{ route('salesperson-customer-purchase-history') }}" class="aiz-side-nav-link {{ areActiveRoutes(['salesperson_customer.customer-purchase-form'])}}">
+                                <a href="{{ route('salesperson-customer-purchase-history') }}" class="aiz-side-nav-link">
                                     <i class="las la-file-alt aiz-side-nav-icon"></i>
                                     <span class="aiz-side-nav-text">{{ translate('Customer Purchase History') }}</span>
                                     @if($delivery_viewed > 0 || $payment_status_viewed > 0)<span class="badge badge-inline badge-success">{{ translate('New') }}</span>@endif
