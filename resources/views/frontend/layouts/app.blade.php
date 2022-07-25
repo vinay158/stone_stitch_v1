@@ -585,6 +585,7 @@
         });
 
         function getVariantPrice(){
+            
             if($('#option-choice-form input[name=quantity]').val() > 0 && checkAddToCartValidity()){
                 $.ajax({
                    type:"POST",

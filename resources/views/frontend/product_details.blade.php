@@ -325,8 +325,9 @@
                                                 <b style="padding: 10px;line-height: 3;">{{$value->brand->name}}</b>
                                                 @endif
                                             </a>
-                                            @endif
+                                            
                                             </div>
+                                            @endif
                                         <?php } ?>                                    
                                     </div>
                                 </div>
@@ -924,6 +925,7 @@
 @section('script')
     <script type="text/javascript">
         $(document).ready(function() {
+            //alert('test');
             getVariantPrice();
             $("#loader").css("display",'block');
             $.each($('.attribute_id'), function(){
