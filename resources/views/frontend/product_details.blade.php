@@ -922,7 +922,7 @@
     </div>
 @endsection
 
-@section('script')
+@section('script') 
     <script type="text/javascript">
         $(document).ready(function() {
             //alert('test');
