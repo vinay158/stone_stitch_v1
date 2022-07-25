@@ -9,15 +9,6 @@
     </div>
     <div class="d-flex justify-content-between align-items-stretch flex-grow-xl-1">
         <div class="d-flex justify-content-around align-items-center align-items-stretch">
-            <div class="d-flex justify-content-around align-items-center align-items-stretch">
-                <div class="aiz-topbar-item">
-                    <div class="d-flex align-items-center">
-                        <a class="btn btn-icon btn-circle btn-light" href="{{ route('home')}}" target="_blank" title="{{ translate('Browse Website') }}">
-                            <i class="las la-globe"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
             @if (addon_is_activated('pos_system'))
                 <div class="d-flex justify-content-around align-items-center align-items-stretch ml-3">
                     <div class="aiz-topbar-item">
@@ -29,22 +20,34 @@
                     </div>
                 </div>
             @endif
-            <div class="d-flex justify-content-around align-items-center align-items-stretch ml-3  display-none">
+            <div class="d-flex justify-content-around align-items-center align-items-stretch ml-3  ">
                 <div class="aiz-topbar-item">
                     <div class="d-flex align-items-center">
-                        <a class="btn btn-soft-danger btn-sm d-flex align-items-center" href="{{ route('cache.clear')}}">
+                        <a class="btn btn-soft-success btn-sm d-flex align-items-center" target="_blank" href="{{ route('home')}}">
                             <i class="las la-hdd fs-20"></i>
-                            <span class="fw-500 ml-1 mr-0 d-none d-md-block">{{ translate('Clear Cache') }}</span>
+                            <span class="fw-500 ml-1 mr-0 d-none d-md-block">{{ translate('Browse Website') }}</span>
                         </a>
                     </div>
                 </div>
             </div>
+            <div class="d-flex justify-content-around align-items-left align-items-stretch ml-3  ">
+                <div class="aiz-topbar-item">
+                    <div class="d-flex align-items-center" title="Clear Cache">
+                        <a class="btn btn-icon btn-soft-danger btn-circle btn-light" href="{{ route('cache.clear')}}">
+                            <i class="las la-hdd fs-20" ></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+
+            
         </div>
         <div class="d-flex justify-content-around align-items-center align-items-stretch">
 
             <div class="aiz-topbar-item ml-2">
                 <div class="align-items-stretch d-flex dropdown">
-                    <a class="dropdown-toggle no-arrow display-none" data-toggle="dropdown" href="javascript:void(0);" role="button" aria-haspopup="false" aria-expanded="false">
+                    <a class="dropdown-toggle no-arrow" data-toggle="dropdown" href="javascript:void(0);" role="button" aria-haspopup="false" aria-expanded="false">
                         <span class="btn btn-icon p-0 d-flex justify-content-center align-items-center">
                             <span class="d-flex align-items-center position-relative">
                                 <i class="las la-bell fs-24"></i>
@@ -102,7 +105,7 @@
                     $locale = env('DEFAULT_LANGUAGE');
                 }
             @endphp
-            <div class="aiz-topbar-item ml-2 display-none">
+            <!-- <div class="aiz-topbar-item ml-2 display-none">
                 <div class="align-items-stretch d-flex dropdown " id="lang-change">
                     <a class="dropdown-toggle no-arrow" data-toggle="dropdown" href="javascript:void(0);" role="button" aria-haspopup="false" aria-expanded="false">
                         <span class="btn btn-icon">
@@ -121,7 +124,7 @@
                         @endforeach
                     </ul>
                 </div>
-            </div>
+            </div> -->
 
             <div class="aiz-topbar-item ml-2">
                 <div class="align-items-stretch d-flex dropdown">
