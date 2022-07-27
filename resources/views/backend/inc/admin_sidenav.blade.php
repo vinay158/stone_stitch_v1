@@ -357,13 +357,13 @@
                     <li class="aiz-side-nav-item">
                         <a href="#" class="aiz-side-nav-link">
                             <i class="las la-user-friends aiz-side-nav-icon"></i>
-                            <span class="aiz-side-nav-text">{{ translate('Customers') }}</span>
+                            <span class="aiz-side-nav-text">{{ translate('Users') }}</span>
                             <span class="aiz-side-nav-arrow"></span>
                         </a>
                         <ul class="aiz-side-nav-list level-2">
                             <li class="aiz-side-nav-item">
                                 <a href="{{ route('customers.index') }}" class="aiz-side-nav-link">
-                                    <span class="aiz-side-nav-text">{{ translate('Customer list') }}</span>
+                                    <span class="aiz-side-nav-text">{{ translate('User list') }}</span>
                                 </a>
                             </li>
                             @if(get_setting('classified_product') == 1)
