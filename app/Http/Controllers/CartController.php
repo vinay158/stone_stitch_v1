@@ -60,7 +60,8 @@ class CartController extends Controller
             $user_id = Auth::user()->id;
             $data['user_id'] = $user_id;
             $carts = Cart::where('user_id', $user_id)->get();
-        } else {
+        } 
+        else {
             if($request->session()->get('temp_user_id')) {
                 $temp_user_id = $request->session()->get('temp_user_id');
             } else {

@@ -607,11 +607,13 @@
                            $('.buy-now').addClass('d-none');
                            $('.add-to-cart').addClass('d-none');
                            $('.out-of-stock').removeClass('d-none');
+                           $('.out-stock-order').removeClass('d-none');
                         }
                         else{
                            $('.buy-now').removeClass('d-none');
                            $('.add-to-cart').removeClass('d-none');
                            $('.out-of-stock').addClass('d-none');
+                           $('.out-stock-order').addClass('d-none');   
                         }
 
                         AIZ.extra.plusMinus();

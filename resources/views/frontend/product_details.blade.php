@@ -466,9 +466,12 @@
                                     @endif
 
                                 @endif
-                                <button type="button" class="btn btn-secondary out-of-stock fw-600 d-none" disabled>
+                                <button type="button" class="btn btn-secondary fw-600 out-of-stock  d-none" disabled>
                                     <i class="la la-cart-arrow-down"></i> {{ translate('Out of Stock')}}
                                 </button>
+                                        <button type="button" class="btn btn-primary fw-600 out-of-stock d-none" onclick="buyNow()">
+                                            <i class="la la-shopping-cart"></i> {{ translate('Buy Now')}}
+                                        </button>
                             </div>
 
 

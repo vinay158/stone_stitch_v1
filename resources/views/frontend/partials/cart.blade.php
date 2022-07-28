@@ -8,7 +8,6 @@ if(auth()->user() != null) {
         $cart = \App\Models\Cart::where('temp_user_id', $temp_user_id)->get();
     }
 }
-
 @endphp
 <a href="javascript:void(0)" class="d-flex align-items-center text-reset h-100" data-toggle="dropdown" data-display="static">
     <i class="la la-shopping-cart la-2x opacity-80"></i>

@@ -191,7 +191,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(
         Route::get('/customers/destroy/{id}', 'destroy')->name('customers.destroy');
         Route::post('/bulk-customer-delete', 'bulk_customer_delete')->name('bulk-customer-delete');
         Route::get('/customers/information/{id}', 'customers_info')->name('customers.information');
-        Route::post('/customers/update-salesperson', 'update_salesperson')->name('users.update-salesperson');
+        Route::post('/users/update-salesperson', 'update_salesperson')->name('users.update-salesperson');
+        Route::post('/users/add-salesperson','add_salesperson')->name('users.add-salesperson');
     });
 
     // Newsletter

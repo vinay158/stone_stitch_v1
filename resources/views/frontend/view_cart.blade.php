@@ -45,7 +45,7 @@
 
 <section class="mb-4" id="cart-summary">
     <div class="container">
-        @if( $carts && count($carts) > 0 )
+        @if( $carts > 0 )
             <div class="row">
                 <div class="col-xxl-8 col-xl-10 mx-auto">
                     <div class="shadow-sm bg-white p-3 p-lg-4 rounded text-left">

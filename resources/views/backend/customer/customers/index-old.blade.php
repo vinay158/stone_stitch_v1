@@ -4,7 +4,7 @@
 
 <div class="aiz-titlebar text-left mt-2 mb-3">
     <div class="align-items-center">
-        <h1 class="h3">{{translate('All Customers')}}</h1>
+        <h1 class="h3">{{translate('All Users')}}</h1>
     </div>
 </div>
 
@@ -13,7 +13,7 @@
     <form class="" id="sort_customers" action="" method="GET">
         <div class="card-header row gutters-5">
             <div class="col">
-                <h5 class="mb-0 h6">{{translate('Customers')}}</h5>
+                <h5 class="mb-0 h6">{{translate('Users')}}</h5>
             </div>
             
             <div class="dropdown mb-2 mb-md-0">
@@ -59,8 +59,9 @@
                         </th>
                         <th>{{translate('Name')}}</th>
                         <th data-breakpoints="lg">{{translate('Email Address')}}</th>
-                        <th data-breakpoints="lg">{{translate('Status')}}</th>
+                        <!-- <th data-breakpoints="lg">{{translate('Business Name')}}</th> -->
                         <th data-breakpoints="lg">{{translate('Type')}}</th>
+                        <th data-breakpoints="lg">{{translate('Status')}}</th>
                         <!-- <th data-breakpoints="lg">{{translate('Package')}}</th>
                         <th data-breakpoints="lg">{{translate('Wallet Balance')}}</th> -->
                         <th>{{translate('Options')}}</th>
@@ -81,10 +82,11 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td>@if($user->banned == 1) <i class="fa fa-ban text-danger" aria-hidden="true"></i> @endif {{$user->name}}</td>
+                                <td>@if($user->banned == 1) <i class="fa fa-ban text-success" aria-hidden="true"></i> @endif {{$user->name}}</td>
                                 <td>{{$user->email}}</td>
-                                <td>@if($user->banned == 1) {{translate('Inactive')}} @else {{translate('Active')}} @endif</td>
+                                <!-- <td></td> -->
                                 <td>@if($user->is_salesperson == 1) Salesperson @else Customer @endif</td>
+                                <td>@if($user->banned == 1) {{translate('Inactive')}} @else {{translate('Active')}} @endif</td>
                                 <!-- <td>
                                     @if ($user->customer_package != null)
                                     {{$user->customer_package->getTranslation('name')}}
@@ -99,22 +101,17 @@
                                         <i class="las la-eye"></i>
                                     </a>
                                     @if($user->banned != 1)
-                                    <a href="#" class="btn btn-soft-danger btn-icon btn-circle btn-sm" onclick="confirm_ban('{{route('customers.ban', encrypt($user->id))}}');" title="{{ translate('Ban this Customer') }}">
+                                    <a href="#" class="btn btn-soft-danger btn-icon btn-circle btn-sm" onclick="confirm_ban('{{route('customers.ban', encrypt($user->id))}}');" title="{{ translate('Ban this User') }}">
                                         <i class="las la-user-slash"></i>
                                     </a>
                                     @else
-                                    <a href="#" class="btn btn-soft-success btn-icon btn-circle btn-sm" onclick="confirm_unban('{{route('customers.ban', encrypt($user->id))}}');" title="{{ translate('Unban this Customer') }}">
+                                    <a href="#" class="btn btn-soft-success btn-icon btn-circle btn-sm" onclick="confirm_unban('{{route('customers.ban', encrypt($user->id))}}');" title="{{ translate('Unban this User') }}">
                                         <i class="las la-user-check"></i>
                                     </a>
                                     @endif
                                     <a href="#" class="btn btn-soft-danger btn-icon btn-circle btn-sm confirm-delete" data-href="{{route('customers.destroy', $user->id)}}" title="{{ translate('Delete') }}">
                                         <i class="las la-trash"></i>
                                     </a>
-                                    @if($user->is_salesperson != 1)
-                                        <a href="javascript:void(0)" class="btn btn-soft-success btn-icon btn-circle btn-sm" onclick="updateSalesperson(this)" data-id="{{ $user->id }}"  title="{{ translate('Select Salesperson') }}">
-                                            <i class="las la-sitemap"></i>
-                                        </a>
-                                    @endif
                                 </td>
                             </tr>
                         @endif
@@ -137,7 +134,7 @@
                 <button type="button" class="close" data-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <p>{{translate('Do you really want to ban this Customer?')}}</p>
+                <p>{{translate('Do you really want to ban this user?')}}</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-light" data-dismiss="modal">{{translate('Cancel')}}</button>
@@ -155,7 +152,7 @@
                 <button type="button" class="close" data-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <p>{{translate('Do you really want to unban this Customer?')}}</p>
+                <p>{{translate('Do you really want to unban this user?')}}</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-light" data-dismiss="modal">{{translate('Cancel')}}</button>
@@ -164,24 +161,6 @@
         </div>
     </div>
 </div>
-
-<div id="info-modal" class="modal fade">
-    <div class="modal-dialog" style="max-width: 1002px !important;">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title h6">{{ translate('Update Salesperson') }}</h5>
-                <button type="button" class="close" data-dismiss="modal">
-                </button>
-            </div>
-            <div class="modal-body c-scrollbar-light position-relative" id="info-modal-content">
-                <div class="c-preloader text-center absolute-center">
-                    <i class="las la-spinner la-spin la-3x opacity-70"></i>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 @endsection
 
 @section('modal')
@@ -190,19 +169,7 @@
 
 @section('script')
     <script type="text/javascript">
-
-        function updateSalesperson(e){
-
-            $('#info-modal-content').html('<div class="c-preloader text-center absolute-center"><i class="las la-spinner la-spin la-3x opacity-70"></i></div>');
-            var id = $(e).data('id')
-            $('#info-modal').modal('show');
-            
-            $.post('{{ route('users.update-salesperson') }}', {_token: AIZ.data.csrf, id:id}, function(data){
-                $('#info-modal-content').html(data);
-            });
-
-        }
-
+        
         $(document).on("change", ".check-all", function() {
             if(this.checked) {
                 // Iterate each checkbox
@@ -251,21 +218,5 @@
                 }
             });
         }
-
-        function add_salesperson(el){
-            
-            var selected = $(el).val();
-            var mainid = $(el).data('mainid');
-            
-            $.post('{{ route('users.add-salesperson') }}', {_token:'{{ csrf_token() }}', selected:selected, mainid:mainid}, function(data){
-                if(data == 1){
-                    AIZ.plugins.notify('success', '{{ translate('Add successfully') }}');
-                    //update_product_child_content(mainid);
-                }
-                else{
-                    AIZ.plugins.notify('danger', '{{ translate('Something went wrong') }}');
-                }
-            });
-        }        
     </script>
 @endsection
