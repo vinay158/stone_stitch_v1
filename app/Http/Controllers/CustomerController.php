@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Customer;
 use App\Models\User;
 use App\Models\Order;
-
+use Artisan;
+use Cache;
 class CustomerController extends Controller
 {
     /**
@@ -29,14 +30,9 @@ class CustomerController extends Controller
             $user_type = $request->user_type;
             if($request->user_type == 'salesperson')
             {
-            $users = $users->where('is_salesperson', 1);
-            } 
-            else if($request->user_type == 'retail')
-            {
-            $users = $users->where('is_retail', 1 );
-            }
-            else{
-            $users = $users->where('is_retail', 0 )->where('is_salesperson', 0);
+                $users = $users->where('is_salesperson', 1);            
+            }else{
+                $users = $users->where('is_salesperson', 0);
 
             }
         }
@@ -44,6 +40,8 @@ class CustomerController extends Controller
         $all_salesperson = User::select('id','name')->where('is_salesperson',1)->get();
         
         $users = $users->paginate(15);
+
+        //echo "<pre>";print_r($users);die;
         return view('backend.customer.customers.index', compact('users', 'sort_search', 'user_type','all_salesperson'));
     }
 
@@ -202,10 +200,36 @@ class CustomerController extends Controller
         $products =array();
         $subMain =array();
         $mainid = $request->id;        
+        $selected_id = $request->selected_id;        
 
         $allSalespersonData = User::select('name', 'id')->where('is_salesperson', 1)->get()->toArray();
 
-        return view('backend.customer.customers.update_salesperson', compact('allSalespersonData','mainid'));
+        return view('backend.customer.customers.update_salesperson', compact('allSalespersonData','mainid','selected_id'));
+        
+    }  
+    /**
+     * add_salesperson the specified resource from storage.
+     *
+     * @return \Illuminate\Http\Response
+     */
+
+    public function add_salesperson(Request $request)
+    {
+
+        if (isset($request->selected) && !empty($request->selected) && !empty($request->mainid)) {                
+            $user = User::where('id', $request->mainid)->first();
+            //echo '<pre>';print_r($user);die;
+            if (!empty($user)) {
+                $user->salesperson_id = $request->selected;
+                $user->save(); 
+            }
+            Artisan::call('view:clear');
+            Artisan::call('cache:clear');
+            return 1;
+
+        }
+
+        return 0;
         
     }    
 }

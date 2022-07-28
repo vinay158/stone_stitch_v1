@@ -28,6 +28,7 @@
                 <select class="form-control aiz-selectpicker" name="user_type" id="user_type">
                     <option value="">{{translate('Filter by User Type')}}</option>
                     <option value="salesperson" @if ($user_type == "salesperson") selected @endif>{{translate('Salesperson')}}</option>
+                    <option value="customer" @if ($user_type == "customer") selected @endif>{{translate('Customer')}}</option>
                 </select>
             </div>
             <div class="col-md-3">
@@ -63,6 +64,7 @@
                         <th data-breakpoints="lg">{{translate('Type')}}</th>
                         <!-- <th data-breakpoints="lg">{{translate('Package')}}</th>
                         <th data-breakpoints="lg">{{translate('Wallet Balance')}}</th> -->
+                        <th>{{translate('Salesperson')}}</th>
                         <th>{{translate('Options')}}</th>
                     </tr>
                 </thead>
@@ -85,6 +87,7 @@
                                 <td>{{$user->email}}</td>
                                 <td>@if($user->banned == 1) {{translate('Inactive')}} @else {{translate('Active')}} @endif</td>
                                 <td>@if($user->is_salesperson == 1) Salesperson @else Customer @endif</td>
+                                <td>{{(isset($user->salesperson['name']) && !empty($user->salesperson['name']))?$user->salesperson['name']:'-'}}</td>
                                 <!-- <td>
                                     @if ($user->customer_package != null)
                                     {{$user->customer_package->getTranslation('name')}}
@@ -111,7 +114,7 @@
                                         <i class="las la-trash"></i>
                                     </a>
                                     @if($user->is_salesperson != 1)
-                                        <a href="javascript:void(0)" class="btn btn-soft-success btn-icon btn-circle btn-sm" onclick="updateSalesperson(this)" data-id="{{ $user->id }}"  title="{{ translate('Select Salesperson') }}">
+                                        <a href="javascript:void(0)" class="btn btn-soft-success btn-icon btn-circle btn-sm" onclick="updateSalesperson(this)" data-id="{{ $user->id }}"  title="{{ translate('Select Salesperson') }}" data-salesperson_id="{{ $user->salesperson_id }}">
                                             <i class="las la-sitemap"></i>
                                         </a>
                                     @endif
@@ -194,10 +197,11 @@
         function updateSalesperson(e){
 
             $('#info-modal-content').html('<div class="c-preloader text-center absolute-center"><i class="las la-spinner la-spin la-3x opacity-70"></i></div>');
-            var id = $(e).data('id')
+            var id = $(e).data('id');
+            var selected_id = $(e).data('salesperson_id');
             $('#info-modal').modal('show');
             
-            $.post('{{ route('users.update-salesperson') }}', {_token: AIZ.data.csrf, id:id}, function(data){
+            $.post('{{ route('users.update-salesperson') }}', {_token: AIZ.data.csrf, id:id, selected_id:selected_id}, function(data){
                 $('#info-modal-content').html(data);
             });
 
@@ -256,16 +260,18 @@
             
             var selected = $(el).val();
             var mainid = $(el).data('mainid');
-            
-            $.post('{{ route('users.add-salesperson') }}', {_token:'{{ csrf_token() }}', selected:selected, mainid:mainid}, function(data){
-                if(data == 1){
-                    AIZ.plugins.notify('success', '{{ translate('Add successfully') }}');
-                    //update_product_child_content(mainid);
-                }
-                else{
-                    AIZ.plugins.notify('danger', '{{ translate('Something went wrong') }}');
-                }
-            });
+            if (selected != '') {
+                $.post('{{ route('users.add-salesperson') }}', {_token:'{{ csrf_token() }}', selected:selected, mainid:mainid}, function(data){
+                    if(data == 1){
+                        AIZ.plugins.notify('success', '{{ translate('Add successfully') }}');
+                        //update_product_child_content(mainid);
+                    }
+                    else{
+                        AIZ.plugins.notify('danger', '{{ translate('Something went wrong') }}');
+                    }
+                });                
+            }
+
         }        
     </script>
 @endsection
