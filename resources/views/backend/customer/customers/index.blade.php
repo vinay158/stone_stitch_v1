@@ -112,6 +112,11 @@
                                     <a href="#" class="btn btn-soft-danger btn-icon btn-circle btn-sm confirm-delete" data-href="{{route('customers.destroy', $user->id)}}" title="{{ translate('Delete') }}">
                                         <i class="las la-trash"></i>
                                     </a>
+                                    @if($user->is_salesperson != 1)
+                                        <a href="javascript:void(0)" class="btn btn-soft-success btn-icon btn-circle btn-sm" onclick="updateSalesperson(this)" data-id="{{ $user->id }}"  title="{{ translate('Select Salesperson') }}">
+                                            <i class="las la-sitemap"></i>
+                                        </a>
+                                    @endif
                                 </td>
                             </tr>
                         @endif
@@ -161,6 +166,24 @@
         </div>
     </div>
 </div>
+
+<div id="info-modal" class="modal fade">
+    <div class="modal-dialog" style="max-width: 1002px !important;">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title h6">{{ translate('Update Salesperson') }}</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                </button>
+            </div>
+            <div class="modal-body c-scrollbar-light position-relative" id="info-modal-content">
+                <div class="c-preloader text-center absolute-center">
+                    <i class="las la-spinner la-spin la-3x opacity-70"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection
 
 @section('modal')
@@ -169,7 +192,19 @@
 
 @section('script')
     <script type="text/javascript">
-        
+
+        function updateSalesperson(e){
+
+            $('#info-modal-content').html('<div class="c-preloader text-center absolute-center"><i class="las la-spinner la-spin la-3x opacity-70"></i></div>');
+            var id = $(e).data('id')
+            $('#info-modal').modal('show');
+            
+            $.post('{{ route('users.update-salesperson') }}', {_token: AIZ.data.csrf, id:id}, function(data){
+                $('#info-modal-content').html(data);
+            });
+
+        }
+
         $(document).on("change", ".check-all", function() {
             if(this.checked) {
                 // Iterate each checkbox
@@ -218,5 +253,21 @@
                 }
             });
         }
+
+        function add_salesperson(el){
+            
+            var selected = $(el).val();
+            var mainid = $(el).data('mainid');
+            
+            $.post('{{ route('users.add-salesperson') }}', {_token:'{{ csrf_token() }}', selected:selected, mainid:mainid}, function(data){
+                if(data == 1){
+                    AIZ.plugins.notify('success', '{{ translate('Add successfully') }}');
+                    //update_product_child_content(mainid);
+                }
+                else{
+                    AIZ.plugins.notify('danger', '{{ translate('Something went wrong') }}');
+                }
+            });
+        }        
     </script>
 @endsection

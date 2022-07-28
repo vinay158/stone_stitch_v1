@@ -190,4 +190,22 @@ class CustomerController extends Controller
         
         return back();
     }
+
+    /**
+     * update_salesperson the specified resource from storage.
+     *
+     * @return \Illuminate\Http\Response
+     */
+
+    public function update_salesperson(Request $request)
+    {
+        $products =array();
+        $subMain =array();
+        $mainid = $request->id;        
+
+        $allSalespersonData = User::select('name', 'id')->where('is_salesperson', 1)->get()->toArray();
+
+        return view('backend.customer.customers.update_salesperson', compact('allSalespersonData','mainid'));
+        
+    }    
 }
