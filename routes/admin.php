@@ -42,6 +42,7 @@ use App\Http\Controllers\SubscriberController;
 use App\Http\Controllers\SupportTicketController;
 use App\Http\Controllers\TaxController;
 use App\Http\Controllers\UpdateController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\WebsiteController;
 
 /*
@@ -496,4 +497,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(
     Route::get('/all-notification', [NotificationController::class, 'index'])->name('admin.all-notification');
 
     Route::get('/clear-cache', [AdminController::class, 'clearCache'])->name('cache.clear');
+});
+
+Route::controller(HomeController::class)->group(function () {
+    Route::get('/user-profile/edit/{id}', 'user_profile')->name('user.profile');
+    Route::post('/user-update/{id}', 'user_profile_update')->name('user.update');
 });

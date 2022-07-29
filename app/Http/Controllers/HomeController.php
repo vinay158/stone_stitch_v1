@@ -156,6 +156,40 @@ class HomeController extends Controller
             return view('frontend.user.profile');
         }
     }
+    public function user_profile(Request $request,$id)
+    {
+        // print_r($id);die;
+        // $user=$id;
+        $user = User::where('id', $id)->first();
+        // echo'<pre>';print_r($user);die;
+        return view('backend.user_profile',compact('user'));
+        
+    }
+    public function user_profile_update(Request $request, $id)
+    {
+        if(env('DEMO_MODE') == 'On'){
+            flash(translate('Sorry! the action is not permitted in demo '))->error();
+            return back();
+        }
+
+        $user = User::where('id', $id)->first();
+        $user->name = $request->name;
+        $user->address = $request->address;
+        $user->country = $request->country;
+        $user->city = $request->city;
+        $user->postal_code = $request->postal_code;
+        $user->phone = $request->phone;
+
+        if($request->new_password != null && ($request->new_password == $request->confirm_password)){
+            $user->password = Hash::make($request->new_password);
+        }
+        
+        $user->avatar_original = $request->photo;
+        $user->save();
+
+        flash(translate('Your Profile has been updated successfully!'))->success();
+        return back();
+    }
 
     public function userProfileUpdate(Request $request)
     {
