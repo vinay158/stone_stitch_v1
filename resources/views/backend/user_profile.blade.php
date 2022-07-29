@@ -15,14 +15,14 @@
                 <div class="form-group row">
                     <label class="col-md-2 col-form-label">{{ translate('Name') }}</label>
                     <div class="col-md-10">
-                        <input type="text" class="form-control" placeholder="{{ translate('Your Name') }}" name="name" value="{{ $user->name }}">
+                        <input type="text" class="form-control" placeholder="{{ translate('Name') }}" name="name" value="{{ $user->name }}">
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label class="col-md-2 col-form-label">{{ translate('Phone') }}</label>
                     <div class="col-md-10">
-                        <input type="text" class="form-control" placeholder="{{ translate('Your Phone')}}" name="phone" value="{{ $user->phone }}">
+                        <input type="text" class="form-control" placeholder="{{ translate(' Phone')}}" name="phone" value="{{ $user->phone }}">
                     </div>
                 </div>
                 <div class="form-group row">
