@@ -45,7 +45,7 @@
 
 <section class="mb-4" id="cart-summary">
     <div class="container">
-        @if( $carts > 0 )
+        @if($carts && count($carts) > 0)
             <div class="row">
                 <div class="col-xxl-8 col-xl-10 mx-auto">
                     <div class="shadow-sm bg-white p-3 p-lg-4 rounded text-left">
@@ -136,17 +136,10 @@
                                 </a>
                             </div>
                             <div class="col-md-6 text-center text-md-right">
-                                <?php $min_cart_amount= get_setting('min_checkout');  ?>
                                 @if(Auth::check())
-                                        @if($total >= $min_cart_amount)
-                                            <a href="{{ route('checkout.shipping_info') }}" class="btn btn-primary fw-600">
-                                                {{ translate('Continue to Shipping')}}
-                                            </a>
-                                        @else
-                                        <button type="button" disabled class="btn btn-primary fw-600">
-                                                {{ translate('Continue to Shipping')}}
-                                        </button>
-                                        @endif
+                                    <a href="{{ route('checkout.shipping_info') }}" class="btn btn-primary fw-600">
+                                        {{ translate('Continue to Shipping')}}
+                                    </a>
                                 @else
                                     <button class="btn btn-primary fw-600" onclick="showCheckoutModal()">{{ translate('Continue to Shipping')}}</button>
                                 @endif

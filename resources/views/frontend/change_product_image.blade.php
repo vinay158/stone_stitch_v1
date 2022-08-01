@@ -40,7 +40,7 @@
                 @endforeach
                 @foreach ($videos as $key => $video)
                     <div class="carousel-box c-pointer border p-1 rounded">
-                        <video  class="lazyload mw-100 size-50px mx-auto"   id="vid" loop autoplay muted>
+                        <video  class="lazyload mw-100 size-50px mx-auto"   id="vid"  autoplay muted>
                             <source  id="vid" src="{{ uploaded_asset($video) }}">
                         </video>
                     </div>

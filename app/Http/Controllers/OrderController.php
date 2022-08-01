@@ -401,13 +401,21 @@ class OrderController extends Controller
                 $product_variation = $cartItem['variation'];
 
                 $product_stock = $product->stocks->where('variant', $product_variation)->first();
-                if ($product->digital != 1 && $cartItem['quantity'] > $product_stock->qty) {
-                    flash(translate('The requested quantity is not available for ') . $product->getTranslation('name'))->warning();
-                    $order->delete();
-                    return redirect()->route('cart')->send();
-                } elseif ($product->digital != 1) {
-                    $product_stock->qty -= $cartItem['quantity'];
-                    $product_stock->save();
+                if(get_setting('out_stock_minimum_order') > 0){
+                    // if($request->quantity >= get_setting('out_stock_minimum_order')){
+                    //     $cartItem['quantity'] = $request->quantity;
+                    // }else{
+                    //     $cartItem['quantity'] = get_setting('out_stock_minimum_order');   
+                    // }
+                }else{
+                    if ($product->digital != 1 && $cartItem['quantity'] > $product_stock->qty) {
+                        flash(translate('The requested quantity is not available for ') . $product->getTranslation('name'))->warning();
+                        $order->delete();
+                        return redirect()->route('cart')->send();
+                    } elseif ($product->digital != 1) {
+                        $product_stock->qty -= $cartItem['quantity'];
+                        $product_stock->save();
+                    }
                 }
 
                 $order_detail = new OrderDetail;

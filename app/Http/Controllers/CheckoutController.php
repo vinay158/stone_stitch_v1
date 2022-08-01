@@ -41,6 +41,10 @@ class CheckoutController extends Controller
             }
         }
         // Minumum order amount check end
+
+        // if(get_setting('out_stock_minimum_order')){
+            
+        // }
         
         if ($request->payment_option != null) {
             (new OrderController)->store($request);

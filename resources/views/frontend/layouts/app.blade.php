@@ -665,33 +665,36 @@
         }
 
         function buyNow(){
-            if(checkAddToCartValidity()) {
-                $('#addToCart-modal-body').html(null);
-                $('#addToCart').modal();
-                $('.c-preloader').show();
-                $.ajax({
-                   type:"POST",
-                   url: '{{ route('cart.addToCart') }}',
-                   data: $('#option-choice-form').serializeArray(),
-                   success: function(data){
-                       if(data.status == 1){
+            if( $('#out-stock-quantity').val() >= {{get_setting('out_stock_minimum_order')}})
+             {
+                if(checkAddToCartValidity()) {
+                    $('#addToCart-modal-body').html(null);
+                    $('#addToCart').modal();
+                    $('.c-preloader').show();
+                    $.ajax({
+                       type:"POST",
+                       url: '{{ route('cart.addToCart') }}',
+                       data: $('#option-choice-form').serializeArray(),
+                       success: function(data){
+                           if(data.status == 1){
 
-                            $('#addToCart-modal-body').html(data.modal_view);
-                            updateNavCart(data.nav_cart_view,data.cart_count);
+                                $('#addToCart-modal-body').html(data.modal_view);
+                                updateNavCart(data.nav_cart_view,data.cart_count);
 
-                            window.location.replace("{{ route('cart') }}");
+                                window.location.replace("{{ route('cart') }}");
+                           }
+                           else{
+                                $('#addToCart-modal-body').html(null);
+                                $('.c-preloader').hide();
+                                $('#modal-size').removeClass('modal-lg');
+                                $('#addToCart-modal-body').html(data.modal_view);
+                           }
                        }
-                       else{
-                            $('#addToCart-modal-body').html(null);
-                            $('.c-preloader').hide();
-                            $('#modal-size').removeClass('modal-lg');
-                            $('#addToCart-modal-body').html(data.modal_view);
-                       }
-                   }
-               });
-            }
-            else{
-                AIZ.plugins.notify('warning', "{{ translate('Please choose all the options') }}");
+                   });
+                }
+                else{
+                    AIZ.plugins.notify('warning', "{{ translate('Please choose all the options') }}");
+                }
             }
         }
 
@@ -714,6 +717,9 @@ $(window).on('scroll',function() {
 			$(".sticky-header").show();
            }
     });
+
+
+
     </script>
 
     @yield('script')

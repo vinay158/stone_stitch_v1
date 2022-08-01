@@ -117,6 +117,9 @@ class CartController extends Controller
             }
 
             $quantity = $product_stock->qty;
+            if(get_setting('out_stock_minimum_order') > 0 && $quantity== 0){
+
+            }else{
 
             if($quantity < $request['quantity']){
                 return array(
@@ -126,6 +129,7 @@ class CartController extends Controller
                     'nav_cart_view' => view('frontend.partials.cart')->render(),
                 );
             }
+        }
 
             //discount calculation
             $discount_applicable = false;
@@ -191,13 +195,17 @@ class CartController extends Controller
                     if($cartItem['product_id'] == $request->id) {
                         $product_stock = $cart_product->stocks->where('variant', $str)->first();
                         $quantity = $product_stock->qty;
-                        if($quantity < $cartItem['quantity'] + $request['quantity']){
+                        if(get_setting('out_stock_minimum_order') > 0 && $quantity== 0){
+
+                        }else{
+                            if($quantity < $cartItem['quantity'] + $request['quantity']){
                             return array(
                                 'status' => 0,
                                 'cart_count' => count($carts),
                                 'modal_view' => view('frontend.partials.outOfStockCart')->render(),
                                 'nav_cart_view' => view('frontend.partials.cart')->render(),
                             );
+                            }
                         }
                         if(($str != null && $cartItem['variation'] == $str) || $str == null){
                             $foundInCart = true;
@@ -328,13 +336,20 @@ class CartController extends Controller
                     $price -= $product->discount;
                 }
             }
-
-            if($quantity >= $request->quantity) {
-                if($request->quantity >= $product->min_qty){
+            if(get_setting('out_stock_minimum_order') > 0 && $quantity== 0 ){
+                if($request->quantity >= get_setting('out_stock_minimum_order')){
                     $cartItem['quantity'] = $request->quantity;
+                }else{
+                    $cartItem['quantity'] = get_setting('out_stock_minimum_order');   
+                }
+            }else{
+                if($quantity >= $request->quantity) {
+                    if($request->quantity >= $product->min_qty){
+                        $cartItem['quantity'] = $request->quantity;
+                    }
                 }
             }
-
+            
             if($product->wholesale_product){
                 $wholesalePrice = $product_stock->wholesalePrices->where('min_qty', '<=', $request->quantity)->where('max_qty', '>=', $request->quantity)->first();
                 if($wholesalePrice){

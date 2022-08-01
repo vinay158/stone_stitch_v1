@@ -399,9 +399,25 @@
                                 <div class="row no-gutters">
                                     <div class="col-sm-2">
                                         <div class="opacity-50 my-2">{{ translate('Quantity')}}:</div>
-                                    </div>
+                                    </div>@php
+                                                $qty = 0;
+                                                foreach ($detailedProduct->stocks as $key => $stock) {
+                                                    $qty += $stock->qty;
+                                                }
+                                            @endphp
                                     <div class="col-sm-10">
                                         <div class="product-quantity d-flex align-items-center">
+                                            @if($qty == 0)
+                                            <div class="row no-gutters align-items-center aiz-plus-minus mr-3" style="width: 130px;">
+                                                <button class="btn col-auto btn-icon btn-sm btn-circle btn-light" type="button" data-type="minus" data-field="quantity" >
+                                                    <i class="las la-minus"></i>
+                                                </button>
+                                                <input type="number" name="quantity" id="out-stock-quantity" class="col border-0 text-center flex-grow-1 fs-16 input-number" placeholder="1" value="{{get_setting('out_stock_minimum_order')}}" min="{{get_setting('out_stock_minimum_order')}}" max="1000"  lang="en">
+                                                <button class="btn  col-auto btn-icon btn-sm btn-circle btn-light" type="button" data-type="plus" data-field="quantity">
+                                                    <i class="las la-plus"></i>
+                                                </button>
+                                            </div> 
+                                            @else
                                             <div class="row no-gutters align-items-center aiz-plus-minus mr-3" style="width: 130px;">
                                                 <button class="btn col-auto btn-icon btn-sm btn-circle btn-light" type="button" data-type="minus" data-field="quantity" disabled="">
                                                     <i class="las la-minus"></i>
@@ -411,12 +427,7 @@
                                                     <i class="las la-plus"></i>
                                                 </button>
                                             </div>
-                                            @php
-                                                $qty = 0;
-                                                foreach ($detailedProduct->stocks as $key => $stock) {
-                                                    $qty += $stock->qty;
-                                                }
-                                            @endphp
+                                            @endif
                                             <div class="avialable-amount opacity-60">
                                                 @if($detailedProduct->stock_visibility_state == 'quantity')
                                                 (<span id="available-quantity">{{ $qty }}</span> {{ translate('available')}})
@@ -466,12 +477,12 @@
                                     @endif
 
                                 @endif
-                                <button type="button" class="btn btn-secondary fw-600 out-of-stock  d-none" disabled>
+                                <button type="button" class="btn btn-secondary fw-600 out-of-stock d-none" style="margin-right: 2%;" disabled>
                                     <i class="la la-cart-arrow-down"></i> {{ translate('Out of Stock')}}
                                 </button>
-                                        <button type="button" class="btn btn-primary fw-600 out-of-stock d-none" onclick="buyNow()">
-                                            <i class="la la-shopping-cart"></i> {{ translate('Buy Now')}}
-                                        </button>
+                                <button type="button" class="btn btn-primary fw-600 out-of-stock d-none"  data-toggle="modal" data-target="#out-stock-order" >
+                                    <i class="la la-shopping-cart"></i> {{ translate('Buy Now')}}
+                                </button>
                             </div>
 
 
@@ -923,6 +934,28 @@
             </div>
         </div>
     </div>
+
+    <!-- BUY NOW MODAL -->
+<div class="modal fade" id="out-stock-order" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel" >Confirm</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="font-size: 120%; ">
+      <i class="las la-exclamation-triangle" style="font-size: 900% !important;margin-left: 30%;color: indianred;" ></i><br>
+        This is a special request, out of stock order hence can take upto 10 to 12 business days to be shipped <sup>*T&C apply</sup>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary"  data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" onclick="buyNow()">Proceed</button>
+      </div>
+    </div>
+  </div>
+</div>
 @endsection
 
 @section('script') 
@@ -944,6 +977,9 @@
             
 
     	});
+        $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
 
         function CopyToClipboard(e) {
             var url = $(e).data('url');
