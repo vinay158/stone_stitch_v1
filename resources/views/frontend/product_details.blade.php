@@ -412,7 +412,7 @@
                                                 <button class="btn col-auto btn-icon btn-sm btn-circle btn-light" type="button" data-type="minus" data-field="quantity" >
                                                     <i class="las la-minus"></i>
                                                 </button>
-                                                <input type="number" name="quantity" id="out-stock-quantity" class="col border-0 text-center flex-grow-1 fs-16 input-number" placeholder="1" value="{{get_setting('out_stock_minimum_order')}}" min="{{get_setting('out_stock_minimum_order')}}" max="1000"  lang="en">
+                                                <input type="number" name="quantity" id="out-stock-quantity" class="col border-0 text-center flex-grow-1 fs-16 input-number" placeholder="1" value="{{get_setting('out_stock_minimum_order')}}" min="{{get_setting('out_stock_minimum_order')}}" max="10"  lang="en">
                                                 <button class="btn  col-auto btn-icon btn-sm btn-circle btn-light" type="button" data-type="plus" data-field="quantity">
                                                     <i class="las la-plus"></i>
                                                 </button>
