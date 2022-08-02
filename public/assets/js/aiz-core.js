@@ -1694,13 +1694,14 @@ $.fn.toggleAttr = function (attr, attr1, attr2) {
                 var $this = $(this);
                 var min = parseInt($(this).attr("min"));
                 var max = parseInt($(this).attr("max"));
+                var oofsq = parseInt($(this).attr("oofsq"));
                 var value = parseInt($(this).val());
                 if(value <= min){
                     $this.siblings('[data-type="minus"]').attr('disabled',true)
                 }else if($this.siblings('[data-type="minus"]').attr('disabled')){
                     $this.siblings('[data-type="minus"]').removeAttr('disabled')
                 }
-                if(value >= max){
+                if(value >= max && oofsq == 0){
                     $this.siblings('[data-type="plus"]').attr('disabled',true)
                 }else if($this.siblings('[data-type="plus"]').attr('disabled')){
                     $this.siblings('[data-type="plus"]').removeAttr('disabled')
@@ -1723,10 +1724,12 @@ $.fn.toggleAttr = function (attr, attr1, attr2) {
                             $(this).attr("disabled", true);
                         }
                     } else if (type == "plus") {
-                        if (currentVal < input.attr("max")) {
+                        if (currentVal < input.attr("max") && input.attr("oofsq") != 1) {
+                            input.val(currentVal + 1).change();
+                        }else if(input.attr("oofsq") == 1){
                             input.val(currentVal + 1).change();
                         }
-                        if (parseInt(input.val()) == input.attr("max")) {
+                        if (parseInt(input.val()) == input.attr("max") && input.attr("oofsq") != 1) {
                             $(this).attr("disabled", true);
                         }
                     }
@@ -1738,6 +1741,7 @@ $.fn.toggleAttr = function (attr, attr1, attr2) {
             $('.aiz-plus-minus input').off('change').on('change', function () {
                 var minValue = parseInt($(this).attr("min"));
                 var maxValue = parseInt($(this).attr("max"));
+                var oofsq = parseInt($(this).attr("oofsq"));
                 var valueCurrent = parseInt($(this).val());
 
                 name = $(this).attr("name");
@@ -1747,12 +1751,16 @@ $.fn.toggleAttr = function (attr, attr1, attr2) {
                     alert("Sorry, the minimum limit has been reached");
                     $(this).val(minValue);
                 }
-                if (valueCurrent <= maxValue) {
-                    $(this).siblings("[data-type='plus']").removeAttr("disabled");
-                } else {
-                    alert("Sorry, the maximum limit has been reached");
-                    $(this).val(maxValue);
+
+                if (oofsq != 1) {
+                    if (valueCurrent <= maxValue) {
+                        $(this).siblings("[data-type='plus']").removeAttr("disabled");
+                    } else {
+                        alert("Sorry, the maximum limit has been reached");
+                        $(this).val(maxValue);
+                    }                    
                 }
+
 
                 getVariantPrice();
             });
