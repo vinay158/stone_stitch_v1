@@ -137,8 +137,8 @@ class RegisterController extends Controller
         if ($user) {
             //sends newsletter to selected users
 
-            $array['view'] = 'emails.newsletter';
-            $array['subject'] = $data['name'];
+            $array['view'] = 'emails.registration';
+            $array['subject'] = 'New Registration :'.$data['name'];
             $array['from'] = env('MAIL_FROM_ADDRESS');
             $array['content'] = $data['business_name'];
         
@@ -148,8 +148,6 @@ class RegisterController extends Controller
                 flash(translate('Something Went Wrong catch'))->error();
             }
             // flash(translate('Your Details have been successfully submitted'))->success();
-                
-            
         }
         else {
             flash(translate('Something Went Wrong'))->error();

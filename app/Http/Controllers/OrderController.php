@@ -808,23 +808,25 @@ class OrderController extends Controller
     {
         $order = Order::where('id', $id)->first(); 
         $user_info=json_decode($order->shipping_address,true);
-        //  echo'<pre>'; print_r($user_info);
-        //  echo'<pre> order:-'; print_r($order);
-        //  die;
+        // echo'<pre>'; print_r($user_info);
+        // echo'<pre> order:-'; print_r($order);
+        // echo $user_info['email'];
+        // die;
             
         if($order ) {
             $order->delivery_status = 'cancelled';
             
             if ($order->save()) {
                     $array['view'] = 'emails.invoice';
-                    $array['subject'] = translate('Your Order has been cancelled ')."-".$order->code ;
+                    $array['subject'] = translate('Order cancelled ')."-".$order->code ;
                     $array['from'] =  env('MAIL_FROM_ADDRESS');
                     $array['order'] = $order;
 
 
                     // echo'<pre>'; print_r($array);die;
                     try {
-                        Mail::to('honeyagarwal1221@gmail.com')->queue(new InvoiceEmailManager($array));
+                        Mail::to(get_setting('admin_email'))->queue(new InvoiceEmailManager($array));
+                        Mail::to($user_info['email'])->queue(new InvoiceEmailManager($array));
                     } catch (\Exception $e) {
     
                     }
