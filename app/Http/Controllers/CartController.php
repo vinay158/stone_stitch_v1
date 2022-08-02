@@ -52,6 +52,7 @@ class CartController extends Controller
 
     public function addToCart(Request $request)
     {
+
         $product = Product::find($request->id);
         $carts = array();
         $data = array();
@@ -117,8 +118,9 @@ class CartController extends Controller
             }
 
             $quantity = $product_stock->qty;
-            if(get_setting('out_stock_minimum_order') > 0 && $quantity== 0){
 
+            if(get_setting('out_stock_minimum_order') > 0 && $quantity== 0){
+                $data['is_out_stock_item'] = 1;
             }else{
 
             if($quantity < $request['quantity']){
@@ -170,6 +172,8 @@ class CartController extends Controller
             $data['cash_on_delivery'] = $product->cash_on_delivery;
             $data['digital'] = $product->digital;
 
+
+
             if ($request['quantity'] == null){
                 $data['quantity'] = 1;
             }
@@ -195,8 +199,12 @@ class CartController extends Controller
                     if($cartItem['product_id'] == $request->id) {
                         $product_stock = $cart_product->stocks->where('variant', $str)->first();
                         $quantity = $product_stock->qty;
-                        if(get_setting('out_stock_minimum_order') > 0 && $quantity== 0){
 
+                        if(get_setting('out_stock_minimum_order') > 0 && $quantity== 0){
+                            $cartItem['is_out_stock_item'] = 1;
+                            if($cartItem['quantity'] <= get_setting('out_stock_minimum_order')){
+                                $cartItem['quantity'] = get_setting('out_stock_minimum_order');   
+                            }
                         }else{
                             if($quantity < $cartItem['quantity'] + $request['quantity']){
                             return array(
