@@ -153,12 +153,12 @@
                             </li>
                         @endif
 
-                        <li class="aiz-side-nav-item">
+                        <!-- <li class="aiz-side-nav-item">
                             <a href="{{ route('digital_purchase_history.index') }}" class="aiz-side-nav-link {{ areActiveRoutes(['digital_purchase_history.index'])}}">
                                 <i class="las la-download aiz-side-nav-icon"></i>
                                 <span class="aiz-side-nav-text">{{ translate('Downloads') }}</span>
                             </a>
-                        </li>
+                        </li> -->
                     @endif
 
                         @if (addon_is_activated('refund_request'))
@@ -193,7 +193,7 @@
                         </li>
                     @endif
 
-                    @if (get_setting('conversation_system') == 1)
+                    <!-- @if (get_setting('conversation_system') == 1)
                         @php
                             $conversation = \App\Models\Conversation::where('sender_id', Auth::user()->id)->where('sender_viewed', 0)->get();
                         @endphp
@@ -206,7 +206,7 @@
                                 @endif
                             </a>
                         </li>
-                    @endif
+                    @endif -->
 
 
                     @if (get_setting('wallet_system') == 1)
@@ -261,13 +261,13 @@
                                     ->count();
                     @endphp
 
-                    <li class="aiz-side-nav-item">
+                    <!-- <li class="aiz-side-nav-item">
                         <a href="{{ route('support_ticket.index') }}" class="aiz-side-nav-link {{ areActiveRoutes(['support_ticket.index'])}}">
                             <i class="las la-atom aiz-side-nav-icon"></i>
                             <span class="aiz-side-nav-text">{{translate('Support Ticket')}}</span>
                             @if($support_ticket > 0)<span class="badge badge-inline badge-success">{{ $support_ticket }}</span> @endif
                         </a>
-                    </li>
+                    </li> -->
                 @endif
                 <li class="aiz-side-nav-item">
                     <a href="{{ route('profile') }}" class="aiz-side-nav-link {{ areActiveRoutes(['profile'])}}">
