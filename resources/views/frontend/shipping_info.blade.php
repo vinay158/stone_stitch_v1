@@ -72,7 +72,33 @@
                                     </div>
                                 </div>
                             </div> 
-                            @endif                           
+                            @endif  
+                            <div class="row gutters-5">
+                              
+                                <div class="col-md-12 mx-auto mb-3 border p-3 rounded mb-3 c-pointer text-center bg-white h-100 flex-column justify-content-center">
+
+                                    <div class="col-md-4 float-left">
+                                        <label class="aiz-megabox d-block bg-white mb-0">
+                                            <input type="radio" name="shipping_type_payment" value="normal" checked="">
+                                            <span class="d-flex p-3 aiz-megabox-elem">
+                                                <span class="aiz-rounded-check flex-shrink-0 mt-1"></span>
+                                                <span class="flex-grow-1 pl-3 fw-600">Normal Shipping</span>
+                                            </span>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-4 float-left">
+                                    <label class="aiz-megabox d-block bg-white mb-0">
+                                        <input type="radio" name="shipping_type_payment" value="priority"  checked="">
+                                        <span class="d-flex p-3 aiz-megabox-elem">
+                                            <span class="aiz-rounded-check flex-shrink-0 mt-1"></span>
+                                            <span class="flex-grow-1 pl-3 fw-600">Priority Shipping</span>
+                                        </span>
+                                    </label>
+                                    </div>
+
+
+                                </div>
+                            </div>                                                      
                             <div class="row gutters-5">
                                 @foreach (Auth::user()->addresses as $key => $address)
                                     <div class="col-md-6 mb-3">

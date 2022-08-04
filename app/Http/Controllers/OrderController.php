@@ -442,6 +442,7 @@ class OrderController extends Controller
 
                 $order->salesperson_id = $cartItem['salesperson_id'];
                 $order->for_customer_id = $cartItem['for_customer_id'];
+                $order->shipping_type_payment = $cartItem['shipping_type_payment'];
 
                 if ($product->added_by == 'seller' && $product->user->seller != null){
                     $seller = $product->user->seller;

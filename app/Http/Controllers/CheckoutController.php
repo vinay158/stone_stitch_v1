@@ -124,6 +124,7 @@ class CheckoutController extends Controller
                 $cartItem->for_customer_id = $request->customer_id;
             }
             $cartItem->address_id = $request->address_id;
+            $cartItem->shipping_type_payment = $request->shipping_type_payment;
             $cartItem->save();
         }
 
@@ -163,7 +164,9 @@ class CheckoutController extends Controller
                 }
                 $cartItem['shipping_cost'] = 0;
                 if ($cartItem['shipping_type'] == 'home_delivery') {
-                    $cartItem['shipping_cost'] = getShippingCost($carts, $key);
+                    if ($cartItem['shipping_type_payment'] == 'priority') {
+                        $cartItem['shipping_cost'] = getShippingCost($carts, $key);
+                    }                    
                 }
 
                 if(isset($cartItem['shipping_cost']) && is_array(json_decode($cartItem['shipping_cost'], true))) {
