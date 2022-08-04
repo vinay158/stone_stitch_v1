@@ -3,13 +3,13 @@
 @section('content')
 
  
-<section class="pt-8 mb-4 breadcrumb_area" style="background:url({{ static_asset('assets/img/breadcrumb_img.jpg') }})">
+<section class="pt-8 mb-4 breadcrumb_area" style="background:#000">
 
     <div class="container">
         <div class="row">
             <div class="col-lg-6 text-center text-lg-left">
 
-                <h1 class="fw-600 h4">{{ (isset($slug) && !empty($slug)) ? $slug.' - '. translate('Birthstone') : translate('All Birthstones') }}</h1>
+                <h1 class="fw-600 h4" style="margin-top: 1.8%;">{{ (isset($slug) && !empty($slug)) ? $slug.' - '. translate('Birthstone') : translate('All Birthstones') }}</h1>
 				<ul class="breadcrumb bg-transparent p-0">
                     <li class="breadcrumb-item opacity-50">
                         <a class="text-reset" href="{{ route('home') }}">{{ translate('Home')}}</a>

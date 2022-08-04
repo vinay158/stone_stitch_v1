@@ -21,7 +21,7 @@
             >
         </a>
         @else
-        <a href="javascript:void(0)" onclick="showLoginCartModal()" class="d-block">
+        <a href="javascript:void(0);" onclick="showLoginCartModal()" class="d-block">
             <img
                 class="img-fit lazyload mx-auto h-140px <?php echo (isset($page_type) && $page_type == "listing") ? 'h-md-280px' : 'h-md-370px'; ?>"
                 src="{{ static_asset('assets/img/placeholder.jpg') }}"
@@ -66,7 +66,7 @@
         </h3>
         @else
         <h3 class="fw-400 fs-20 text-truncate-2 lh-1-4 mb-0 h-35px">
-            <a href="javascript:void(0)" onclick="showLoginCartModal()" class="d-block text-reset">{{  $product->getTranslation('name')  }}</a>
+            <a href="javascript:void(0);" onclick="showLoginCartModal()" class="d-block text-reset">{{  $product->getTranslation('name')  }}</a>
         </h3>
         @endif
         

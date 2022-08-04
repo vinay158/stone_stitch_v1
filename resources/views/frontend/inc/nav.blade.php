@@ -288,8 +288,13 @@
 					<h4 class="row mega-title">Categories</h4>
 					<ul class="cabeza">
 					<?php foreach($menu_categories as $menu_category){ ?>
-					  <li><a href="{{ route('products.category', $menu_category->slug) }}">{{ $menu_category->getTranslation('name') }}</a></li>
-					<?php } ?>
+                        @if (Auth::user()){
+					        <li><a href="{{ route('products.category', $menu_category->slug) }}">{{ $menu_category->getTranslation('name') }}</a></li>
+                        }
+                        @else
+					        <li><a href="javascript:void(0);" onclick="showLoginCartModal()">{{ $menu_category->getTranslation('name') }}</a></li>
+                        @endif
+                    <?php } ?>
 					</ul>
 					
 					
@@ -298,8 +303,13 @@
 						<h4 class="row mega-title">Birthstones</h4>
 						<ul class="cabeza">
 						<?php foreach($menu_months as $menu_month){ ?>
-						  <li><a href="{{ route('birthstones.gemstone_month', strtolower($menu_month)) }}">{{ $menu_month .' Birthstone'; }}</a></li>
-						<?php } ?>
+                          @if (Auth::user()){
+						    <li><a href="{{ route('birthstones.gemstone_month', strtolower($menu_month)) }}">{{ $menu_month .' Birthstone'; }}</a></li>
+                            }
+                            @else
+						    <li><a  href="javascript:void(0);" onclick="showLoginCartModal()">{{ $menu_month .' Birthstone'; }}</a></li>
+                            @endif
+                        <?php } ?>
 						</ul>
 				<?php } ?>
                 </div>
@@ -331,8 +341,14 @@
 					<h4 class="row mega-title"><?php echo$title_gemstone ?></h4>
 					<ul class="cabeza">
 					<?php foreach($menu_gemstones as $menu_gemstone){ ?>
-					  <li><a href="{{ route('products.gemstone', $menu_gemstone->slug) }}">{{ $menu_gemstone->getTranslation('name') }}</a></li>
-					<?php } ?>
+                        @if (Auth::user()){
+					        <li><a href="{{ route('products.gemstone', $menu_gemstone->slug) }}">{{ $menu_gemstone->getTranslation('name') }}</a></li>
+                        }
+                        @else
+					        <li><a href="javascript:void(0);" onclick="showLoginCartModal()">{{ $menu_gemstone->getTranslation('name') }}</a></li>
+                        @endif
+                    
+                    <?php } ?>
 					</ul>
                 </div>
 				<?php
@@ -358,8 +374,13 @@
 		?>
 			<ul class="animated fadeIn">
 				<?php foreach($birth_gemstones as $birth_gemstone){ ?>
-					<li><a href="{{ route('products.gemstone', $birth_gemstone->slug) }}">{{ $birth_gemstone->getTranslation('name') }}</a></li>
-				<?php } ?>
+                    @if (Auth::user()){
+        					<li><a href="{{ route('products.gemstone', $birth_gemstone->slug) }}">{{ $birth_gemstone->getTranslation('name') }}</a></li>
+                        }
+                        @else
+        					<li><a href="javascript:void(0);" onclick="showLoginCartModal()">{{ $birth_gemstone->getTranslation('name') }}</a></li>
+                        @endif
+                <?php } ?>
           </ul> 
 			<?php } ?>
 		  </li>
@@ -482,8 +503,13 @@
 					<h4 class="row mega-title">Categories</h4>
 					<ul class="cabeza">
 					<?php foreach($menu_categories as $menu_category){ ?>
-					  <li><a href="{{ route('products.category', $menu_category->slug) }}">{{ $menu_category->getTranslation('name') }}</a></li>
-					<?php } ?>
+                        @if (Auth::user()){
+					    <li><a href="{{ route('products.category', $menu_category->slug) }}">{{ $menu_category->getTranslation('name') }}</a></li>
+                        }
+                        @else
+					    <li><a href="javascript:void(0);" onclick="showLoginCartModal()">{{ $menu_category->getTranslation('name') }}</a></li>
+                        @endif
+                      <?php } ?>
 					</ul>
 					
 					<?php if(!empty($menu_months)){ ?>
@@ -491,8 +517,13 @@
 							<h4 class="row mega-title">Birthstones</h4>
 							<ul class="cabeza">
 							<?php foreach($menu_months as $menu_month){ ?>
-							  <li><a href="{{ route('birthstones.gemstone_month', strtolower($menu_month)) }}">{{ $menu_month .' Birthstone'; }}</a></li>
-							<?php } ?>
+                                @if (Auth::user()){
+                                <li><a href="{{ route('birthstones.gemstone_month', strtolower($menu_month)) }}">{{ $menu_month .' Birthstone'; }}</a></li>
+                                }
+                                @else
+                                <li><a href="javascript:void(0);" onclick="showLoginCartModal()">{{ $menu_month .' Birthstone'; }}</a></li>
+                                @endif
+                                <?php } ?>
 							</ul>
 					<?php } ?>
                 </div>
@@ -506,7 +537,12 @@
 					<h4 class="row mega-title"><?php echo $gemstone_sticky; ?></h4>
 					<ul class="cabeza">
 					<?php foreach($menu_gemstones as $menu_gemstone){ ?>
-					  <li><a href="{{ route('products.gemstone', $menu_gemstone->slug) }}">{{ $menu_gemstone->getTranslation('name') }}</a></li>
+                        @if (Auth::user()){
+					        <li><a href="{{ route('products.gemstone', $menu_gemstone->slug) }}">{{ $menu_gemstone->getTranslation('name') }}</a></li>
+                        }
+                        @else
+					        <li><a href="javascript:void(0);" onclick="showLoginCartModal()">{{ $menu_gemstone->getTranslation('name') }}</a></li>
+                        @endif
 					<?php } ?>
 					</ul>
                 </div>
@@ -525,15 +561,25 @@
         <ul class="drop-down-ul animated fadeIn">
 		
         <?php foreach($menu_months as $menu_month){ ?>
-		  <li class="flyout-right"><a href="{{ route('birthstones.gemstone_month', strtolower($menu_month)) }}">{{ $menu_month .' Birthstone'; }}</a>
-		  <?php 
+            @if (Auth::user()){
+		        <li class="flyout-right"><a href="{{ route('birthstones.gemstone_month', strtolower($menu_month)) }}">{{ $menu_month .' Birthstone'; }}</a>
+            }
+            @else
+		        <li class="flyout-right"><a href="javascript:void(0);" onclick="showLoginCartModal()">{{ $menu_month .' Birthstone'; }}</a>
+            @endif
+          <?php 
 			$birth_gemstones = \App\Models\Brand::where('gemstone_month',$menu_month)->get(); 
 			
 			if(!empty($birth_gemstones)){
 		?>
 			<ul class="animated fadeIn">
 				<?php foreach($birth_gemstones as $birth_gemstone){ ?>
-					<li><a href="{{ route('products.gemstone', $birth_gemstone->slug) }}">{{ $birth_gemstone->getTranslation('name') }}</a></li>
+					@if (Auth::user()){
+        					<li><a href="{{ route('products.gemstone', $birth_gemstone->slug) }}">{{ $birth_gemstone->getTranslation('name') }}</a></li>
+                        }
+                        @else
+        					<li><a href="javascript:void(0);" onclick="showLoginCartModal()">{{ $birth_gemstone->getTranslation('name') }}</a></li>
+                        @endif
 				<?php } ?>
           </ul> 
 			<?php } ?>
