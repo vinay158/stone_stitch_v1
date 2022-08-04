@@ -91,10 +91,10 @@ class HomeController extends Controller
     {
         $user = null;
         if($request->get('phone') != null){
-            $user = User::whereIn('user_type', ['customer', 'seller'])->where('phone', "+{$request['country_code']}{$request['phone']}")->first();
+            $user = User::whereIn('user_type', ['customer', 'seller'])->where('banned',0)->where('phone', "+{$request['country_code']}{$request['phone']}")->first();
         }
         elseif($request->get('email') != null){
-            $user = User::whereIn('user_type', ['customer', 'seller'])->where('email', $request->email)->first();
+            $user = User::whereIn('user_type', ['customer', 'seller'])->where('banned',0)->where('email', $request->email)->first();
         }
         
         if($user != null){
@@ -107,11 +107,13 @@ class HomeController extends Controller
                 }
             }
             else {
-                flash(translate('Invalid email or password!'))->warning();
+                flash(translate('Invalid email/password! or Your account may be inactive'))->warning();
+             
+
             }
         }
         else{
-            flash(translate('Invalid email or password!'))->warning();
+            flash(translate('Invalid email/password! or Your account may be inactive'))->warning();
         }
         return back();
     }

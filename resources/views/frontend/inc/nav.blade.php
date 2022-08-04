@@ -296,24 +296,27 @@
                         @endif
                     <?php } ?>
 					</ul>
-					
-					
-					<?php if(!empty($menu_months)){ ?>
+                </div>
+			<?php } ?>
+            <div class="col-xl-2">
+					<!-- <h4 class="row mega-title">Categories</h4>
+					<ul class="cabeza"> -->
+                    <?php if(!empty($menu_months)){ ?>
 						
 						<h4 class="row mega-title">Birthstones</h4>
 						<ul class="cabeza">
 						<?php foreach($menu_months as $menu_month){ ?>
                           @if (Auth::user())
-						    <li><a href="{{ route('birthstones.gemstone_month', strtolower($menu_month)) }}">{{ $menu_month .' Birthstone'; }}</a></li>
+						    <li><a href="{{ route('birthstones.gemstone_month', strtolower($menu_month)) }}" style="margin-right: -5%;">{{ $menu_month }}</a></li>
                             
                             @else
-						    <li><a  href="javascript:void(0);" onclick="showLoginCartModal()">{{ $menu_month .' Birthstone'; }}</a></li>
+						    <li><a  href="javascript:void(0);" onclick="showLoginCartModal()">{{ $menu_month  }}</a></li>
                             @endif
                         <?php } ?>
 						</ul>
 				<?php } ?>
-                </div>
-			<?php } ?>
+                    
+            </div>
 			
 			<?php 
 				$menuGemstonesArr = array();
@@ -322,7 +325,7 @@
 					$i = 0;
 					foreach($menu_gemstones as $k => $menu_gemstone){
                         // echo $menu_gemstone->active; echo'<br>';
-                        if($k % 22 == 0 ){
+                        if($k % 12 == 0 ){
                     
 						$i++;
 					}
@@ -361,11 +364,11 @@
           </div>  
         </div>
       </li>
-	  <?php// if(!empty($menu_months)){ ?>
+	  <?php // if(!empty($menu_months)){ ?>
       <!-- <li class="drop-down"><a href="javascript:void(0)"><i class="fa fa-cogs"></i> Birthstones</a>
         <ul class="drop-down-ul animated fadeIn"> -->
 		
-        <?php// foreach($menu_months as $menu_month){ ?>
+        <?php // foreach($menu_months as $menu_month){ ?>
             <!-- @if (Auth::user())
             <li class="flyout-right"><a href="{{ route('birthstones.gemstone_month', strtolower($menu_month)) }}">{{ $menu_month .' Birthstone'; }}</a>
             
@@ -524,10 +527,10 @@
 							<ul class="cabeza">
 							<?php foreach($menu_months as $menu_month){ ?>
                                 @if (Auth::user())
-                                <li><a href="{{ route('birthstones.gemstone_month', strtolower($menu_month)) }}">{{ $menu_month .' Birthstone'; }}</a></li>
+                                <li><a href="{{ route('birthstones.gemstone_month', strtolower($menu_month)) }}">{{ $menu_month  }}</a></li>
                                 
                                 @else
-                                <li><a href="javascript:void(0);" onclick="showLoginCartModal()">{{ $menu_month .' Birthstone'; }}</a></li>
+                                <li><a href="javascript:void(0);" onclick="showLoginCartModal()">{{ $menu_month  }}</a></li>
                                 @endif
                                 <?php } ?>
 							</ul>
