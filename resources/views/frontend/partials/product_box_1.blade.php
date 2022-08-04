@@ -31,15 +31,6 @@
             >
         </a>
         @endif
-        <a href="javascript:void(0)" onclick="showLoginCartModal()" class="d-block">
-            <img
-                class="img-fit lazyload mx-auto h-140px <?php echo (isset($page_type) && $page_type == "listing") ? 'h-md-280px' : 'h-md-370px'; ?>"
-                src="{{ static_asset('assets/img/placeholder.jpg') }}"
-                data-src="{{ uploaded_asset($product->thumbnail_img) }}"
-                alt="{{  $product->getTranslation('name')  }}"
-                onerror="this.onerror=null;this.src='{{ static_asset('assets/img/placeholder.jpg') }}';"
-            >
-        </a>
         @if ($product->wholesale_product)
             <span class="absolute-bottom-left fs-11 text-white fw-600 px-2 lh-1-8" style="background-color: #455a64">
                 {{ translate('Wholesale') }}
