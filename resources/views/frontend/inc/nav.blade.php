@@ -14,8 +14,8 @@
 	$menu_categories = \App\Models\Category::select(['name','slug'])->where('level', 0)->orderBy('order_level','asc')->get();
 	$menu_gemstones = \App\Models\Brand::select(['name','slug'])->where('active',1)->orderBy('name','asc')->get();
     $menu_months = array('January','February','March','April','May','June','July','August','September','October','November','December');
-	
 ?>
+<?php // echo'<pre>'; print_r($menu_gemstones); die;?>
 
 <div class="top-navbar bg-white border-bottom border-soft-secondary z-1035">
     <div class="container">
@@ -317,7 +317,7 @@
 			
 			<?php 
 				$menuGemstonesArr = array();
-				
+                        // echo $menu_gemstone->active; echo'<br>';
 				if(!empty($menu_gemstones)){
 					$i = 0;
 					foreach($menu_gemstones as $k => $menu_gemstone){
@@ -361,41 +361,41 @@
           </div>  
         </div>
       </li>
-	  <?php if(!empty($menu_months)){ ?>
-      <li class="drop-down"><a href="javascript:void(0)"><i class="fa fa-cogs"></i> Birthstones</a>
-        <ul class="drop-down-ul animated fadeIn">
+	  <?php// if(!empty($menu_months)){ ?>
+      <!-- <li class="drop-down"><a href="javascript:void(0)"><i class="fa fa-cogs"></i> Birthstones</a>
+        <ul class="drop-down-ul animated fadeIn"> -->
 		
-        <?php foreach($menu_months as $menu_month){ ?>
-            @if (Auth::user())
+        <?php// foreach($menu_months as $menu_month){ ?>
+            <!-- @if (Auth::user())
             <li class="flyout-right"><a href="{{ route('birthstones.gemstone_month', strtolower($menu_month)) }}">{{ $menu_month .' Birthstone'; }}</a>
             
             @else
             <li class="flyout-right"><a href="javascript:void(0);" onclick="showLoginCartModal()">{{ $menu_month .' Birthstone'; }}</a>
-            @endif
-          <?php 
+            @endif -->
+          <?php
 
-			$birth_gemstones = \App\Models\Brand::where('gemstone_month',$menu_month)->get(); 
+			// $birth_gemstones = \App\Models\Brand::where('gemstone_month',$menu_month)->get(); 
 			
-			if(!empty($birth_gemstones)){
+			// if(!empty($birth_gemstones)){
 		?>
-			<ul class="animated fadeIn">
-				<?php foreach($birth_gemstones as $birth_gemstone){ ?>
-                    @if (Auth::user())
-        					<li><a href="{{ route('products.gemstone', $birth_gemstone->slug) }}">{{ $birth_gemstone->getTranslation('name') }}</a></li>
+			<!-- <ul class="animated fadeIn"> -->
+				<?php //foreach($birth_gemstones as $birth_gemstone){ ?>
+                    <?php //-- @if (Auth::user())
+        				//	<li><a href="{{ route('products.gemstone', $birth_gemstone->slug) }}">{{ $birth_gemstone->getTranslation('name') }}</a></li>
                         
-                        @else
-        					<li><a href="javascript:void(0);" onclick="showLoginCartModal()">{{ $birth_gemstone->getTranslation('name') }}</a></li>
-                        @endif
-                <?php } ?>
-          </ul> 
-			<?php } ?>
-		  </li>
-		<?php } ?>
+                        //@else
+        				//	<li><a href="javascript:void(0);" onclick="showLoginCartModal()">{{ $birth_gemstone->getTranslation('name') }}</a></li>
+                        //@endif ?>
+                <?php // } ?>
+          <!-- </ul>  -->
+			<?php //} ?>
+		  <!-- </li> -->
+		<?php // } ?>
                 
                                       
-        </ul>     
-        </li> 
-	  <?php } ?>
+        <!-- </ul>     
+        </li>  -->
+	  <?php // } ?>
 		
       <li class="drop-down"><a href="{{route('pages.contact-us')}}">Contact Us</a></li>
 	</ul>
@@ -562,40 +562,42 @@
           </div>  
         </div>
       </li>
-     <?php if(!empty($menu_months)){ ?>
-      <li class="drop-down"><a href="javascript:void(0)"><i class="fa fa-cogs"></i> Birthstones</a>
-        <ul class="drop-down-ul animated fadeIn">
+     <?php //if(!empty($menu_months)){ ?>
+      <!-- <li class="drop-down"><a href="javascript:void(0)"><i class="fa fa-cogs"></i> Birthstones</a>
+        <ul class="drop-down-ul animated fadeIn"> -->
 		
-        <?php foreach($menu_months as $menu_month){ ?>
-            @if (Auth::user())
-		        <li class="flyout-right"><a href="{{ route('birthstones.gemstone_month', strtolower($menu_month)) }}">{{ $menu_month .' Birthstone'; }}</a>
+        <?php // foreach($menu_months as $menu_month){ ?>
+           <?php // @if (Auth::user())
+		       // <li class="flyout-right"><a href="{{ route('birthstones.gemstone_month', strtolower($menu_month)) }}">{{ $menu_month .' Birthstone'; }}</a>
             
-            @else
-		        <li class="flyout-right"><a href="javascript:void(0);" onclick="showLoginCartModal()">{{ $menu_month .' Birthstone'; }}</a>
-            @endif
+          //  @else
+		     //   <li class="flyout-right"><a href="javascript:void(0);" onclick="showLoginCartModal()">{{ $menu_month .' Birthstone'; }}</a>
+          //  @endif
+          ?>
           <?php 
-			$birth_gemstones = \App\Models\Brand::where('gemstone_month',$menu_month)->get(); 
+			// $birth_gemstones = \App\Models\Brand::where('gemstone_month',$menu_month)->get(); 
 			
-			if(!empty($birth_gemstones)){
+			// if(!empty($birth_gemstones)){
 		?>
-			<ul class="animated fadeIn">
-				<?php foreach($birth_gemstones as $birth_gemstone){ ?>
-					@if (Auth::user())
-        					<li><a href="{{ route('products.gemstone', $birth_gemstone->slug) }}">{{ $birth_gemstone->getTranslation('name') }}</a></li>
-                        
-                        @else
-        					<li><a href="javascript:void(0);" onclick="showLoginCartModal()">{{ $birth_gemstone->getTranslation('name') }}</a></li>
-                        @endif
-				<?php } ?>
-          </ul> 
-			<?php } ?>
-		  </li>
-		<?php } ?>
+			<!-- <ul class="animated fadeIn"> -->
+				<?php // foreach($birth_gemstones as $birth_gemstone){ ?>
+				<?php	//@if (Auth::user())
+        				//	<li><a href="{{ route('products.gemstone', $birth_gemstone->slug) }}">{{ $birth_gemstone->getTranslation('name') }}</a></li>
+                        //
+                        //@else
+        				//	<li><a href="javascript:void(0);" onclick="showLoginCartModal()">{{ $birth_gemstone->getTranslation('name') }}</a></li>
+                        //@endif
+                        ?>
+				<?php // } ?>
+          <!-- </ul>  -->
+			<?php //} ?>
+		  <!-- </li> -->
+		<?php //} ?>
                 
                                       
-        </ul>     
-        </li> 
-	  <?php } ?>
+        <!-- </ul>      -->
+        <!-- </li>  -->
+	  <?php // } ?>
       <li class="drop-down"><a href="{{route('pages.contact-us')}}">Contact Us</a></li>
 	</ul>
    </div>

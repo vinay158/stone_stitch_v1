@@ -15,7 +15,7 @@ class Brand extends Model
       $brand_translation = $this->brand_translations->where('lang', $lang)->first();
       return $brand_translation != null ? $brand_translation->$field : $this->$field;
   }
-
+  
   public function brand_translations(){
     return $this->hasMany(BrandTranslation::class);
   }
