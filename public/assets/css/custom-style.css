@@ -138,7 +138,7 @@ border: 1px solid var(--custom-color) !important;}
 .btn{border-radius:0px }
 .custom_add_cart_btn{width: 300px;height: 50px !important;font-size: 17px;font-weight: normal !important;	background: #2f2f2f;color: #fff;margin-top: 0;margin-bottom: 0;height: auto;}
 .return_policy_block .container{padding: 0px;}
-.breadcrumb_area{ padding: 70px 70px;background-size: cover !important;}
+.breadcrumb_area{ padding: 5px 70px;background-size: cover !important;}
 .breadcrumb_area h1{ color:#fff}
 .breadcrumb_area .breadcrumb .breadcrumb-item{ color:#fff !important; opacity: 1 !important}
 .breadcrumb_area .breadcrumb-item + .breadcrumb-item::before {color: #fff;content: "/";}

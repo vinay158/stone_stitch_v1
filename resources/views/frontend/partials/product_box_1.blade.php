@@ -10,8 +10,28 @@
             }
         @endphp
 		
-		
+        @if (Auth::user())
         <a href="{{ $product_url }}" class="d-block">
+            <img
+                class="img-fit lazyload mx-auto h-140px <?php echo (isset($page_type) && $page_type == "listing") ? 'h-md-280px' : 'h-md-370px'; ?>"
+                src="{{ static_asset('assets/img/placeholder.jpg') }}"
+                data-src="{{ uploaded_asset($product->thumbnail_img) }}"
+                alt="{{  $product->getTranslation('name')  }}"
+                onerror="this.onerror=null;this.src='{{ static_asset('assets/img/placeholder.jpg') }}';"
+            >
+        </a>
+        @else
+        <a href="javascript:void(0)" onclick="showLoginCartModal()" class="d-block">
+            <img
+                class="img-fit lazyload mx-auto h-140px <?php echo (isset($page_type) && $page_type == "listing") ? 'h-md-280px' : 'h-md-370px'; ?>"
+                src="{{ static_asset('assets/img/placeholder.jpg') }}"
+                data-src="{{ uploaded_asset($product->thumbnail_img) }}"
+                alt="{{  $product->getTranslation('name')  }}"
+                onerror="this.onerror=null;this.src='{{ static_asset('assets/img/placeholder.jpg') }}';"
+            >
+        </a>
+        @endif
+        <a href="javascript:void(0)" onclick="showLoginCartModal()" class="d-block">
             <img
                 class="img-fit lazyload mx-auto h-140px <?php echo (isset($page_type) && $page_type == "listing") ? 'h-md-280px' : 'h-md-370px'; ?>"
                 src="{{ static_asset('assets/img/placeholder.jpg') }}"
