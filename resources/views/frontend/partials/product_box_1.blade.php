@@ -49,9 +49,16 @@
         <div class="rating rating-sm mt-1">
             {{ renderStarRating($product->rating) }}
         </div>
+        @if (Auth::user())
         <h3 class="fw-400 fs-20 text-truncate-2 lh-1-4 mb-0 h-35px">
             <a href="{{ $product_url }}" class="d-block text-reset">{{  $product->getTranslation('name')  }}</a>
         </h3>
+        @else
+        <h3 class="fw-400 fs-20 text-truncate-2 lh-1-4 mb-0 h-35px">
+            <a href="javascript:void(0)" onclick="showLoginCartModal()" class="d-block text-reset">{{  $product->getTranslation('name')  }}</a>
+        </h3>
+        @endif
+        
         @if (addon_is_activated('club_point'))
             <div class="rounded px-2 mt-2 bg-soft-primary border-soft-primary border">
                 {{ translate('Club Point') }}:
