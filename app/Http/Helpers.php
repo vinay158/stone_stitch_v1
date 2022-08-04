@@ -996,3 +996,16 @@ if (!function_exists('get_url_params')) {
         return $query_params[$key] ?? '';
     }
 }
+
+// Get URL params
+if (!function_exists('checkProductIsCreated')) {
+    function checkProductIsCreated($id)
+    {
+        $data = 0;
+        $productdata = Product::select('id')->where('brand_id',$id)->where('published',1)->first(); 
+        if (!empty($productdata)) {
+            $data=1;
+        }
+        return $data;
+    }
+}

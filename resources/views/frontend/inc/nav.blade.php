@@ -12,10 +12,9 @@
 
 <?php 
 	$menu_categories = \App\Models\Category::select(['name','slug'])->where('level', 0)->orderBy('order_level','asc')->get();
-	$menu_gemstones = \App\Models\Brand::select(['name','slug'])->where('active',1)->orderBy('name','asc')->get();
+	$menu_gemstones = \App\Models\Brand::select(['name','slug','id'])->where('active',1)->orderBy('name','asc')->get();
     $menu_months = array('January','February','March','April','May','June','July','August','September','October','November','December');
 ?>
-<?php // echo'<pre>'; print_r($menu_gemstones); die;?>
 
 <div class="top-navbar bg-white border-bottom border-soft-secondary z-1035">
     <div class="container">
@@ -320,17 +319,17 @@
 			
 			<?php 
 				$menuGemstonesArr = array();
-                        // echo $menu_gemstone->active; echo'<br>';
 				if(!empty($menu_gemstones)){
 					$i = 0;
 					foreach($menu_gemstones as $k => $menu_gemstone){
-                        // echo $menu_gemstone->active; echo'<br>';
-                        if($k % 12 == 0 ){
-                    
-						$i++;
-					}
-                
-					$menuGemstonesArr[$i][$k] = $menu_gemstone;
+                       
+                        if (checkProductIsCreated($menu_gemstone->id) == 1) {
+                            if($k % 12 == 0 ){
+                        
+                                $i++;
+                            }                
+                           $menuGemstonesArr[$i][$k] = $menu_gemstone;
+                        }
 					}
 				}
 			
