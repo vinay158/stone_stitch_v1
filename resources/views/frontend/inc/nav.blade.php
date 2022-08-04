@@ -366,8 +366,14 @@
         <ul class="drop-down-ul animated fadeIn">
 		
         <?php foreach($menu_months as $menu_month){ ?>
-		  <li class="flyout-right"><a href="{{ route('birthstones.gemstone_month', strtolower($menu_month)) }}">{{ $menu_month .' Birthstone'; }}</a>
-		  <?php 
+            @if (Auth::user()){
+            <li class="flyout-right"><a href="{{ route('birthstones.gemstone_month', strtolower($menu_month)) }}">{{ $menu_month .' Birthstone'; }}</a>
+            }
+            @else
+            <li class="flyout-right"><a href="javascript:void(0);" onclick="showLoginCartModal()">{{ $menu_month .' Birthstone'; }}</a>
+            @endif
+          <?php 
+
 			$birth_gemstones = \App\Models\Brand::where('gemstone_month',$menu_month)->get(); 
 			
 			if(!empty($birth_gemstones)){
