@@ -424,6 +424,7 @@
 
                 <div class="flex-grow-1 front-header-search d-flex align-items-center bg-white">
                     <div class="position-relative flex-grow-1">
+                    @if((Auth::user()))
                         <form action="{{ route('search') }}" method="GET" class="stop-propagation">
                             <div class="d-flex position-relative align-items-center">
                                 <div class="d-lg-none" data-toggle="class-toggle" data-target=".front-header-search">
@@ -441,6 +442,24 @@
                                 </div>
                             </div>
                         </form>
+                    @else
+                        <form action="{{ route('search') }}" method="GET" class="stop-propagation">
+                            <div class="d-flex position-relative align-items-center">
+                                <div class="d-lg-none" data-toggle="class-toggle" data-target=".front-header-search">
+                                    <button class="btn px-2" type="button"><i class="la la-2x la-long-arrow-left"></i></button>
+                                </div>
+                                <div class="input-group searching_input_area">
+                                    <input type="text" class="border-0 border-lg form-control" id="search" onclick="showLoginCartModal()"  name="keyword"  placeholder="{{translate('I am shopping for...')}}" autocomplete="off">
+                                    <div class="input-group-append d-none d-lg-block">
+                                        <button class="btn btn-primary" type="" onclick="showLoginCartModal()"  >
+                                            <i class="la la-search la-flip-horizontal fs-18"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    @endif    
+
                         <div class="typed-search-box stop-propagation document-click-d-none d-none bg-white rounded shadow-lg position-absolute left-0 top-100 w-100" style="min-height: 200px">
                             <div class="search-preloader absolute-top-center">
                                 <div class="dot-loader"><div></div><div></div><div></div></div>

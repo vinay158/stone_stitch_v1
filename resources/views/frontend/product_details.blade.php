@@ -324,8 +324,7 @@
                                                 @if(isset($value->brand->name))
                                                 <b style="padding: 10px;line-height: 3;">{{$value->brand->name}}</b>
                                                 @endif
-                                            </a>
-                                            
+                                                </a>    
                                             </div>
                                             @endif
                                         <?php } ?>                                    
