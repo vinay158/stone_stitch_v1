@@ -865,11 +865,11 @@
                                     <span class="aiz-side-nav-text">{{translate('Wholesale')}}</span>
                                 </a>
                             </li>
-                            <!-- <li class="aiz-side-nav-item">
+                            <li class="aiz-side-nav-item">
                                 <a href="{{route('activation.index')}}" class="aiz-side-nav-link">
                                     <span class="aiz-side-nav-text">{{translate('Features activation')}}</span>
                                 </a>
-                            </li> -->
+                            </li>
                             <li class="aiz-side-nav-item">
                                 <a href="{{route('languages.index')}}" class="aiz-side-nav-link {{ areActiveRoutes(['languages.index', 'languages.create', 'languages.store', 'languages.show', 'languages.edit'])}}">
                                     <span class="aiz-side-nav-text">{{translate('Languages')}}</span>

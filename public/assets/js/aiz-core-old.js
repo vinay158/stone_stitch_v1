@@ -1701,11 +1701,11 @@ $.fn.toggleAttr = function (attr, attr1, attr2) {
                 }else if($this.siblings('[data-type="minus"]').attr('disabled')){
                     $this.siblings('[data-type="minus"]').removeAttr('disabled')
                 }
-                /*if(value >= max && oofsq == 0){
+                if(value >= max && oofsq == 0){
                     $this.siblings('[data-type="plus"]').attr('disabled',true)
-                }else if($this.siblings('[data-type="plus"]').attr('disabled')){*/
+                }else if($this.siblings('[data-type="plus"]').attr('disabled')){
                     $this.siblings('[data-type="plus"]').removeAttr('disabled')
-                /*}*/
+                }
             });
             $('.aiz-plus-minus button').off('click').on('click', function(e) {
                 e.preventDefault();
@@ -1714,8 +1714,6 @@ $.fn.toggleAttr = function (attr, attr1, attr2) {
                 var type = $(this).attr("data-type");
                 var input = $("input[name='" + fieldName + "']");
                 var currentVal = parseInt(input.val());
-           
-
 
                 if (!isNaN(currentVal)) {
                     if (type == "minus") {
@@ -1729,8 +1727,6 @@ $.fn.toggleAttr = function (attr, attr1, attr2) {
                         if (currentVal < input.attr("max") && input.attr("oofsq") != 1) {
                             input.val(currentVal + 1).change();
                         }else if(input.attr("oofsq") == 1){
-                            input.val(currentVal + 1).change();
-                        }else{
                             input.val(currentVal + 1).change();
                         }
                         if (parseInt(input.val()) == input.attr("max") && input.attr("oofsq") != 1) {
@@ -1755,22 +1751,15 @@ $.fn.toggleAttr = function (attr, attr1, attr2) {
                     alert("Sorry, the minimum limit has been reached");
                     $(this).val(minValue);
                 }
-                if(valueCurrent > maxValue){
-                           $('.custom_add_cart_btn').attr('disabled', 'true');
-                           $('.extra-of-stock').removeClass('d-none');
-                }
-                else{
-                    $('.custom_add_cart_btn').removeAttr("disabled");
-                    $('.extra-of-stock').addClass('d-none');
-                }
+
                 if (oofsq != 1) {
-                    /*if (valueCurrent <= maxValue) {*/
+                    if (valueCurrent <= maxValue) {
                         $(this).siblings("[data-type='plus']").removeAttr("disabled");
-                    /*} else {
+                    } else {
                         alert("Sorry, the maximum limit has been reached");
                         $(this).val(maxValue);
-                    } */                   
-                }
+                    }
+                }                    
 
 
                 getVariantPrice();

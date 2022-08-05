@@ -348,6 +348,7 @@
                                                     }
                                                 }
                                             @endphp
+                                            <?php //echo get_setting('cash_payment') ; die;?>
                                             @if($digital != 1 && $cod_on == 1)
                                                 <div class="col-6 col-md-4">
                                                     <label class="aiz-megabox d-block mb-3">

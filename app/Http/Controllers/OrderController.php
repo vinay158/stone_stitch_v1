@@ -401,7 +401,7 @@ class OrderController extends Controller
                 $product_variation = $cartItem['variation'];
 
                 $product_stock = $product->stocks->where('variant', $product_variation)->first();
-                if(get_setting('out_stock_minimum_order') > 0){
+                if(get_setting('out_stock_minimum_order') > 0 && $product_stock->qty < $cartItem['quantity']){
                     // if($request->quantity >= get_setting('out_stock_minimum_order')){
                     //     $cartItem['quantity'] = $request->quantity;
                     // }else{

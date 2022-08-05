@@ -87,7 +87,7 @@
 							</div>
 						</div>
 					</div>
-                    <div class="border-top pt-3">
+                    <!-- <div class="border-top pt-3">
                         <div class="form-group row">
 							<label class="col-md-3 col-from-label">{{translate('Help line number')}}</label>
 							<div class="col-md-8">
@@ -97,7 +97,7 @@
 								</div>
 							</div>
 						</div>
-                    </div>
+                    </div> -->
 					<div class="border-top pt-3">
 						<label class="">{{translate('Header Nav Menu')}}</label>
 						<div class="header-nav-menu">

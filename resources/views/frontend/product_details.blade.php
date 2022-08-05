@@ -422,7 +422,7 @@
                                                 <button class="btn col-auto btn-icon btn-sm btn-circle btn-light" type="button" data-type="minus" data-field="quantity" disabled="">
                                                     <i class="las la-minus"></i>
                                                 </button>
-                                                <input type="number" name="quantity" class="col border-0 text-center flex-grow-1 fs-16 input-number" placeholder="1" value="{{ $detailedProduct->min_qty }}" min="{{ $detailedProduct->min_qty }}" oofsq="0" max="10" lang="en">
+                                                <input type="number" name="quantity" class="col border-0 text-center flex-grow-1 fs-16 input-number quantity_instock" placeholder="1" value="{{ $detailedProduct->min_qty }}" min="{{ $detailedProduct->min_qty }}" oofsq="0" max="10" lang="en">
                                                 <button class="btn  col-auto btn-icon btn-sm btn-circle btn-light" type="button" data-type="plus" data-field="quantity">
                                                     <i class="las la-plus"></i>
                                                 </button>
@@ -462,6 +462,9 @@
                                     </a>
                                 @else
                                     @if(Auth::check())
+                                        <button type="button" class="btn btn-primary fw-600 extra-of-stock d-none"  data-toggle="modal" data-target="#out-stock-order" >
+                                            <i class="la la-shopping-cart"></i> {{ translate('Buy Now')}}
+                                        </button>
                                         <button type="button" class="btn btn-soft-primary mr-2 add-to-cart fw-600 custom_add_cart_btn" onclick="addToCart()">
                                             <i class="las la-shopping-bag"></i>
                                             <span class="d-none d-md-inline-block"> {{ translate('Add to cart')}}</span>
@@ -477,6 +480,7 @@
                                     @endif
 
                                 @endif
+                             
                                 <button type="button" class="btn btn-secondary fw-600 out-of-stock d-none" style="margin-right: 2%;" disabled>
                                     <i class="la la-cart-arrow-down"></i> {{ translate('Out of Stock')}}
                                 </button>
@@ -945,9 +949,9 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body" style="font-size: 120%; ">
-      <i class="las la-exclamation-triangle" style="font-size: 900% !important;margin-left: 30%;color: indianred;" ></i><br>
-        This is a special request, out of stock order hence can take upto 10 to 12 business days to be shipped <sup>*T&C apply</sup>
+      <div class="modal-body" style="font-size: 120%;">
+      <i class="las la-exclamation-triangle" style="font-size: 900% !important;margin-left: 31%;color: #c09578;" ></i><br>
+        This is a special request, out of stock order hence can take <span >upto 10 to 12 business days to be shipped <sup>*T&C apply</sup> </span>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary"  data-dismiss="modal">Cancel</button>

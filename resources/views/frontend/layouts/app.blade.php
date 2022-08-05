@@ -665,7 +665,12 @@
         }
 
         function buyNow(){
-            if( $('#out-stock-quantity').val() >= {{get_setting('out_stock_minimum_order')}})
+            var mini_order = {{ get_setting('out_stock_minimum_order') }};
+            var maxValue = $('.aiz-plus-minus input').attr("max");
+            // $('.').attr("name");
+            console.log($('.quantity_instock').val());
+
+            if( $('#out-stock-quantity').val() >= mini_order || $('.quantity_instock').val() > maxValue  )
              {
                 if(checkAddToCartValidity()) {
                     $('#addToCart-modal-body').html(null);

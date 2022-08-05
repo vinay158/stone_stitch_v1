@@ -119,7 +119,7 @@ class CartController extends Controller
 
             $quantity = $product_stock->qty;
 
-            if(get_setting('out_stock_minimum_order') > 0 && $quantity== 0){
+            if(get_setting('out_stock_minimum_order') > 0 && $quantity== 0 || $quantity < $request['quantity']){
                 $data['is_out_stock_item'] = 1;
             }else{
 
@@ -200,7 +200,7 @@ class CartController extends Controller
                         $product_stock = $cart_product->stocks->where('variant', $str)->first();
                         $quantity = $product_stock->qty;
 
-                        if(get_setting('out_stock_minimum_order') > 0 && $quantity== 0){
+                        if(get_setting('out_stock_minimum_order') > 0 && $quantity== 0 || $quantity < $request['quantity']){
                             $cartItem['is_out_stock_item'] = 1;
                             if($cartItem['quantity'] <= get_setting('out_stock_minimum_order')){
                                 $cartItem['quantity'] = get_setting('out_stock_minimum_order');   
@@ -344,7 +344,7 @@ class CartController extends Controller
                     $price -= $product->discount;
                 }
             }
-            if(get_setting('out_stock_minimum_order') > 0 && $quantity== 0 ){
+            if(get_setting('out_stock_minimum_order') > 0 && $quantity== 0 || $quantity < $request['quantity'] ){
                 if($request->quantity >= get_setting('out_stock_minimum_order')){
                     $cartItem['quantity'] = $request->quantity;
                 }else{
