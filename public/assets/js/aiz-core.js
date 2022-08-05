@@ -1719,19 +1719,30 @@ $.fn.toggleAttr = function (attr, attr1, attr2) {
 
                 if (!isNaN(currentVal)) {
                     if (type == "minus") {
-                        if (currentVal > input.attr("min")) {
-                            input.val(currentVal - 1).change();
-                        }
-                        if (parseInt(input.val()) == input.attr("min")) {
+                        if (currentVal > input.attr("max")) {
                             $(this).attr("disabled", true);
+                        }else{
+                            if (currentVal > input.attr("min")) {
+                                input.val(currentVal - 1).change();
+                            }
+                            if (parseInt(input.val()) == input.attr("min")) {
+                                $(this).attr("disabled", true);
+                            }                            
                         }
+
                     } else if (type == "plus") {
                         if (currentVal < input.attr("max") && input.attr("oofsq") != 1) {
                             input.val(currentVal + 1).change();
                         }else if(input.attr("oofsq") == 1){
                             input.val(currentVal + 1).change();
                         }else{
-                            input.val(currentVal + 1).change();
+                            
+                            if(currentVal > input.attr("max") && currentVal < out_of_stock_min){
+                                input.val(out_of_stock_min);
+                            }else{
+                                input.val(currentVal + 1).change();
+                            }
+                            
                         }
                         if (parseInt(input.val()) == input.attr("max") && input.attr("oofsq") != 1) {
                             $(this).attr("disabled", true);
@@ -1749,6 +1760,9 @@ $.fn.toggleAttr = function (attr, attr1, attr2) {
                 var valueCurrent = parseInt($(this).val());
 
                 name = $(this).attr("name");
+                if(valueCurrent > maxValue && valueCurrent < out_of_stock_min){
+                    $(this).val(out_of_stock_min);
+                }
                 if (valueCurrent >= minValue) {
                     $(this).siblings("[data-type='minus']").removeAttr("disabled");
                 } else {

@@ -446,7 +446,7 @@
     </script>
 
     <script>
-
+        var out_of_stock_min = '{{get_setting('out_stock_minimum_order')}}';
         $(document).ready(function() {
             $('.category-nav-element').each(function(i, el) {
                 $(el).on('mouseover', function(){
