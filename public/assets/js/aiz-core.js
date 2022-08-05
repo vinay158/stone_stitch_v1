@@ -1770,11 +1770,15 @@ $.fn.toggleAttr = function (attr, attr1, attr2) {
                     $(this).val(minValue);
                 }
                 if(valueCurrent > maxValue){
-                           $('.custom_add_cart_btn').attr('disabled', 'true');
-                           $('.extra-of-stock').removeClass('d-none');
+                           $('.cart_or_oso').attr('data-toggle', 'modal');
+                           $('.cart_or_oso').removeAttr("onClick");
+                           $('.cart_or_oso').attr('data-target', '#out-stock-order');
+                        //    $('.extra-of-stock').removeClass('d-none');
                 }
                 else{
-                    $('.custom_add_cart_btn').removeAttr("disabled");
+                           $('.cart_or_oso').attr('onclick', 'addToCart()');
+                           $('.cart_or_oso').removeAttr("data-toggle");
+                           $('.cart_or_oso').removeAttr("data-target");
                     $('.extra-of-stock').addClass('d-none');
                 }
                 if (oofsq != 1) {

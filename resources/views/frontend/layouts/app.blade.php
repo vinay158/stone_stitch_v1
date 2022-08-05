@@ -446,8 +446,10 @@
     </script>
 
     <script>
+
         var out_of_stock_min = '{{get_setting('out_stock_minimum_order')}}';
         $(document).ready(function() {
+
             $('.category-nav-element').each(function(i, el) {
                 $(el).on('mouseover', function(){
                     if(!$(el).find('.sub-cat-menu').hasClass('loaded')){
@@ -669,9 +671,10 @@
             var maxValue = $('.aiz-plus-minus input').attr("max");
             // $('.').attr("name");
             console.log($('.quantity_instock').val());
+            console.log("max"+maxValue);
 
             if( $('#out-stock-quantity').val() >= mini_order || $('.quantity_instock').val() > maxValue  )
-             {
+             {  console.log("dat");
                 if(checkAddToCartValidity()) {
                     $('#addToCart-modal-body').html(null);
                     $('#addToCart').modal();

@@ -461,15 +461,9 @@
                                     </a>
                                 @else
                                     @if(Auth::check())
-                                        <button type="button" class="btn btn-primary fw-600 extra-of-stock d-none"  data-toggle="modal" data-target="#out-stock-order" >
-                                            <i class="la la-shopping-cart"></i> {{ translate('Buy Now')}}
-                                        </button>
-                                        <button type="button" class="btn btn-soft-primary mr-2 add-to-cart fw-600 custom_add_cart_btn" onclick="addToCart()">
+                                        <button type="button" class="btn btn-soft-primary mr-2 add-to-cart fw-600 custom_add_cart_btn cart_or_oso" onclick="addToCart()" >
                                             <i class="las la-shopping-bag"></i>
                                             <span class="d-none d-md-inline-block"> {{ translate('Add to cart')}}</span>
-                                        </button>
-                                        <button type="button" class="btn btn-primary buy-now fw-600 display-none" onclick="buyNow()">
-                                            <i class="la la-shopping-cart"></i> {{ translate('Buy Now')}}
                                         </button>
                                     @else
                                         <button type="button" class="btn btn-soft-primary mr-2 add-to-cart fw-600 custom_add_cart_btn" onclick="showLoginCartModal()">
