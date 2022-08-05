@@ -317,7 +317,7 @@
                                             $active=($detailedProduct->slug==$value->slug)?'active':''; 
                                             $url=($detailedProduct->slug==$value->slug)?"javascript:void(0)":"route('product', $value->slug) "; ?>
                                             <?php //echo'<pre'; print_r($detailedProduct);  ?>
-                                            @if($detailedProduct->gemstone_size)
+                                            @if($detailedProduct->brand_id)
                                             <div class="col-sm-2 col-4 float-left" style="padding-left: 0px;    padding-right: 5px;">
                                                 <a href="{{ ($detailedProduct->slug==$value->slug)?'javascript:void(0)':route('product', $value->slug) }}" class="d-block text-reset {{$active}}" style="border: 1px solid #ededed;padding: 5px;text-align: center;">
                                                 <img class="img-fit lazyload h-xxl-80px h-xl-20px h-50px" src="{{ uploaded_asset($value->thumbnail_img) }}" alt="">
