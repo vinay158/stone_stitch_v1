@@ -670,11 +670,12 @@
             var mini_order = {{ get_setting('out_stock_minimum_order') }};
             var maxValue = $('.aiz-plus-minus input').attr("max");
             // $('.').attr("name");
-            console.log($('.quantity_instock').val());
-            console.log("max"+maxValue);
+            /*console.log($('.quantity_instock').val());
+            console.log("max"+maxValue);*/
 
-            if( $('#out-stock-quantity').val() >= mini_order || $('.quantity_instock').val() > maxValue  )
-             {  console.log("dat");
+            if($('#out-stock-quantity').val() >= mini_order || $('.quantity_instock').val() > maxValue)
+             {  
+                //console.log("dat");return false;
                 if(checkAddToCartValidity()) {
                     $('#addToCart-modal-body').html(null);
                     $('#addToCart').modal();
