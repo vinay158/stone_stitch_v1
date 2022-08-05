@@ -520,11 +520,15 @@
                       <?php } ?>
 					</ul>
 					
-					<?php if(!empty($menu_months)){ ?>
-						
-							<h4 class="row mega-title">Birthstones</h4>
-							<ul class="cabeza">
-							<?php foreach($menu_months as $menu_month){ ?>
+                </div>
+			<?php } ?>
+			<div class="col-xl-2">
+
+                    <?php if(!empty($menu_months)){ ?>
+                        
+                            <h4 class="row mega-title">Birthstones</h4>
+                            <ul class="cabeza">
+                            <?php foreach($menu_months as $menu_month){ ?>
                                 @if (Auth::user())
                                 <li><a href="{{ route('birthstones.gemstone_month', strtolower($menu_month)) }}">{{ $menu_month  }}</a></li>
                                 
@@ -532,11 +536,9 @@
                                 <li><a href="javascript:void(0);" onclick="showLoginCartModal()">{{ $menu_month  }}</a></li>
                                 @endif
                                 <?php } ?>
-							</ul>
-					<?php } ?>
-                </div>
-			<?php } ?>
-			
+                            </ul>
+                    <?php } ?>                
+            </div>
 			<?php $gemstone_sticky="Gemstone";
 				if(!empty($menuGemstonesArr)){ 
 					foreach($menuGemstonesArr as $menu_gemstones){
