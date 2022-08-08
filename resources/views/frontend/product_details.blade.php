@@ -428,7 +428,7 @@
                                                 </button>
                                             </div>
                                             @endif
-                                            @if(!$slug2)
+                                            @if(!$slug2 && $qty != 0)
                                             <div class="avialable-amount opacity-60" >
                                                 @if($detailedProduct->stock_visibility_state == 'quantity')
                                                 (<span id="available-quantity">{{ $qty }}</span> {{ translate('available')}})
@@ -457,9 +457,9 @@
                                  @endif
                             </form>
                             <div class="mt-3">
-                                @if(empty($slug2))
+                                @if(empty($slug2) && $qty != 0)
                                 <p>If you want to order more than the available stock <a href="{{ route('product.outStockDetail', ['slug'=>$detailedProduct->slug, 'slug2'=>'out-stock-product-detail']) }}">Click Here</a></p>
-                                @elseif($slug2='out-stock-product-detail')
+                                @elseif($slug2='out-stock-product-detail' || $qty == 0)
                                 <p> <b>OUT OF STOCK MINIMUM ORDER QUANTITY IS - {{get_setting('out_stock_minimum_order')}} <b></p>
                                 @endif
                                 @if ($detailedProduct->external_link != null)
