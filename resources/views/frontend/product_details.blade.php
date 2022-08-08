@@ -35,6 +35,7 @@
 @endsection
 
 @section('content')
+<?php //echo'<pre>'; print_r($slug2); die;?>
     <section class="mb-4 pt-3 product-detail-page">
         <div class="container">
             <div class="bg-white shadow-sm rounded p-3">
@@ -380,7 +381,7 @@
                                                         type="radio"
                                                         name="color"
                                                         value="{{ \App\Models\Color::where('code', $color)->first()->name }}"
-                                                        @if($key == 0) checked @endif
+                                                        @if($key == 0) checked @endif   
                                                     >
                                                     <span class="aiz-megabox-elem rounded d-flex align-items-center justify-content-center p-1 mb-2">
                                                         <span class="size-30px d-inline-block rounded" style="background: {{ $color }};"></span>
@@ -406,7 +407,7 @@
                                             @endphp
                                     <div class="col-sm-10">
                                         <div class="product-quantity d-flex align-items-center">
-                                            @if($qty == 0)
+                                            @if($qty == 0 || !empty($slug2))
                                             <div class="row no-gutters align-items-center aiz-plus-minus mr-3" style="width: 130px;">
                                                 <button class="btn col-auto btn-icon btn-sm btn-circle btn-light" type="button" data-type="minus" data-field="quantity" >
                                                     <i class="las la-minus"></i>
@@ -427,13 +428,15 @@
                                                 </button>
                                             </div>
                                             @endif
-                                            <div class="avialable-amount opacity-60">
+                                            @if(!$slug2)
+                                            <div class="avialable-amount opacity-60" >
                                                 @if($detailedProduct->stock_visibility_state == 'quantity')
                                                 (<span id="available-quantity">{{ $qty }}</span> {{ translate('available')}})
                                                 @elseif($detailedProduct->stock_visibility_state == 'text' && $qty >= 1)
                                                     (<span id="available-quantity">{{ translate('In Stock') }}</span>)
                                                 @endif
                                             </div>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -453,8 +456,12 @@
                                 </div>
                                  @endif
                             </form>
-
                             <div class="mt-3">
+                                @if(empty($slug2))
+                                <p>If you want to order more than the available stock <a href="{{ route('product.outStockDetail', ['slug'=>$detailedProduct->slug, 'slug2'=>'out-stock-product-detail']) }}">Click Here</a></p>
+                                @elseif($slug2='out-stock-product-detail')
+                                <p> <b>OUT OF STOCK MINIMUM ORDER QUANTITY IS - {{get_setting('out_stock_minimum_order')}} <b></p>
+                                @endif
                                 @if ($detailedProduct->external_link != null)
                                     <a type="button" class="btn btn-primary buy-now fw-600" href="{{ $detailedProduct->external_link }}">
                                         <i class="la la-share"></i> {{ translate($detailedProduct->external_link_btn)}}

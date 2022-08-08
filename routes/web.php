@@ -119,6 +119,7 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/flash-deal/{slug}', 'flash_deal_details')->name('flash-deal-details');
 
     Route::get('/product/{slug}', 'product')->name('product');
+    Route::get('/product/{slug}/{slug2}', 'product')->name('product.outStockDetail');
     Route::post('/product/variant_price', 'variant_price')->name('products.variant_price');
     Route::get('/shop/{slug}', 'shop')->name('shop.visit');
     Route::get('/shop/{slug}/{type}', 'filter_shop')->name('shop.visit.type');

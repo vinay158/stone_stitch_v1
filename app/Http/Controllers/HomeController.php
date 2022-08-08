@@ -263,7 +263,7 @@ class HomeController extends Controller
         return view('frontend.track_order');
     }
 
-    public function product(Request $request, $slug)
+    public function product(Request $request,$slug, $slug2="")
     {
         $detailedProduct  = Product::with('reviews', 'brand', 'stocks', 'user', 'user.shop')->where('auction_product', 0)->where('slug', $slug)->where('approved', 1)->first();
         
@@ -293,11 +293,12 @@ class HomeController extends Controller
                 return view('frontend.digital_product_details', compact('detailedProduct','subProduct'));
             }
             else {
-                return view('frontend.product_details', compact('detailedProduct','subProduct'));
+                return view('frontend.product_details', compact('detailedProduct','subProduct','slug2'));
             }
         }
         abort(404);
     }
+  
 
     public function allSubProduct($product_id,$dataArr = array())
     {
